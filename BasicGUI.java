@@ -10,13 +10,14 @@ import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Mallari
  */
 public class BasicGUI extends javax.swing.JFrame {
-
+    
     private AddingEmployeeForm addingEmployeeForm;
     private boolean isDarkMode = true;
 
@@ -25,6 +26,7 @@ public class BasicGUI extends javax.swing.JFrame {
      */
     public BasicGUI() {
         initComponents();
+        displayEmpTable();
         btnChangeTheme.addActionListener(evt -> toggleTheme());
         txtFieldSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
 
@@ -34,21 +36,28 @@ public class BasicGUI extends javax.swing.JFrame {
         btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
         btnUpdate.setIcon(new FlatSVGIcon("svg/edit.svg"));
         btnDelete.setIcon(new FlatSVGIcon("svg/delete.svg"));
-
+        
     }
-
+    
+    private void displayEmpTable() {
+        String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email"};
+        DefaultTableModel model = new DefaultTableModel(columns, 0);
+        
+        tblEmployee.setModel(model);
+    }
+    
     private void toggleTheme() {
         try {
             if (isDarkMode) {
-
+                
                 UIManager.setLookAndFeel(new FlatDarkLaf());
             } else {
-
+                
                 UIManager.setLookAndFeel(new FlatLightLaf());
             }
-
+            
             isDarkMode = !isDarkMode;
-
+            
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -69,7 +78,7 @@ public class BasicGUI extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblEmployee = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
         txtFieldSearch = new javax.swing.JTextField();
         btnChangeTheme = new javax.swing.JButton();
@@ -112,8 +121,8 @@ public class BasicGUI extends javax.swing.JFrame {
         btnDelete.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnDelete.setText("Delete");
 
-        jTable1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblEmployee.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -124,7 +133,7 @@ public class BasicGUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblEmployee);
 
         btnUpdate.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnUpdate.setText("Update");
@@ -260,7 +269,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblEmployee;
     private javax.swing.JTextField txtFieldSearch;
     // End of variables declaration//GEN-END:variables
 }

@@ -164,7 +164,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(705, 340));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btnAddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmployeeActionPerformed
         name = txtFieldName.getText();
         age = txtFieldAge.getText();
