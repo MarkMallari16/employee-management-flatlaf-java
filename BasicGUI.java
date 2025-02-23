@@ -17,6 +17,7 @@ import javax.swing.UIManager;
  */
 public class BasicGUI extends javax.swing.JFrame {
 
+    private AddingEmployeeForm addingEmployeeForm;
     private boolean isDarkMode = true;
 
     /**
@@ -111,6 +112,7 @@ public class BasicGUI extends javax.swing.JFrame {
         btnDelete.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnDelete.setText("Delete");
 
+        jTable1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -126,6 +128,11 @@ public class BasicGUI extends javax.swing.JFrame {
 
         btnUpdate.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         txtFieldSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +140,7 @@ public class BasicGUI extends javax.swing.JFrame {
             }
         });
 
+        btnChangeTheme.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnChangeTheme.setText("Change Mode");
         btnChangeTheme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,9 +165,9 @@ public class BasicGUI extends javax.swing.JFrame {
                         .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAdd)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdate)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -193,12 +201,20 @@ public class BasicGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFieldSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        if (addingEmployeeForm == null || !addingEmployeeForm.isDisplayable()) {
+            addingEmployeeForm = new AddingEmployeeForm();
+            this.dispose();
+            addingEmployeeForm.setVisible(true);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnChangeThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeThemeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnChangeThemeActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
