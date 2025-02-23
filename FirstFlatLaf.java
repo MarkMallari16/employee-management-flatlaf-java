@@ -4,6 +4,7 @@
 package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -13,7 +14,11 @@ public class FirstFlatLaf {
 
     public static void main(String[] args) {
         FlatLightLaf.setup();
-        BasicGUI gui = new BasicGUI();
-        gui.setVisible(true);
+
+        SwingUtilities.invokeLater(() -> {
+            BasicGUI gui = new BasicGUI();
+            gui.setVisible(true);
+        });
+
     }
 }
