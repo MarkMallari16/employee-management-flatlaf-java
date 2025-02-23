@@ -4,7 +4,6 @@
  */
 package com.mycompany.firstflatlaf;
 
-import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 /**
@@ -13,12 +12,16 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
  */
 public class AddingEmployeeForm extends javax.swing.JFrame {
 
+    private Database db = new Database();
+    private static int empId = 2000;
+    private String name, department, contactNum, age, position, email;
+
     /**
      * Creates new form AddingEmployeeForm
      */
     public AddingEmployeeForm() {
         initComponents();
-        
+
         btnAddEmployee.setIcon(new FlatSVGIcon("svg/person_plus.svg"));
     }
 
@@ -84,6 +87,11 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
 
         btnAddEmployee.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAddEmployee.setText("ADD");
+        btnAddEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEmployeeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,6 +164,21 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(705, 340));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmployeeActionPerformed
+        name = txtFieldName.getText();
+        age = txtFieldAge.getText();
+        department = txtFieldDepartment.getText();
+        position = txtFieldPosition.getText();
+        contactNum = txtFieldContactNum.getText();
+        email = txtFieldEmail.getText();
+
+        String[] datas = {name, age, department, position, contactNum, email};
+
+        db.addEmployee(empId, datas);
+        empId++;
+
+    }//GEN-LAST:event_btnAddEmployeeActionPerformed
 
     /**
      * @param args the command line arguments

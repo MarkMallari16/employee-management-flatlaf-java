@@ -4,5 +4,11 @@ import java.util.HashMap;
 
 public class Database {
 
-    private HashMap<Integer, String[]> employeesDb = new HashMap<>();
+    private static HashMap<Integer, String[]> employeesDb = new HashMap<>();
+
+    public void addEmployee(int id, String[] data) {
+        employeesDb.put(id, data);
+
+        System.out.println("Successfully added!");
+    }
 }
