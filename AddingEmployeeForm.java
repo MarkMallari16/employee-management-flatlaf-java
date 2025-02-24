@@ -5,6 +5,9 @@
 package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,6 +28,26 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         initComponents();
 
         btnAddEmployee.setIcon(new FlatSVGIcon("svg/person_plus.svg"));
+        txtFieldName.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+
+                if (Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+        txtFieldContactNum.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     /**
