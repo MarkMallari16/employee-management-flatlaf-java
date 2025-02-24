@@ -18,9 +18,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Mallari
  */
 public class BasicGUI extends javax.swing.JFrame {
-    
+
     private AddingEmployeeForm addingEmployeeForm;
-    private boolean isDarkMode = true;
+    private boolean isDarkMode = false;
     private Database db = new Database();
 
     /**
@@ -38,16 +38,17 @@ public class BasicGUI extends javax.swing.JFrame {
         btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
         btnUpdate.setIcon(new FlatSVGIcon("svg/edit.svg"));
         btnDelete.setIcon(new FlatSVGIcon("svg/delete.svg"));
-        
+        //default icon
+        btnChangeTheme.setIcon(new FlatSVGIcon("svg/night.svg"));
     }
-    
+
     private void displayEmpTable() {
         String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        
+
         for (int empId : db.getEmployee().keySet()) {
             String[] employeeDatas = db.getEmployee().get(empId);
-            
+
             if (employeeDatas != null) {
                 model.addRow(new Object[]{
                     empId,
@@ -62,19 +63,21 @@ public class BasicGUI extends javax.swing.JFrame {
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setModel(model);
     }
-    
+
     private void toggleTheme() {
+        isDarkMode = !isDarkMode;
+
         try {
             if (isDarkMode) {
-                
                 UIManager.setLookAndFeel(new FlatDarkLaf());
+                btnChangeTheme.setIcon(new FlatSVGIcon("svg/light.svg"));
             } else {
-                
+
                 UIManager.setLookAndFeel(new FlatLightLaf());
+
+                btnChangeTheme.setIcon(new FlatSVGIcon("svg/night.svg"));
             }
-            
-            isDarkMode = !isDarkMode;
-            
+
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -113,7 +116,7 @@ public class BasicGUI extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
+            .addGap(0, 648, Short.MAX_VALUE)
         );
 
         btnAdd.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -156,7 +159,6 @@ public class BasicGUI extends javax.swing.JFrame {
         });
 
         btnChangeTheme.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnChangeTheme.setText("Change Mode");
         btnChangeTheme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChangeThemeActionPerformed(evt);
@@ -172,12 +174,8 @@ public class BasicGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(18, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -186,17 +184,24 @@ public class BasicGUI extends javax.swing.JFrame {
                         .addComponent(btnDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,10 +209,10 @@ public class BasicGUI extends javax.swing.JFrame {
                     .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 34, Short.MAX_VALUE))
+                .addGap(0, 36, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1296, 643));
+        setSize(new java.awt.Dimension(1296, 657));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
