@@ -8,6 +8,7 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +21,7 @@ public class BasicGUI extends javax.swing.JFrame {
     
     private AddingEmployeeForm addingEmployeeForm;
     private boolean isDarkMode = true;
+    private Database db = new Database();
 
     /**
      * Creates new form BasicGUI
@@ -43,6 +45,21 @@ public class BasicGUI extends javax.swing.JFrame {
         String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         
+        for (int empId : db.getEmployee().keySet()) {
+            String[] employeeDatas = db.getEmployee().get(empId);
+            
+            if (employeeDatas != null) {
+                model.addRow(new Object[]{
+                    empId,
+                    employeeDatas[0],
+                    employeeDatas[1],
+                    employeeDatas[2],
+                    employeeDatas[3],
+                    employeeDatas[4],
+                    employeeDatas[5],});
+            }
+        }
+        tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setModel(model);
     }
     
@@ -74,7 +91,6 @@ public class BasicGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -87,27 +103,17 @@ public class BasicGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 255));
-
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Mark Mallari");
+        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+            .addGap(0, 221, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 634, Short.MAX_VALUE)
         );
 
         btnAdd.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -265,7 +271,6 @@ public class BasicGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnChangeTheme;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

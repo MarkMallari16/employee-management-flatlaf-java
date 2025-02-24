@@ -11,4 +11,8 @@ public class Database {
 
         System.out.println("Successfully added!");
     }
+
+    public HashMap<Integer, String[]> getEmployee() {
+        return employeesDb;
+    }
 }

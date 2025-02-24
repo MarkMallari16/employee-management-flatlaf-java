@@ -5,6 +5,7 @@
 package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +16,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
     private Database db = new Database();
     private static int empId = 2000;
     private String name, department, contactNum, age, position, email;
+    private BasicGUI gui;
 
     /**
      * Creates new form AddingEmployeeForm
@@ -164,7 +166,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(705, 340));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnAddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmployeeActionPerformed
         name = txtFieldName.getText();
         age = txtFieldAge.getText();
@@ -178,7 +180,18 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         db.addEmployee(empId, datas);
         empId++;
 
+        JOptionPane.showMessageDialog(this, "Employee Successfully Added!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        goBack();
+
     }//GEN-LAST:event_btnAddEmployeeActionPerformed
+    private void goBack() {
+        if (gui == null || !gui.isDisplayable()) {
+            gui = new BasicGUI();
+            gui.setVisible(true);
+            this.dispose();
+        }
+    }
 
     /**
      * @param args the command line arguments
