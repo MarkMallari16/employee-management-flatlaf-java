@@ -45,6 +45,18 @@ public class BasicGUI extends javax.swing.JFrame {
         btnDelete.setIcon(new FlatSVGIcon("svg/delete.svg"));
         //default icon
         btnChangeTheme.setIcon(new FlatSVGIcon("svg/night.svg"));
+
+        //icons
+        btnDashboard.setIcon(new FlatSVGIcon("svg/dashboard.svg"));
+        btnEmployee.setIcon(new FlatSVGIcon("svg/employee.svg"));
+        btnAttendance.setIcon(new FlatSVGIcon("svg/attendance.svg"));
+        btnPayroll.setIcon(new FlatSVGIcon("svg/payroll.svg"));
+
+        btnReports.setIcon(new FlatSVGIcon("svg/reports.svg"));
+        btnLeaves.setIcon(new FlatSVGIcon("svg/leaves.svg"));
+        btnSettings.setIcon(new FlatSVGIcon("svg/settings.svg"));
+        btnLogout.setIcon(new FlatSVGIcon("svg/logout.svg"));
+
     }
 
     private void displayEmpTable() {
@@ -119,6 +131,15 @@ public class BasicGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        btnAttendance = new javax.swing.JButton();
+        btnDashboard = new javax.swing.JButton();
+        btnEmployee = new javax.swing.JButton();
+        btnPayroll = new javax.swing.JButton();
+        btnReports = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
+        btnSettings = new javax.swing.JButton();
+        btnLeaves = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -132,17 +153,94 @@ public class BasicGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
 
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
+
+        btnAttendance.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnAttendance.setForeground(new java.awt.Color(0, 0, 0));
+        btnAttendance.setText("Attendance");
+
+        btnDashboard.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnDashboard.setForeground(new java.awt.Color(0, 0, 0));
+        btnDashboard.setText("Dashboard");
+
+        btnEmployee.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnEmployee.setForeground(new java.awt.Color(0, 0, 0));
+        btnEmployee.setText("Employee");
+
+        btnPayroll.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnPayroll.setForeground(new java.awt.Color(0, 0, 0));
+        btnPayroll.setText("Payroll");
+
+        btnReports.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnReports.setForeground(new java.awt.Color(0, 0, 0));
+        btnReports.setText("Reports");
+
+        btnLogout.setBackground(new java.awt.Color(255, 51, 51));
+        btnLogout.setText("Logout");
+
+        btnSettings.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnSettings.setForeground(new java.awt.Color(0, 0, 0));
+        btnSettings.setText("Settings");
+
+        btnLeaves.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnLeaves.setForeground(new java.awt.Color(0, 0, 0));
+        btnLeaves.setText("Leaves");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLeaves, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnLeaves, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 221, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 677, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         btnAdd.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -203,14 +301,14 @@ public class BasicGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 26, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(755, 755, 755)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -235,7 +333,7 @@ public class BasicGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -309,12 +407,21 @@ public class BasicGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAttendance;
     private javax.swing.JButton btnChangeTheme;
+    private javax.swing.JButton btnDashboard;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEmployee;
+    private javax.swing.JButton btnLeaves;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnPayroll;
+    private javax.swing.JButton btnReports;
+    private javax.swing.JButton btnSettings;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblEmployee;
     private javax.swing.JTextField txtFieldSearch;
