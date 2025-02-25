@@ -10,6 +10,8 @@ import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
@@ -28,6 +30,9 @@ public class BasicGUI extends javax.swing.JFrame {
     private Database db = new Database();
     private TableRowSorter<DefaultTableModel> rowSorter;
     private DeleteForm df;
+    private int rowEmpIdInt;
+    private String rowEmpName, rowEmpAge, rowEmpDepartment, rowEmpPosition, rowEmpContactNum, rowEmpEmail;
+    private UpdateEmployeeForm empUpdateForm;
 
     /**
      * Creates new form BasicGUI
@@ -61,7 +66,7 @@ public class BasicGUI extends javax.swing.JFrame {
     }
 
     private void displayEmpTable() {
-        String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email"};
+        String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email", "Update", "Delete"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
         for (int empId : db.getEmployee().keySet()) {
@@ -81,7 +86,34 @@ public class BasicGUI extends javax.swing.JFrame {
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setModel(model);
 
+        tblEmployee.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = tblEmployee.getSelectedRow();
+
+                if (row != -1) {
+                    rowEmpIdInt = (Integer) tblEmployee.getValueAt(row, 0);
+                    rowEmpName = (String) tblEmployee.getValueAt(row, 1);
+                    rowEmpDepartment = (String) tblEmployee.getValueAt(row, 2);
+                    rowEmpPosition = (String) tblEmployee.getValueAt(row, 3);
+                    rowEmpContactNum = (String) tblEmployee.getValueAt(row, 4);
+                    rowEmpEmail = (String) tblEmployee.getValueAt(row, 5);
+
+                    if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
+                        empUpdateForm = new UpdateEmployeeForm();
+                        empUpdateForm.setVisible(true);
+                        disposeForm();
+                    }
+                }
+            }
+
+        });
+
         searchEmployee(model);
+    }
+
+    private void disposeForm() {
+        this.dispose();
     }
 
     private void searchEmployee(DefaultTableModel model) {
@@ -363,7 +395,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (addingEmployeeForm == null || !addingEmployeeForm.isDisplayable()) {
             addingEmployeeForm = new AddingEmployeeForm();
-            this.dispose();
+            disposeForm();
             addingEmployeeForm.setVisible(true);
         }
     }//GEN-LAST:event_btnAddActionPerformed
@@ -380,7 +412,7 @@ public class BasicGUI extends javax.swing.JFrame {
         if (df == null || !df.isDisplayable()) {
             df = new DeleteForm();
             df.setVisible(true);
-            this.dispose();
+            disposeForm();
         }
     }//GEN-LAST:event_btnDeleteLinkActionPerformed
 
