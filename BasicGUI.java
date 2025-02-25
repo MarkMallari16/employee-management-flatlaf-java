@@ -27,6 +27,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private boolean isDarkMode = false;
     private Database db = new Database();
     private TableRowSorter<DefaultTableModel> rowSorter;
+    private DeleteForm df;
 
     /**
      * Creates new form BasicGUI
@@ -42,7 +43,7 @@ public class BasicGUI extends javax.swing.JFrame {
         txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
         btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
         btnUpdate.setIcon(new FlatSVGIcon("svg/edit.svg"));
-        btnDelete.setIcon(new FlatSVGIcon("svg/delete.svg"));
+        btnDeleteLink.setIcon(new FlatSVGIcon("svg/delete.svg"));
         //default icon
         btnChangeTheme.setIcon(new FlatSVGIcon("svg/night.svg"));
 
@@ -141,7 +142,7 @@ public class BasicGUI extends javax.swing.JFrame {
         btnSettings = new javax.swing.JButton();
         btnLeaves = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
+        btnDeleteLink = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
@@ -153,7 +154,7 @@ public class BasicGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
 
         btnAttendance.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -251,8 +252,13 @@ public class BasicGUI extends javax.swing.JFrame {
             }
         });
 
-        btnDelete.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnDelete.setText("Delete");
+        btnDeleteLink.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnDeleteLink.setText("Delete");
+        btnDeleteLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteLinkActionPerformed(evt);
+            }
+        });
 
         tblEmployee.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
@@ -317,7 +323,7 @@ public class BasicGUI extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(btnUpdate)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnDelete)
+                                    .addComponent(btnDeleteLink)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -338,7 +344,7 @@ public class BasicGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteLink, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -369,6 +375,14 @@ public class BasicGUI extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLinkActionPerformed
+        if (df == null || !df.isDisplayable()) {
+            df = new DeleteForm();
+            df.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnDeleteLinkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,7 +424,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnAttendance;
     private javax.swing.JButton btnChangeTheme;
     private javax.swing.JButton btnDashboard;
-    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeleteLink;
     private javax.swing.JButton btnEmployee;
     private javax.swing.JButton btnLeaves;
     private javax.swing.JButton btnLogout;

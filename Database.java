@@ -15,4 +15,10 @@ public class Database {
     public HashMap<Integer, String[]> getEmployee() {
         return employeesDb;
     }
+
+    public void removeEmployee(int id) {
+        if (employeesDb.containsKey(id)) {
+            employeesDb.remove(id);
+        }
+    }
 }
