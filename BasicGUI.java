@@ -8,10 +8,14 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -22,6 +26,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private AddingEmployeeForm addingEmployeeForm;
     private boolean isDarkMode = false;
     private Database db = new Database();
+    private TableRowSorter<DefaultTableModel> rowSorter;
 
     /**
      * Creates new form BasicGUI
@@ -62,6 +67,26 @@ public class BasicGUI extends javax.swing.JFrame {
         }
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setModel(model);
+
+        searchEmployee(model);
+    }
+
+    private void searchEmployee(DefaultTableModel model) {
+        rowSorter = new TableRowSorter<>(model);
+        tblEmployee.setRowSorter(rowSorter);
+
+        txtFieldSearch.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String searchText = txtFieldSearch.getText();
+
+                if (searchText.trim().isEmpty()) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
+                }
+            }
+        });
     }
 
     private void toggleTheme() {

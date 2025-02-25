@@ -198,6 +198,13 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         contactNum = txtFieldContactNum.getText();
         email = txtFieldEmail.getText();
 
+        if (!validateField("Name", name) || !validateField("Age", age) || !validateField("Department", department) || !validateField("Position", position)
+                || !validateField("Contact Number", contactNum)
+                || !validateField("Email", email)) {
+
+            return;
+        }
+
         String[] datas = {name, age, department, position, contactNum, email};
 
         db.addEmployee(empId, datas);
@@ -208,6 +215,14 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         goBack();
 
     }//GEN-LAST:event_btnAddEmployeeActionPerformed
+    private boolean validateField(String fieldName, String field) {
+        if (field == null || field.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, fieldName + " cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
     private void goBack() {
         if (gui == null || !gui.isDisplayable()) {
             gui = new BasicGUI();
