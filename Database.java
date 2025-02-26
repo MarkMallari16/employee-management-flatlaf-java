@@ -16,9 +16,12 @@ public class Database {
         return employeesDb;
     }
 
-    public void removeEmployee(int id) {
-        if (employeesDb.containsKey(id)) {
-            employeesDb.remove(id);
-        }
+    public boolean isEmpIdExists(int id) {
+        return employeesDb.containsKey(id);
     }
+
+    public void removeEmployee(int id) {
+        employeesDb.remove(id);
+    }
+
 }

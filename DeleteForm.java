@@ -5,6 +5,8 @@
 package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +25,17 @@ public class DeleteForm extends javax.swing.JFrame {
         initComponents();
 
         txtFieldId.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Employee ID");
+        txtFieldId.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+
     }
 
     /**
@@ -38,6 +51,7 @@ public class DeleteForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtFieldId = new javax.swing.JTextField();
         btnDelete = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Delete Employee");
@@ -62,6 +76,14 @@ public class DeleteForm extends javax.swing.JFrame {
             }
         });
 
+        btnBack.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,7 +94,8 @@ public class DeleteForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(txtFieldId)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -86,10 +109,12 @@ public class DeleteForm extends javax.swing.JFrame {
                 .addComponent(txtFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(534, 264));
+        setSize(new java.awt.Dimension(534, 319));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -99,18 +124,35 @@ public class DeleteForm extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String employeeId = txtFieldId.getText();
-        int employeeIntId = Integer.parseInt(employeeId);
+        int employeeIntId;
 
+        try {
+            employeeIntId = Integer.parseInt(employeeId);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Employee ID must not be empty! Try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!db.isEmpIdExists(employeeIntId)) {
+            JOptionPane.showMessageDialog(this, "Employee ID not found! Try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         db.removeEmployee(employeeIntId);
 
         JOptionPane.showMessageDialog(this, "Employee successfully removed!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        goBackToDashboard();
 
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        goBackToDashboard();
+    }//GEN-LAST:event_btnBackActionPerformed
+    private void goBackToDashboard() {
         if (gui == null || !gui.isDisplayable()) {
             gui = new BasicGUI();
             gui.setVisible(true);
             this.dispose();
         }
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    }
 
     /**
      * @param args the command line arguments
@@ -148,6 +190,7 @@ public class DeleteForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
