@@ -5,6 +5,7 @@
 package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -14,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Mallari
  */
 public class DeleteForm extends javax.swing.JFrame {
-
+    
     private Database db = new Database();
     private BasicGUI gui;
 
@@ -24,18 +25,21 @@ public class DeleteForm extends javax.swing.JFrame {
     public DeleteForm() {
         initComponents();
 
+        //icons
+        btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
+        
         txtFieldId.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Employee ID");
         txtFieldId.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-
+                
                 if (!Character.isDigit(c)) {
                     e.consume();
                 }
             }
         });
-
+        
     }
 
     /**
@@ -59,6 +63,7 @@ public class DeleteForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jLabel1.setText("Delete Employee");
 
+        jLabel2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel2.setText("Enter ID of Employee");
 
         txtFieldId.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +81,7 @@ public class DeleteForm extends javax.swing.JFrame {
             }
         });
 
-        btnBack.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnBack.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,9 +114,9 @@ public class DeleteForm extends javax.swing.JFrame {
                 .addComponent(txtFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(534, 319));
@@ -125,7 +130,7 @@ public class DeleteForm extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String employeeId = txtFieldId.getText();
         int employeeIntId;
-
+        
         try {
             employeeIntId = Integer.parseInt(employeeId);
         } catch (NumberFormatException e) {
@@ -137,7 +142,7 @@ public class DeleteForm extends javax.swing.JFrame {
             return;
         }
         db.removeEmployee(employeeIntId);
-
+        
         JOptionPane.showMessageDialog(this, "Employee successfully removed!", "Success", JOptionPane.INFORMATION_MESSAGE);
         goBackToDashboard();
 

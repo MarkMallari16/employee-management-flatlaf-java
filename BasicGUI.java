@@ -40,9 +40,9 @@ public class BasicGUI extends javax.swing.JFrame {
     public BasicGUI() {
         initComponents();
         displayEmpTable();
-        btnChangeTheme.addActionListener(evt -> toggleTheme());
-        txtFieldSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
 
+        txtFieldSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
+      
 //        txtFieldOne.putClientProperty("JComponent.roundRect", true);
         //icons
         txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
@@ -135,8 +135,9 @@ public class BasicGUI extends javax.swing.JFrame {
     }
 
     private void toggleTheme() {
+        isDarkMode = ThemeManager.isDarkMode();
         isDarkMode = !isDarkMode;
-
+        ThemeManager.setDarkMode(isDarkMode);
         try {
             if (isDarkMode) {
                 UIManager.setLookAndFeel(new FlatDarkLaf());
@@ -210,6 +211,7 @@ public class BasicGUI extends javax.swing.JFrame {
         btnReports.setText("Reports");
 
         btnLogout.setBackground(new java.awt.Color(255, 51, 51));
+        btnLogout.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnLogout.setText("Logout");
 
         btnSettings.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -401,7 +403,7 @@ public class BasicGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnChangeThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeThemeActionPerformed
-        // TODO add your handling code here:
+        toggleTheme();
     }//GEN-LAST:event_btnChangeThemeActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
