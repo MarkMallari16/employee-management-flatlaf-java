@@ -42,7 +42,7 @@ public class BasicGUI extends javax.swing.JFrame {
         displayEmpTable();
 
         txtFieldSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
-      
+
 //        txtFieldOne.putClientProperty("JComponent.roundRect", true);
         //icons
         txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
@@ -66,7 +66,7 @@ public class BasicGUI extends javax.swing.JFrame {
     }
 
     private void displayEmpTable() {
-        String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email", "Update", "Delete"};
+        String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
         for (int empId : db.getEmployee().keySet()) {
@@ -94,13 +94,14 @@ public class BasicGUI extends javax.swing.JFrame {
                 if (row != -1) {
                     rowEmpIdInt = (Integer) tblEmployee.getValueAt(row, 0);
                     rowEmpName = (String) tblEmployee.getValueAt(row, 1);
-                    rowEmpDepartment = (String) tblEmployee.getValueAt(row, 2);
-                    rowEmpPosition = (String) tblEmployee.getValueAt(row, 3);
-                    rowEmpContactNum = (String) tblEmployee.getValueAt(row, 4);
-                    rowEmpEmail = (String) tblEmployee.getValueAt(row, 5);
+                    rowEmpAge = (String) tblEmployee.getValueAt(row, 2);
+                    rowEmpDepartment = (String) tblEmployee.getValueAt(row, 3);
+                    rowEmpPosition = (String) tblEmployee.getValueAt(row, 4);
+                    rowEmpContactNum = (String) tblEmployee.getValueAt(row, 5);
+                    rowEmpEmail = (String) tblEmployee.getValueAt(row, 6);
 
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
-                        empUpdateForm = new UpdateEmployeeForm();
+                        empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpName, rowEmpAge, rowEmpDepartment, rowEmpPosition, rowEmpContactNum, rowEmpEmail);
                         empUpdateForm.setVisible(true);
                         disposeForm();
                     }

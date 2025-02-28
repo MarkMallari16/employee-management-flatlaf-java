@@ -10,11 +10,23 @@ package com.mycompany.firstflatlaf;
  */
 public class UpdateEmployeeForm extends javax.swing.JFrame {
 
+    private BasicGUI gui;
+
     /**
      * Creates new form UpdateEmployeeForm
      */
-    public UpdateEmployeeForm() {
+    public UpdateEmployeeForm(int rowEmpIdInt, String rowEmpName, String rowEmpAge, String rowEmpDepartment, String rowEmpPosition, String rowEmpContactNum, String rowEmpEmail) {
         initComponents();
+        String rowEmpIdString = String.valueOf(rowEmpIdInt);
+        String rowEmpAgeString = String.valueOf(rowEmpAge);
+
+        txtFieldEmpId.setText(rowEmpIdString);
+        txtFieldName.setText(rowEmpName);
+        txtFieldAge.setText(rowEmpAgeString);
+        txtFieldDepartment.setText(rowEmpDepartment);
+        txtFieldPosition.setText(rowEmpPosition);
+        txtFieldContactNum.setText(rowEmpContactNum);
+        txtFieldEmail.setText(rowEmpEmail);
     }
 
     /**
@@ -42,6 +54,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         txtFieldAge = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Update Employee");
@@ -50,6 +63,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         jLabel1.setText("Update Employee");
 
         txtFieldEmpId.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtFieldEmpId.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel2.setText("ID");
@@ -89,13 +103,22 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Update");
 
+        btnBack.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnBack.setText("BACK");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -117,13 +140,13 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addComponent(txtFieldEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(15, 15, 15)
                 .addComponent(jLabel1)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel2)
@@ -157,14 +180,27 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGap(12, 12, 12)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
-        setSize(new java.awt.Dimension(698, 400));
+        setSize(new java.awt.Dimension(724, 470));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        goBackToDashboard();
+    }//GEN-LAST:event_btnBackActionPerformed
+    private void goBackToDashboard() {
+        if (gui == null || !gui.isDisplayable()) {
+            gui = new BasicGUI();
+            gui.setVisible(true);
+            this.dispose();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -196,12 +232,13 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpdateEmployeeForm().setVisible(true);
+//                new UpdateEmployeeForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
