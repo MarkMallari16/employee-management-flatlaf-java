@@ -4,12 +4,18 @@
  */
 package com.mycompany.firstflatlaf;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mallari
  */
 public class UpdateEmployeeForm extends javax.swing.JFrame {
 
+    private Database db = new Database();
+    private int updEmpIdInt;
+    private String updEmpIdString, updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail;
     private BasicGUI gui;
 
     /**
@@ -27,6 +33,9 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         txtFieldPosition.setText(rowEmpPosition);
         txtFieldContactNum.setText(rowEmpContactNum);
         txtFieldEmail.setText(rowEmpEmail);
+        
+         //icons
+        btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
     }
 
     /**
@@ -53,7 +62,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtFieldAge = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,10 +107,15 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel3.setText("Age");
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 255));
-        jButton1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Update");
+        btnUpdate.setBackground(new java.awt.Color(0, 102, 255));
+        btnUpdate.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnBack.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnBack.setText("BACK");
@@ -140,7 +154,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addComponent(txtFieldEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -181,7 +195,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
@@ -194,6 +208,25 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         goBackToDashboard();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        updEmpIdString = txtFieldEmpId.getText();
+        updEmpIdInt = Integer.parseInt(updEmpIdString);
+        updEmpName = txtFieldName.getText();
+        updEmpAge = txtFieldAge.getText();
+        updEmpDepartment = txtFieldDepartment.getText();
+        updEmpPosition = txtFieldPosition.getText();
+        updEmpContactNum = txtFieldContactNum.getText();
+        updEmpEmail = txtFieldEmail.getText();
+
+        String[] updDatas = {updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail};
+
+        db.updateEmployee(updEmpIdInt, updDatas);
+
+        JOptionPane.showMessageDialog(this, "Employee successfully update!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+        goBackToDashboard();
+    }//GEN-LAST:event_btnUpdateActionPerformed
     private void goBackToDashboard() {
         if (gui == null || !gui.isDisplayable()) {
             gui = new BasicGUI();
@@ -239,7 +272,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

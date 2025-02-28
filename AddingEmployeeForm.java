@@ -26,6 +26,9 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
     public AddingEmployeeForm() {
         initComponents();
 
+        //icons
+        btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
+
         btnAddEmployee.setIcon(new FlatSVGIcon("svg/person_plus.svg"));
         txtFieldName.addKeyListener(new KeyAdapter() {
             @Override
@@ -119,7 +122,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         });
 
         btnBack.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        btnBack.setText("Back");
+        btnBack.setText("BACK");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -190,14 +193,14 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(btnAddEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGap(39, 39, 39))
         );
 
-        setSize(new java.awt.Dimension(705, 446));
+        setSize(new java.awt.Dimension(705, 416));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

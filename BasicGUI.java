@@ -62,7 +62,7 @@ public class BasicGUI extends javax.swing.JFrame {
         btnLeaves.setIcon(new FlatSVGIcon("svg/leaves.svg"));
         btnSettings.setIcon(new FlatSVGIcon("svg/settings.svg"));
         btnLogout.setIcon(new FlatSVGIcon("svg/logout.svg"));
-
+        
     }
 
     private void displayEmpTable() {

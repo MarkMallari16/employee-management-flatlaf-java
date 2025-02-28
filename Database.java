@@ -24,4 +24,8 @@ public class Database {
         employeesDb.remove(id);
     }
 
+    public void updateEmployee(int id, String[] datas) {
+        employeesDb.replace(id, datas);
+    }
+
 }
