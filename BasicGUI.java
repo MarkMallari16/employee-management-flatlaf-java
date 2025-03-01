@@ -33,6 +33,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private int rowEmpIdInt;
     private String rowEmpName, rowEmpAge, rowEmpDepartment, rowEmpPosition, rowEmpContactNum, rowEmpEmail;
     private UpdateEmployeeForm empUpdateForm;
+    private EmployeeForm empForm;
 
     /**
      * Creates new form BasicGUI
@@ -62,7 +63,7 @@ public class BasicGUI extends javax.swing.JFrame {
         btnLeaves.setIcon(new FlatSVGIcon("svg/leaves.svg"));
         btnSettings.setIcon(new FlatSVGIcon("svg/settings.svg"));
         btnLogout.setIcon(new FlatSVGIcon("svg/logout.svg"));
-        
+
     }
 
     private void displayEmpTable() {
@@ -202,6 +203,11 @@ public class BasicGUI extends javax.swing.JFrame {
         btnEmployee.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnEmployee.setForeground(new java.awt.Color(0, 0, 0));
         btnEmployee.setText("Employee");
+        btnEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmployeeActionPerformed(evt);
+            }
+        });
 
         btnPayroll.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnPayroll.setForeground(new java.awt.Color(0, 0, 0));
@@ -418,6 +424,14 @@ public class BasicGUI extends javax.swing.JFrame {
             disposeForm();
         }
     }//GEN-LAST:event_btnDeleteLinkActionPerformed
+
+    private void btnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeActionPerformed
+        if (empForm == null || !empForm.isDisplayable()) {
+            empForm = new EmployeeForm();
+            empForm.setVisible(true);
+            disposeForm();
+        }
+    }//GEN-LAST:event_btnEmployeeActionPerformed
 
     /**
      * @param args the command line arguments
