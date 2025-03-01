@@ -16,7 +16,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     private Database db = new Database();
     private int updEmpIdInt;
     private String updEmpIdString, updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail;
-    private BasicGUI gui;
+    private EmployeeForm empForm;
 
     /**
      * Creates new form UpdateEmployeeForm
@@ -33,8 +33,8 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         txtFieldPosition.setText(rowEmpPosition);
         txtFieldContactNum.setText(rowEmpContactNum);
         txtFieldEmail.setText(rowEmpEmail);
-        
-         //icons
+
+        //icons
         btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
     }
 
@@ -228,11 +228,15 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         goBackToDashboard();
     }//GEN-LAST:event_btnUpdateActionPerformed
     private void goBackToDashboard() {
-        if (gui == null || !gui.isDisplayable()) {
-            gui = new BasicGUI();
-            gui.setVisible(true);
-            this.dispose();
+        if (empForm == null || !empForm.isDisplayable()) {
+            empForm = new EmployeeForm();
+            empForm.setVisible(true);
+            disposeForm();
         }
+    }
+
+    private void disposeForm() {
+        this.dispose();
     }
 
     /**

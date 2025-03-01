@@ -18,7 +18,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
     private Database db = new Database();
     private static int empId = 2000;
     private String name, department, contactNum, age, position, email;
-    private BasicGUI gui;
+    private EmployeeForm empForm;
 
     /**
      * Creates new form AddingEmployeeForm
@@ -242,11 +242,15 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
     }
 
     private void goBackToDashboard() {
-        if (gui == null || !gui.isDisplayable()) {
-            gui = new BasicGUI();
-            gui.setVisible(true);
-            this.dispose();
+        if (empForm == null || !empForm.isDisplayable()) {
+            empForm = new EmployeeForm();
+            empForm.setVisible(true);
+            disposeForm();
         }
+    }
+
+    private void disposeForm() {
+        this.dispose();
     }
 
     /**

@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
  * @author Mallari
  */
 public class DeleteForm extends javax.swing.JFrame {
-    
+
     private Database db = new Database();
-    private BasicGUI gui;
+    private EmployeeForm empForm;
 
     /**
      * Creates new form DeleteForm
@@ -27,19 +27,19 @@ public class DeleteForm extends javax.swing.JFrame {
 
         //icons
         btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
-        
+
         txtFieldId.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Employee ID");
         txtFieldId.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                
+
                 if (!Character.isDigit(c)) {
                     e.consume();
                 }
             }
         });
-        
+
     }
 
     /**
@@ -130,7 +130,7 @@ public class DeleteForm extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String employeeId = txtFieldId.getText();
         int employeeIntId;
-        
+
         try {
             employeeIntId = Integer.parseInt(employeeId);
         } catch (NumberFormatException e) {
@@ -142,7 +142,7 @@ public class DeleteForm extends javax.swing.JFrame {
             return;
         }
         db.removeEmployee(employeeIntId);
-        
+
         JOptionPane.showMessageDialog(this, "Employee successfully removed!", "Success", JOptionPane.INFORMATION_MESSAGE);
         goBackToDashboard();
 
@@ -152,11 +152,15 @@ public class DeleteForm extends javax.swing.JFrame {
         goBackToDashboard();
     }//GEN-LAST:event_btnBackActionPerformed
     private void goBackToDashboard() {
-        if (gui == null || !gui.isDisplayable()) {
-            gui = new BasicGUI();
-            gui.setVisible(true);
-            this.dispose();
+        if (empForm == null || !empForm.isDisplayable()) {
+            empForm = new EmployeeForm();
+            empForm.setVisible(true);
+            disposeForm();
         }
+    }
+
+    private void disposeForm() {
+        this.dispose();
     }
 
     /**

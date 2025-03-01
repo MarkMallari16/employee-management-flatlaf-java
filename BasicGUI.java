@@ -42,14 +42,8 @@ public class BasicGUI extends javax.swing.JFrame {
         initComponents();
         displayEmpTable();
 
-        txtFieldSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
-
 //        txtFieldOne.putClientProperty("JComponent.roundRect", true);
         //icons
-        txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
-        btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
-        btnUpdate.setIcon(new FlatSVGIcon("svg/edit.svg"));
-        btnDeleteLink.setIcon(new FlatSVGIcon("svg/delete.svg"));
         //default icon
         btnChangeTheme.setIcon(new FlatSVGIcon("svg/night.svg"));
 
@@ -84,56 +78,11 @@ public class BasicGUI extends javax.swing.JFrame {
                     employeeDatas[5],});
             }
         }
-        tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tblEmployee.setModel(model);
 
-        tblEmployee.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int row = tblEmployee.getSelectedRow();
-
-                if (row != -1) {
-                    rowEmpIdInt = (Integer) tblEmployee.getValueAt(row, 0);
-                    rowEmpName = (String) tblEmployee.getValueAt(row, 1);
-                    rowEmpAge = (String) tblEmployee.getValueAt(row, 2);
-                    rowEmpDepartment = (String) tblEmployee.getValueAt(row, 3);
-                    rowEmpPosition = (String) tblEmployee.getValueAt(row, 4);
-                    rowEmpContactNum = (String) tblEmployee.getValueAt(row, 5);
-                    rowEmpEmail = (String) tblEmployee.getValueAt(row, 6);
-
-                    if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
-                        empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpName, rowEmpAge, rowEmpDepartment, rowEmpPosition, rowEmpContactNum, rowEmpEmail);
-                        empUpdateForm.setVisible(true);
-                        disposeForm();
-                    }
-                }
-            }
-
-        });
-
-        searchEmployee(model);
     }
 
     private void disposeForm() {
         this.dispose();
-    }
-
-    private void searchEmployee(DefaultTableModel model) {
-        rowSorter = new TableRowSorter<>(model);
-        tblEmployee.setRowSorter(rowSorter);
-
-        txtFieldSearch.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                String searchText = txtFieldSearch.getText();
-
-                if (searchText.trim().isEmpty()) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
-                }
-            }
-        });
     }
 
     private void toggleTheme() {
@@ -176,15 +125,8 @@ public class BasicGUI extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         btnSettings = new javax.swing.JButton();
         btnLeaves = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
-        btnDeleteLink = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblEmployee = new javax.swing.JTable();
-        btnUpdate = new javax.swing.JButton();
-        txtFieldSearch = new javax.swing.JTextField();
         btnChangeTheme = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
@@ -285,50 +227,6 @@ public class BasicGUI extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        btnAdd.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
-        btnDeleteLink.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnDeleteLink.setText("Delete");
-        btnDeleteLink.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteLinkActionPerformed(evt);
-            }
-        });
-
-        tblEmployee.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tblEmployee);
-
-        btnUpdate.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        txtFieldSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFieldSearchActionPerformed(evt);
-            }
-        });
-
         btnChangeTheme.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnChangeTheme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,9 +237,6 @@ public class BasicGUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Poppins Black", 0, 36)); // NOI18N
         jLabel2.setText("Dashboard");
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        jLabel1.setText("Add Employee");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -349,25 +244,9 @@ public class BasicGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnAdd)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnUpdate)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnDeleteLink)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1009, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 754, Short.MAX_VALUE)
+                .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -380,50 +259,16 @@ public class BasicGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeleteLink, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGap(553, 616, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(1296, 686));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFieldSearchActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        if (addingEmployeeForm == null || !addingEmployeeForm.isDisplayable()) {
-            addingEmployeeForm = new AddingEmployeeForm();
-            disposeForm();
-            addingEmployeeForm.setVisible(true);
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
-
     private void btnChangeThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeThemeActionPerformed
         toggleTheme();
     }//GEN-LAST:event_btnChangeThemeActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnDeleteLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLinkActionPerformed
-        if (df == null || !df.isDisplayable()) {
-            df = new DeleteForm();
-            df.setVisible(true);
-            disposeForm();
-        }
-    }//GEN-LAST:event_btnDeleteLinkActionPerformed
 
     private void btnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeActionPerformed
         if (empForm == null || !empForm.isDisplayable()) {
@@ -469,24 +314,17 @@ public class BasicGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAttendance;
     private javax.swing.JButton btnChangeTheme;
     private javax.swing.JButton btnDashboard;
-    private javax.swing.JButton btnDeleteLink;
     private javax.swing.JButton btnEmployee;
     private javax.swing.JButton btnLeaves;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPayroll;
     private javax.swing.JButton btnReports;
     private javax.swing.JButton btnSettings;
-    private javax.swing.JButton btnUpdate;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblEmployee;
-    private javax.swing.JTextField txtFieldSearch;
     // End of variables declaration//GEN-END:variables
 }
