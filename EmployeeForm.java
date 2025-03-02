@@ -22,13 +22,13 @@ import javax.swing.table.TableRowSorter;
 public class EmployeeForm extends javax.swing.JFrame {
 
     private AddingEmployeeForm addingEmployeeForm;
-    private boolean isDarkMode = false;
     private Database db = new Database();
     private TableRowSorter<DefaultTableModel> rowSorter;
     private DeleteForm df;
     private int rowEmpIdInt;
     private String rowEmpName, rowEmpAge, rowEmpDepartment, rowEmpPosition, rowEmpContactNum, rowEmpEmail;
     private UpdateEmployeeForm empUpdateForm;
+    private BasicGUI gui;
 
     /**
      * Creates new form EmployeeForm
@@ -63,6 +63,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         tblEmployee = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
         txtFieldSearch = new javax.swing.JTextField();
+        btnBackToDashboard = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee");
@@ -114,6 +115,14 @@ public class EmployeeForm extends javax.swing.JFrame {
             }
         });
 
+        btnBackToDashboard.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnBackToDashboard.setText("Back to Dashboard");
+        btnBackToDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackToDashboardActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,6 +130,7 @@ public class EmployeeForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBackToDashboard)
                     .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
@@ -137,7 +147,9 @@ public class EmployeeForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(btnBackToDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -150,7 +162,7 @@ public class EmployeeForm extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
-        setSize(new java.awt.Dimension(1123, 618));
+        setSize(new java.awt.Dimension(1123, 664));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
   private void displayEmpTable() {
@@ -233,6 +245,7 @@ public class EmployeeForm extends javax.swing.JFrame {
             disposeForm();
         }
     }//GEN-LAST:event_btnDeleteLinkActionPerformed
+
     private void disposeForm() {
         this.dispose();
     }
@@ -243,6 +256,14 @@ public class EmployeeForm extends javax.swing.JFrame {
     private void txtFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldSearchActionPerformed
+
+    private void btnBackToDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToDashboardActionPerformed
+        if (gui == null || !gui.isDisplayable()) {
+            gui = new BasicGUI();
+            gui.setVisible(true);
+            disposeForm();
+        }
+    }//GEN-LAST:event_btnBackToDashboardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,6 +302,7 @@ public class EmployeeForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnBackToDashboard;
     private javax.swing.JButton btnDeleteLink;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;

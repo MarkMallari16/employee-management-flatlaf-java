@@ -28,4 +28,8 @@ public class Database {
         employeesDb.replace(id, datas);
     }
 
+    public int getTotalEmployees() {
+        return employeesDb.size();
+    }
+
 }
