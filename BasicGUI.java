@@ -170,7 +170,7 @@ public class BasicGUI extends javax.swing.JFrame {
         btnReports.setForeground(new java.awt.Color(0, 0, 0));
         btnReports.setText("Reports");
 
-        btnLogout.setBackground(new java.awt.Color(255, 51, 51));
+        btnLogout.setBackground(new java.awt.Color(255, 102, 102));
         btnLogout.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         btnLogout.setText("Logout");
 
