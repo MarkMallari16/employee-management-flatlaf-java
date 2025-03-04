@@ -20,7 +20,7 @@ import javax.swing.table.TableRowSorter;
  * @author Mallari
  */
 public class EmployeeForm extends javax.swing.JFrame {
-
+    
     private AddingEmployeeForm addingEmployeeForm;
     private Database db = new Database();
     private TableRowSorter<DefaultTableModel> rowSorter;
@@ -42,6 +42,7 @@ public class EmployeeForm extends javax.swing.JFrame {
 //        txtFieldOne.putClientProperty("JComponent.roundRect", true);
         //icons
         txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
+        btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
         btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
         btnUpdate.setIcon(new FlatSVGIcon("svg/edit.svg"));
         btnDeleteLink.setIcon(new FlatSVGIcon("svg/delete.svg"));
@@ -61,7 +62,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         btnDeleteLink = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
-        btnUpdate = new javax.swing.JButton();
         txtFieldSearch = new javax.swing.JTextField();
         btnBackToDashboard = new javax.swing.JButton();
 
@@ -101,14 +101,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblEmployee);
 
-        btnUpdate.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
         txtFieldSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFieldSearchActionPerformed(evt);
@@ -136,8 +128,6 @@ public class EmployeeForm extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnAdd)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnUpdate)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnDeleteLink)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -155,11 +145,10 @@ public class EmployeeForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeleteLink, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
         );
 
         setSize(new java.awt.Dimension(1123, 664));
@@ -168,10 +157,10 @@ public class EmployeeForm extends javax.swing.JFrame {
   private void displayEmpTable() {
         String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-
+        
         for (int empId : db.getEmployee().keySet()) {
             String[] employeeDatas = db.getEmployee().get(empId);
-
+            
             if (employeeDatas != null) {
                 model.addRow(new Object[]{
                     empId,
@@ -185,12 +174,12 @@ public class EmployeeForm extends javax.swing.JFrame {
         }
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setModel(model);
-
+        
         tblEmployee.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = tblEmployee.getSelectedRow();
-
+                
                 if (row != -1) {
                     rowEmpIdInt = (Integer) tblEmployee.getValueAt(row, 0);
                     rowEmpName = (String) tblEmployee.getValueAt(row, 1);
@@ -199,7 +188,7 @@ public class EmployeeForm extends javax.swing.JFrame {
                     rowEmpPosition = (String) tblEmployee.getValueAt(row, 4);
                     rowEmpContactNum = (String) tblEmployee.getValueAt(row, 5);
                     rowEmpEmail = (String) tblEmployee.getValueAt(row, 6);
-
+                    
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
                         empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpName, rowEmpAge, rowEmpDepartment, rowEmpPosition, rowEmpContactNum, rowEmpEmail);
                         empUpdateForm.setVisible(true);
@@ -207,21 +196,21 @@ public class EmployeeForm extends javax.swing.JFrame {
                     }
                 }
             }
-
+            
         });
-
+        
         searchEmployee(model);
     }
-
+    
     private void searchEmployee(DefaultTableModel model) {
         rowSorter = new TableRowSorter<>(model);
         tblEmployee.setRowSorter(rowSorter);
-
+        
         txtFieldSearch.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 String searchText = txtFieldSearch.getText();
-
+                
                 if (searchText.trim().isEmpty()) {
                     rowSorter.setRowFilter(null);
                 } else {
@@ -245,14 +234,10 @@ public class EmployeeForm extends javax.swing.JFrame {
             disposeForm();
         }
     }//GEN-LAST:event_btnDeleteLinkActionPerformed
-
+    
     private void disposeForm() {
         this.dispose();
     }
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
     private void txtFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldSearchActionPerformed
@@ -304,7 +289,6 @@ public class EmployeeForm extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBackToDashboard;
     private javax.swing.JButton btnDeleteLink;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblEmployee;
