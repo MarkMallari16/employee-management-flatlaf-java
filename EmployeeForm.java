@@ -44,7 +44,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
         btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
         btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
-        btnUpdate.setIcon(new FlatSVGIcon("svg/edit.svg"));
         btnDeleteLink.setIcon(new FlatSVGIcon("svg/delete.svg"));
     }
 
