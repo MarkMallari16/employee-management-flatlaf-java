@@ -20,7 +20,7 @@ import javax.swing.table.TableRowSorter;
  * @author Mallari
  */
 public class EmployeeForm extends javax.swing.JFrame {
-    
+
     private AddingEmployeeForm addingEmployeeForm;
     private Database db = new Database();
     private TableRowSorter<DefaultTableModel> rowSorter;
@@ -156,7 +156,7 @@ public class EmployeeForm extends javax.swing.JFrame {
   private void displayEmpTable() {
         String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        
+
         for (int empId : db.getEmployee().keySet()) {
             String[] employeeDatas = db.getEmployee().get(empId);
             
@@ -173,12 +173,12 @@ public class EmployeeForm extends javax.swing.JFrame {
         }
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setModel(model);
-        
+
         tblEmployee.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = tblEmployee.getSelectedRow();
-                
+
                 if (row != -1) {
                     rowEmpIdInt = (Integer) tblEmployee.getValueAt(row, 0);
                     rowEmpName = (String) tblEmployee.getValueAt(row, 1);
@@ -187,7 +187,7 @@ public class EmployeeForm extends javax.swing.JFrame {
                     rowEmpPosition = (String) tblEmployee.getValueAt(row, 4);
                     rowEmpContactNum = (String) tblEmployee.getValueAt(row, 5);
                     rowEmpEmail = (String) tblEmployee.getValueAt(row, 6);
-                    
+
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
                         empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpName, rowEmpAge, rowEmpDepartment, rowEmpPosition, rowEmpContactNum, rowEmpEmail);
                         empUpdateForm.setVisible(true);
@@ -195,21 +195,21 @@ public class EmployeeForm extends javax.swing.JFrame {
                     }
                 }
             }
-            
+
         });
-        
+
         searchEmployee(model);
     }
-    
+
     private void searchEmployee(DefaultTableModel model) {
         rowSorter = new TableRowSorter<>(model);
         tblEmployee.setRowSorter(rowSorter);
-        
+
         txtFieldSearch.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 String searchText = txtFieldSearch.getText();
-                
+
                 if (searchText.trim().isEmpty()) {
                     rowSorter.setRowFilter(null);
                 } else {
@@ -233,7 +233,7 @@ public class EmployeeForm extends javax.swing.JFrame {
             disposeForm();
         }
     }//GEN-LAST:event_btnDeleteLinkActionPerformed
-    
+
     private void disposeForm() {
         this.dispose();
     }
