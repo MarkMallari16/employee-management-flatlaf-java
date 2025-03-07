@@ -16,8 +16,8 @@ public class FirstFlatLaf {
         FlatLightLaf.setup();
 
         SwingUtilities.invokeLater(() -> {
-            Login log = new Login();
-            log.setVisible(true);
+            BasicGUI gui = new BasicGUI();
+            gui.show();
         });
 
     }

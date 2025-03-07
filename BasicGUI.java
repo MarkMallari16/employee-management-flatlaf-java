@@ -25,7 +25,7 @@ import javax.swing.table.TableRowSorter;
  * @author Mallari
  */
 public class BasicGUI extends javax.swing.JFrame {
-    
+
     private AddingEmployeeForm addingEmployeeForm;
     private boolean isDarkMode = false;
     private Database db = new Database();
@@ -35,6 +35,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private String rowEmpName, rowEmpAge, rowEmpDepartment, rowEmpPosition, rowEmpContactNum, rowEmpEmail;
     private UpdateEmployeeForm empUpdateForm;
     private EmployeeForm empForm;
+    private Login log;
 
     /**
      * Creates new form BasicGUI
@@ -53,23 +54,23 @@ public class BasicGUI extends javax.swing.JFrame {
         btnEmployee.setIcon(new FlatSVGIcon("svg/employee.svg"));
         btnAttendance.setIcon(new FlatSVGIcon("svg/attendance.svg"));
         btnPayroll.setIcon(new FlatSVGIcon("svg/payroll.svg"));
-        
+
         btnReports.setIcon(new FlatSVGIcon("svg/reports.svg"));
         btnLeaves.setIcon(new FlatSVGIcon("svg/leaves.svg"));
         btnSettings.setIcon(new FlatSVGIcon("svg/settings.svg"));
         btnLogout.setIcon(new FlatSVGIcon("svg/logout.svg"));
-        
+
         txtFieldTotalEmp.setText(String.valueOf(db.getTotalEmployees()));
-        
+
     }
-    
+
     private void displayEmpTable() {
         String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        
+
         for (int empId : db.getEmployee().keySet()) {
             String[] employeeDatas = db.getEmployee().get(empId);
-            
+
             if (employeeDatas != null) {
                 model.addRow(new Object[]{
                     empId,
@@ -81,13 +82,13 @@ public class BasicGUI extends javax.swing.JFrame {
                     employeeDatas[5],});
             }
         }
-        
+
     }
-    
+
     private void disposeForm() {
         this.dispose();
     }
-    
+
     private void toggleTheme() {
         isDarkMode = ThemeManager.isDarkMode();
         isDarkMode = !isDarkMode;
@@ -97,12 +98,12 @@ public class BasicGUI extends javax.swing.JFrame {
                 UIManager.setLookAndFeel(new FlatDarkLaf());
                 btnChangeTheme.setIcon(new FlatSVGIcon("svg/light.svg"));
             } else {
-                
+
                 UIManager.setLookAndFeel(new FlatLightLaf());
-                
+
                 btnChangeTheme.setIcon(new FlatSVGIcon("svg/night.svg"));
             }
-            
+
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -409,8 +410,19 @@ public class BasicGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPayrollActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-     JOptionPane.showMessageDialog(this, "Successfully logout!");
+        int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (choice == JOptionPane.YES_OPTION) {
+            goToLogin();
+        }
     }//GEN-LAST:event_btnLogoutActionPerformed
+    private void goToLogin() {
+        if (log == null || !log.isDisplayable()) {
+            log = new Login();
+            log.setVisible(true);
+            this.dispose();
+        }
+    }
 
     /**
      * @param args the command line arguments
