@@ -4,11 +4,22 @@
  */
 package com.mycompany.firstflatlaf;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mallari
  */
 public class Login extends javax.swing.JFrame {
+
+    private String myUsername = "admin";
+    private String myPassword = "admin123";
+
+    private String username;
+    private char[] charPass;
+    private String password;
+
+    private BasicGUI gui;
 
     /**
      * Creates new form Login
@@ -31,7 +42,7 @@ public class Login extends javax.swing.JFrame {
         txtFieldUsername = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtFieldPassword = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -44,6 +55,12 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel2.setText("Username");
 
+        txtFieldUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldUsernameActionPerformed(evt);
+            }
+        });
+
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel3.setText("Password");
 
@@ -51,8 +68,11 @@ public class Login extends javax.swing.JFrame {
         btnLogin.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("LOGIN");
-
-        jPasswordField1.setText("jPasswordField1");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 255));
 
@@ -88,7 +108,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtFieldUsername)
                     .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
@@ -103,7 +123,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(186, Short.MAX_VALUE))
@@ -113,6 +133,36 @@ public class Login extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1037, 620));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtFieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldUsernameActionPerformed
+
+    }//GEN-LAST:event_txtFieldUsernameActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        username = txtFieldUsername.getText().trim();
+        charPass = txtFieldPassword.getPassword();
+        password = new String(charPass);
+
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username and Password are required!", "Login Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (username.equals(myUsername) && password.equals(myPassword)) {
+            goToDashboard();
+        }else{
+            
+        }
+
+
+    }//GEN-LAST:event_btnLoginActionPerformed
+    private void goToDashboard() {
+        if (gui == null || !gui.isDisplayable()) {
+            gui = new BasicGUI();
+            gui.setVisible(true);
+            this.dispose();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -156,7 +206,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField txtFieldPassword;
     private javax.swing.JTextField txtFieldUsername;
     // End of variables declaration//GEN-END:variables
 }

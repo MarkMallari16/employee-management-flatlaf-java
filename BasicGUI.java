@@ -61,7 +61,6 @@ public class BasicGUI extends javax.swing.JFrame {
         btnLogout.setIcon(new FlatSVGIcon("svg/logout.svg"));
 
         txtFieldTotalEmp.setText(String.valueOf(db.getTotalEmployees()));
-
     }
 
     private void displayEmpTable() {
@@ -144,7 +143,7 @@ public class BasicGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 255));
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
 
         btnAttendance.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N

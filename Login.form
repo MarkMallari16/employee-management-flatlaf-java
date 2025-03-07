@@ -35,7 +35,7 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <Component id="txtFieldUsername" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnLogin" max="32767" attributes="0"/>
-                  <Component id="jPasswordField1" min="-2" pref="438" max="-2" attributes="0"/>
+                  <Component id="txtFieldPassword" min="-2" pref="438" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
           </Group>
@@ -53,7 +53,7 @@
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPasswordField1" min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="txtFieldPassword" min="-2" pref="50" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnLogin" min="-2" pref="49" max="-2" attributes="0"/>
               <EmptySpace pref="186" max="32767" attributes="0"/>
@@ -80,6 +80,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtFieldUsername">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFieldUsernameActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -102,11 +105,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="LOGIN"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="jPasswordField1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-      </Properties>
+    <Component class="javax.swing.JPasswordField" name="txtFieldPassword">
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
