@@ -150,8 +150,9 @@ public class Login extends javax.swing.JFrame {
 
         if (username.equals(myUsername) && password.equals(myPassword)) {
             goToDashboard();
-        }else{
-            
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            txtFieldUsername.requestFocus();
         }
 
 
