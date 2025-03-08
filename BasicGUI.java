@@ -7,8 +7,13 @@ package com.mycompany.firstflatlaf;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,6 +34,7 @@ public class BasicGUI extends javax.swing.JFrame {
      */
     public BasicGUI() {
         initComponents();
+        displayTime();
         displayEmpTable();
 
 //        txtFieldOne.putClientProperty("JComponent.roundRect", true);
@@ -48,6 +54,18 @@ public class BasicGUI extends javax.swing.JFrame {
         btnLogout.setIcon(new FlatSVGIcon("svg/logout.svg"));
 
         txtFieldTotalEmp.setText(String.valueOf(db.getTotalEmployees()));
+    }
+
+    private void displayTime() {
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                lblTime.setText(sdf.format(new Date()));
+            }
+        });
+        
+        timer.start();
     }
 
     private void displayEmpTable() {
@@ -125,7 +143,7 @@ public class BasicGUI extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtFieldTotalEmp4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblTime = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txtFieldTotalEmp5 = new javax.swing.JLabel();
@@ -330,8 +348,8 @@ public class BasicGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel4.setFont(new java.awt.Font("Poppins Black", 0, 24)); // NOI18N
-        jLabel4.setText("12:00 pm");
+        lblTime.setFont(new java.awt.Font("Poppins Black", 0, 24)); // NOI18N
+        lblTime.setText("12:00 pm");
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
         jPanel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -384,8 +402,8 @@ public class BasicGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(26, 26, 26)
+                        .addComponent(lblTime)
+                        .addGap(27, 27, 27)
                         .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -400,12 +418,13 @@ public class BasicGUI extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblTime)
+                            .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -500,7 +519,6 @@ public class BasicGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnSettings;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -510,6 +528,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel lblTime;
     private javax.swing.JLabel txtFieldTotalEmp;
     private javax.swing.JLabel txtFieldTotalEmp3;
     private javax.swing.JLabel txtFieldTotalEmp4;
