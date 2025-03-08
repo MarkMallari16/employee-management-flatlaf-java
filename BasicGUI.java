@@ -12,7 +12,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author Mallari
@@ -23,6 +22,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private Database db = new Database();
     private EmployeeForm empForm;
     private Login log;
+    private PayrollForm pf;
 
     /**
      * Creates new form BasicGUI
@@ -431,7 +431,11 @@ public class BasicGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEmployeeActionPerformed
 
     private void btnPayrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayrollActionPerformed
-        // TODO add your handling code here:
+        if (pf == null || !pf.isDisplayable()) {
+            pf = new PayrollForm();
+            pf.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnPayrollActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
