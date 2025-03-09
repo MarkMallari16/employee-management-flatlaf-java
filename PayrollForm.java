@@ -5,6 +5,11 @@
 package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,14 +17,68 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
  */
 public class PayrollForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PayrollForm
-     */
+    //temporary database
+    private Database db = new Database();
+
+    //hold data
+    private String empIdString, empIdSalary;
+    
+    private Payroll payroll;
+
+    //dashboard
+    private BasicGUI gui;
+    
     public PayrollForm() {
         initComponents();
+        displayPayrollTable();
         
         btnAddSalary.setIcon(new FlatSVGIcon("svg/salary.svg"));
+        btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
+
+        //filter character in textfield
+        txtFieldEmpId.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+            
+        });
         
+        txtFieldSalary.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+            
+        });
+    }
+    
+    private void displayPayrollTable() {
+        String[] columns = {"Employee ID", "Salary"};
+        
+        DefaultTableModel model = new DefaultTableModel(columns, 0);
+        
+        for (int empId : db.getPayroll().keySet()) {
+            Payroll payrollData = db.getPayroll().get(empId);
+            
+            if (payrollData != null) {
+                model.addRow(new Object[]{
+                    String.valueOf(payrollData.getEmpId()),
+                    String.valueOf(payrollData.getSalary())
+                });
+            }
+        }
+        
+        tblEmployeePayroll.setModel(model);
+        tblEmployeePayroll.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
 
     /**
@@ -35,6 +94,11 @@ public class PayrollForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployeePayroll = new javax.swing.JTable();
         btnAddSalary = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtFieldEmpId = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtFieldSalary = new javax.swing.JTextField();
+        btnBackToDashboard = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee Payroll");
@@ -63,37 +127,103 @@ public class PayrollForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Employee ID");
+
+        jLabel3.setText("Salary");
+
+        btnBackToDashboard.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnBackToDashboard.setText("Back to Dashboard");
+        btnBackToDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackToDashboardActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addComponent(btnAddSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1092, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1092, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(txtFieldEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtFieldSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnBackToDashboard, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(21, 21, 21)
+                .addComponent(btnBackToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(btnAddSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFieldEmpId))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFieldSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAddSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1190, 600));
+        setSize(new java.awt.Dimension(1190, 785));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSalaryActionPerformed
-        // TODO add your handling code here:
+        empIdString = txtFieldEmpId.getText();
+        empIdSalary = txtFieldSalary.getText();
+
+        //validate textfield 
+        if (empIdString.isEmpty() || empIdSalary.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please input Employee id and salary!",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        //convert to int
+        int empId = Integer.parseInt(empIdString);
+        //convert to double
+        double salary = Double.parseDouble(empIdSalary);
+        
+        payroll = new Payroll(empId, salary);
+        
+        JOptionPane.showMessageDialog(this, "Payroll of Employee Successfully added.", "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+        
+        db.addPayroll(empId, payroll);
+        
+        displayPayrollTable();
     }//GEN-LAST:event_btnAddSalaryActionPerformed
+    private void disposeForm() {
+        this.dispose();
+    }
+    private void btnBackToDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToDashboardActionPerformed
+        if (gui == null || !gui.isDisplayable()) {
+            gui = new BasicGUI();
+            gui.setVisible(true);
+            disposeForm();
+        }
+    }//GEN-LAST:event_btnBackToDashboardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,8 +262,13 @@ public class PayrollForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddSalary;
+    private javax.swing.JButton btnBackToDashboard;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblEmployeePayroll;
+    private javax.swing.JTextField txtFieldEmpId;
+    private javax.swing.JTextField txtFieldSalary;
     // End of variables declaration//GEN-END:variables
 }

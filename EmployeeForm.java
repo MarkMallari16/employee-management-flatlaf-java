@@ -21,8 +21,11 @@ import javax.swing.table.TableRowSorter;
  */
 public class EmployeeForm extends javax.swing.JFrame {
 
-    private AddingEmployeeForm addingEmployeeForm;
+    //database
     private Database db = new Database();
+
+    //link for AddEmpForm
+    private AddingEmployeeForm addingEmployeeForm;
     private TableRowSorter<DefaultTableModel> rowSorter;
     private DeleteForm df;
     private int rowEmpIdInt;

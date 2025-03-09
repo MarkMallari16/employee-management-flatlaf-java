@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Database {
 
     private static HashMap<Integer, Employee> employeesDb = new HashMap<>();
+    private static HashMap<Integer, Payroll> payrollDb = new HashMap<>();
 
     public void addEmployee(int id, Employee employee) {
         employeesDb.put(id, employee);
@@ -30,6 +31,28 @@ public class Database {
 
     public int getTotalEmployees() {
         return employeesDb.size();
+    }
+
+    public void addPayroll(int id, Payroll payroll) {
+        payrollDb.put(id, payroll);
+
+        System.out.println("Successfully added.");
+    }
+
+    public HashMap<Integer, Payroll> getPayroll() {
+        return payrollDb;
+    }
+
+    public boolean isPayrollExists(int id) {
+        return payrollDb.containsKey(id);
+    }
+
+    public void updatePayroll(int id, Payroll payroll) {
+        payrollDb.replace(id, payroll);
+    }
+
+    public void removePayroll(int id) {
+        payrollDb.remove(id);
     }
 
 }
