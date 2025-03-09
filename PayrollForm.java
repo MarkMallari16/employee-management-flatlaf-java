@@ -22,16 +22,16 @@ public class PayrollForm extends javax.swing.JFrame {
 
     //hold data
     private String empIdString, empIdSalary;
-    
+
     private Payroll payroll;
 
     //dashboard
     private BasicGUI gui;
-    
+
     public PayrollForm() {
         initComponents();
         displayPayrollTable();
-        
+
         btnAddSalary.setIcon(new FlatSVGIcon("svg/salary.svg"));
         btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
 
@@ -40,43 +40,43 @@ public class PayrollForm extends javax.swing.JFrame {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                
+
                 if (!Character.isDigit(c)) {
                     e.consume();
                 }
             }
-            
+
         });
-        
+
         txtFieldSalary.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                
+
                 if (!Character.isDigit(c)) {
                     e.consume();
                 }
             }
-            
+
         });
     }
-    
+
     private void displayPayrollTable() {
         String[] columns = {"Employee ID", "Salary"};
-        
+
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        
+
         for (int empId : db.getPayroll().keySet()) {
             Payroll payrollData = db.getPayroll().get(empId);
-            
+
             if (payrollData != null) {
                 model.addRow(new Object[]{
-                    String.valueOf(payrollData.getEmpId()),
-                    String.valueOf(payrollData.getSalary())
+                    empId,
+                    payrollData.getSalary()
                 });
             }
         }
-        
+
         tblEmployeePayroll.setModel(model);
         tblEmployeePayroll.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     }
@@ -204,14 +204,14 @@ public class PayrollForm extends javax.swing.JFrame {
         int empId = Integer.parseInt(empIdString);
         //convert to double
         double salary = Double.parseDouble(empIdSalary);
-        
+
         payroll = new Payroll(empId, salary);
-        
+
         JOptionPane.showMessageDialog(this, "Payroll of Employee Successfully added.", "Success",
                 JOptionPane.INFORMATION_MESSAGE);
-        
+
         db.addPayroll(empId, payroll);
-        
+
         displayPayrollTable();
     }//GEN-LAST:event_btnAddSalaryActionPerformed
     private void disposeForm() {
