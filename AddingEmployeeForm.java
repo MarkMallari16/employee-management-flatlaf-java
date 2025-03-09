@@ -17,8 +17,10 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
 
     private Database db = new Database();
     private static int empId = 2000;
-    private String name, department, contactNum, age, position, email;
+    private String name, age, department, position, contactNum, email;
     private EmployeeForm empForm;
+    //oop
+    private Employee employee;
 
     /**
      * Creates new form AddingEmployeeForm
@@ -216,13 +218,11 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         if (!validateField("Name", name) || !validateField("Age", age) || !validateField("Department", department) || !validateField("Position", position)
                 || !validateField("Contact Number", contactNum)
                 || !validateField("Email", email)) {
-
             return;
         }
 
-        String[] datas = {name, age, department, position, contactNum, email};
-
-        db.addEmployee(empId, datas);
+        employee = new Employee(empId, name, age, department, position, contactNum, email);
+        db.addEmployee(empId, employee);
         empId++;
 
         JOptionPane.showMessageDialog(this, "Employee Successfully Added!", "Success", JOptionPane.INFORMATION_MESSAGE);

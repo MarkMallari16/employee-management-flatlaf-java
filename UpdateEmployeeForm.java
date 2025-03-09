@@ -17,6 +17,8 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     private int updEmpIdInt;
     private String updEmpIdString, updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail;
     private EmployeeForm empForm;
+    //data
+    private Employee employee;
 
     /**
      * Creates new form UpdateEmployeeForm
@@ -219,9 +221,10 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         updEmpContactNum = txtFieldContactNum.getText();
         updEmpEmail = txtFieldEmail.getText();
 
-        String[] updDatas = {updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail};
+//        String[] updDatas = {updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail};
+        employee = new Employee(updEmpIdInt, updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail);
 
-        db.updateEmployee(updEmpIdInt, updDatas);
+        db.updateEmployee(updEmpIdInt, employee);
 
         JOptionPane.showMessageDialog(this, "Employee successfully update!", "Success", JOptionPane.INFORMATION_MESSAGE);
 

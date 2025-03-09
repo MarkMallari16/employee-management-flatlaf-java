@@ -64,7 +64,7 @@ public class BasicGUI extends javax.swing.JFrame {
                 lblTime.setText(sdf.format(new Date()));
             }
         });
-        
+
         timer.start();
     }
 
@@ -73,17 +73,17 @@ public class BasicGUI extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
         for (int empId : db.getEmployee().keySet()) {
-            String[] employeeDatas = db.getEmployee().get(empId);
+            Employee employeeData = db.getEmployee().get(empId);
 
-            if (employeeDatas != null) {
+            if (employeeData != null) {
                 model.addRow(new Object[]{
                     empId,
-                    employeeDatas[0],
-                    employeeDatas[1],
-                    employeeDatas[2],
-                    employeeDatas[3],
-                    employeeDatas[4],
-                    employeeDatas[5],});
+                    employeeData.getName(),
+                    employeeData.getAge(),
+                    employeeData.getDepartment(),
+                    employeeData.getPosition(),
+                    employeeData.getContactNum(),
+                    employeeData.getEmail()});
             }
         }
 

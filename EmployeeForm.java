@@ -158,17 +158,17 @@ public class EmployeeForm extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
         for (int empId : db.getEmployee().keySet()) {
-            String[] employeeDatas = db.getEmployee().get(empId);
-            
-            if (employeeDatas != null) {
+            Employee employeeData = db.getEmployee().get(empId);
+
+            if (employeeData != null) {
                 model.addRow(new Object[]{
                     empId,
-                    employeeDatas[0],
-                    employeeDatas[1],
-                    employeeDatas[2],
-                    employeeDatas[3],
-                    employeeDatas[4],
-                    employeeDatas[5],});
+                    employeeData.getName(),
+                    employeeData.getAge(),
+                    employeeData.getDepartment(),
+                    employeeData.getPosition(),
+                    employeeData.getContactNum(),
+                    employeeData.getEmail()});
             }
         }
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
