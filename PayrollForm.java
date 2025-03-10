@@ -4,12 +4,17 @@
  */
 package com.mycompany.firstflatlaf;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -24,18 +29,30 @@ public class PayrollForm extends javax.swing.JFrame {
     private String empIdString, empIdSalary;
 
     private Payroll payroll;
+    //for row
+    private int rowEmpId;
+    private double rowEmpSalary;
 
     //dashboard
     private BasicGUI gui;
 
+    private UpdatePayrollForm upf;
+
+    private TableRowSorter<DefaultTableModel> rowSorter;
+
     public PayrollForm() {
         initComponents();
         displayPayrollTable();
+        
+        //placeholder
+        txtFieldSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
+        //icon
+        txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
 
         btnAddSalary.setIcon(new FlatSVGIcon("svg/salary.svg"));
         btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
 
-        //filter character in textfield
+        //validate and filter character in textfield
         txtFieldEmpId.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -79,6 +96,26 @@ public class PayrollForm extends javax.swing.JFrame {
 
         tblEmployeePayroll.setModel(model);
         tblEmployeePayroll.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+
+        searchEmployeePayroll(model);
+
+        tblEmployeePayroll.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = tblEmployeePayroll.getSelectedRow();
+
+                if (row != -1) {
+                    rowEmpId = (Integer) tblEmployeePayroll.getValueAt(row, 0);
+                    rowEmpSalary = (Double) tblEmployeePayroll.getValueAt(row, 1);
+
+                    if (upf == null || !upf.isDisplayable()) {
+                        upf = new UpdatePayrollForm(rowEmpId, rowEmpSalary);
+                        upf.setVisible(true);
+                        disposeForm();
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -99,6 +136,7 @@ public class PayrollForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtFieldSalary = new javax.swing.JTextField();
         btnBackToDashboard = new javax.swing.JButton();
+        txtFieldSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee Payroll");
@@ -119,7 +157,8 @@ public class PayrollForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblEmployeePayroll);
 
-        btnAddSalary.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnAddSalary.setBackground(new java.awt.Color(0, 102, 255));
+        btnAddSalary.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAddSalary.setText("Add Salary");
         btnAddSalary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,9 +166,15 @@ public class PayrollForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel2.setText("Employee ID");
 
+        txtFieldEmpId.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel3.setText("Salary");
+
+        txtFieldSalary.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         btnBackToDashboard.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnBackToDashboard.setText("Back to Dashboard");
@@ -139,53 +184,66 @@ public class PayrollForm extends javax.swing.JFrame {
             }
         });
 
+        txtFieldSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1092, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtFieldEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtFieldSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnBackToDashboard, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(txtFieldEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(txtFieldSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnAddSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1092, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(22, 22, 22)
                 .addComponent(btnBackToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFieldEmpId))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFieldSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAddSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFieldSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtFieldEmpId))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtFieldSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAddSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1190, 785));
+        setSize(new java.awt.Dimension(1250, 733));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -205,17 +263,46 @@ public class PayrollForm extends javax.swing.JFrame {
         //convert to double
         double salary = Double.parseDouble(empIdSalary);
 
+        if (!db.isEmpIdExists(empId)) {
+            JOptionPane.showMessageDialog(this, "Employee ID not exists.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         payroll = new Payroll(empId, salary);
 
-        JOptionPane.showMessageDialog(this, "Payroll of Employee Successfully added.", "Success",
+        JOptionPane.showMessageDialog(this,
+                "Payroll of Employee Successfully added.", "Success",
                 JOptionPane.INFORMATION_MESSAGE);
 
         db.addPayroll(empId, payroll);
 
+        txtFieldEmpId.setText(null);
+        txtFieldSalary.setText(null);
+
         displayPayrollTable();
+
+
     }//GEN-LAST:event_btnAddSalaryActionPerformed
     private void disposeForm() {
         this.dispose();
+    }
+
+    private void searchEmployeePayroll(DefaultTableModel model) {
+        rowSorter = new TableRowSorter<>(model);
+
+        tblEmployeePayroll.setRowSorter(rowSorter);
+
+        txtFieldSearch.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String searchText = txtFieldSearch.getText();
+                if (searchText.trim().isEmpty()) {
+                    rowSorter.setRowFilter(null);
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
+                }
+            }
+        });
     }
     private void btnBackToDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToDashboardActionPerformed
         if (gui == null || !gui.isDisplayable()) {
@@ -224,6 +311,10 @@ public class PayrollForm extends javax.swing.JFrame {
             disposeForm();
         }
     }//GEN-LAST:event_btnBackToDashboardActionPerformed
+
+    private void txtFieldSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,5 +361,6 @@ public class PayrollForm extends javax.swing.JFrame {
     private javax.swing.JTable tblEmployeePayroll;
     private javax.swing.JTextField txtFieldEmpId;
     private javax.swing.JTextField txtFieldSalary;
+    private javax.swing.JTextField txtFieldSearch;
     // End of variables declaration//GEN-END:variables
 }

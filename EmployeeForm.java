@@ -40,6 +40,8 @@ public class EmployeeForm extends javax.swing.JFrame {
         initComponents();
         //displaying Employee Table
         displayEmpTable();
+
+        //placeholder
         txtFieldSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
 
 //        txtFieldOne.putClientProperty("JComponent.roundRect", true);

@@ -32,6 +32,8 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
 
         btnAddEmployee.setIcon(new FlatSVGIcon("svg/person_plus.svg"));
+
+        //validate and filter character
         txtFieldName.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -42,6 +44,18 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
                 }
             }
         });
+
+        txtFieldAge.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+
         txtFieldContactNum.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -91,6 +105,11 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         jLabel2.setText("Name");
 
         txtFieldAge.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtFieldAge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldAgeActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel3.setText("Age");
@@ -234,6 +253,10 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         goBackToDashboard();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void txtFieldAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldAgeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldAgeActionPerformed
     private boolean validateField(String fieldName, String field) {
         if (field == null || field.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, fieldName + " cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
