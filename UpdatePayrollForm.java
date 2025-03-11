@@ -4,6 +4,7 @@
  */
 package com.mycompany.firstflatlaf;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,6 +31,10 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
 
         txtFieldEmpId.setText(idString);
         txtFieldSalary.setText(salaryString);
+
+        //icons
+        btnUpdate.setIcon(new FlatSVGIcon("svg/edit.svg"));
+        btnDelete.setIcon(new FlatSVGIcon("svg/delete.svg"));
     }
 
     /**
@@ -66,7 +71,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
 
         txtFieldSalary.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        btnUpdate.setBackground(new java.awt.Color(0, 102, 255));
+        btnUpdate.setBackground(new java.awt.Color(51, 153, 255));
         btnUpdate.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +80,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
             }
         });
 
-        btnDelete.setBackground(new java.awt.Color(255, 51, 51));
+        btnDelete.setBackground(new java.awt.Color(255, 102, 102));
         btnDelete.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -113,14 +118,14 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtFieldSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(47, 47, 47)
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(603, 403));
+        setSize(new java.awt.Dimension(603, 439));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
