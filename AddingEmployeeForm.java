@@ -134,7 +134,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
 
         txtFieldEmail.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        btnAddEmployee.setBackground(new java.awt.Color(0, 102, 255));
+        btnAddEmployee.setBackground(new java.awt.Color(102, 153, 255));
         btnAddEmployee.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAddEmployee.setText("ADD");
         btnAddEmployee.addActionListener(new java.awt.event.ActionListener() {

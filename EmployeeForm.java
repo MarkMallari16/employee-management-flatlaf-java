@@ -75,7 +75,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jLabel1.setText("Add Employee");
 
-        btnAdd.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnAdd.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +83,7 @@ public class EmployeeForm extends javax.swing.JFrame {
             }
         });
 
-        btnDeleteLink.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnDeleteLink.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnDeleteLink.setText("Delete");
         btnDeleteLink.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -73,7 +73,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel3.setText("Password");
 
-        btnLogin.setBackground(new java.awt.Color(0, 102, 255));
+        btnLogin.setBackground(new java.awt.Color(102, 153, 255));
         btnLogin.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("LOGIN");
@@ -84,7 +84,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/svg/employees.png"))); // NOI18N
 

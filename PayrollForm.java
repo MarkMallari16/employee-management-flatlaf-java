@@ -157,7 +157,7 @@ public class PayrollForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblEmployeePayroll);
 
-        btnAddSalary.setBackground(new java.awt.Color(0, 102, 255));
+        btnAddSalary.setBackground(new java.awt.Color(102, 153, 255));
         btnAddSalary.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAddSalary.setText("Add Salary");
         btnAddSalary.addActionListener(new java.awt.event.ActionListener() {

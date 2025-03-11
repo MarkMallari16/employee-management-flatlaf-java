@@ -78,7 +78,7 @@
     <Component class="javax.swing.JButton" name="btnAdd">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="12" style="0"/>
+          <Font name="Poppins" size="12" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Add"/>
       </Properties>
@@ -89,7 +89,7 @@
     <Component class="javax.swing.JButton" name="btnDeleteLink">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="12" style="0"/>
+          <Font name="Poppins" size="12" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
