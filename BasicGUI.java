@@ -7,6 +7,7 @@ package com.mycompany.firstflatlaf;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -16,6 +17,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -33,9 +40,14 @@ public class BasicGUI extends javax.swing.JFrame {
      * Creates new form BasicGUI
      */
     public BasicGUI() {
+
         initComponents();
         displayTime();
         displayEmpTable();
+
+        //chart
+        displayBarChart();
+        displayLineChart();
 
 //        txtFieldOne.putClientProperty("JComponent.roundRect", true);
         //icons
@@ -54,6 +66,50 @@ public class BasicGUI extends javax.swing.JFrame {
         btnLogout.setIcon(new FlatSVGIcon("svg/logout.svg"));
 
         txtFieldTotalEmp.setText(String.valueOf(db.getTotalEmployees()));
+    }
+
+    private void displayBarChart() {
+        CategoryDataset dataset = createDataset();
+
+        JFreeChart chart = ChartFactory.createBarChart(
+                "Employee Count by Department",
+                "Department",
+                "Number of employees",
+                dataset
+        );
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(500, 450));
+        
+        panelBarChart.removeAll();
+        panelBarChart.add(chartPanel);
+        panelBarChart.revalidate();
+        panelBarChart.repaint();
+    }
+
+    private void displayLineChart() {
+        CategoryDataset dataset = createDataset();
+
+        JFreeChart lineChart = ChartFactory.createLineChart("Employee Growth Over Years", "Year", "Number of Employees",
+                dataset, PlotOrientation.HORIZONTAL, true, true, false);
+
+        ChartPanel chartPanel = new ChartPanel(lineChart);
+        chartPanel.setPreferredSize(new Dimension(500, 450));
+
+        panelLineChart.removeAll();
+        panelLineChart.add(chartPanel);
+        panelLineChart.revalidate();
+        panelLineChart.repaint();
+    }
+
+    private CategoryDataset createDataset() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        dataset.addValue(50, "Employees", "HR");
+        dataset.addValue(db.getTotalEmployees(), "Employees", "IT");
+        dataset.addValue(49, "Employees", "Marketing");
+        dataset.addValue(30, "Employees", "Operations");
+
+        return dataset;
     }
 
     private void displayTime() {
@@ -133,6 +189,8 @@ public class BasicGUI extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         btnSettings = new javax.swing.JButton();
         btnLeaves = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         btnChangeTheme = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -148,29 +206,30 @@ public class BasicGUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtFieldTotalEmp5 = new javax.swing.JLabel();
         txtFieldTotalEmp = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
+        panelBarChart = new javax.swing.JPanel();
+        panelLineChart = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
+        setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel2.setBackground(new java.awt.Color(102, 153, 255));
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
 
         btnAttendance.setBackground(new java.awt.Color(102, 153, 255));
-        btnAttendance.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnAttendance.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnAttendance.setForeground(java.awt.Color.white);
         btnAttendance.setText("Attendance");
         btnAttendance.setBorder(null);
 
         btnDashboard.setBackground(new java.awt.Color(102, 153, 255));
-        btnDashboard.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnDashboard.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnDashboard.setForeground(java.awt.Color.white);
         btnDashboard.setText("Dashboard");
         btnDashboard.setBorder(null);
 
         btnEmployee.setBackground(new java.awt.Color(102, 153, 255));
-        btnEmployee.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnEmployee.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnEmployee.setForeground(java.awt.Color.white);
         btnEmployee.setText("Employee");
         btnEmployee.setBorder(null);
@@ -181,7 +240,7 @@ public class BasicGUI extends javax.swing.JFrame {
         });
 
         btnPayroll.setBackground(new java.awt.Color(102, 153, 255));
-        btnPayroll.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnPayroll.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnPayroll.setForeground(java.awt.Color.white);
         btnPayroll.setText("Payroll");
         btnPayroll.setBorder(null);
@@ -192,13 +251,14 @@ public class BasicGUI extends javax.swing.JFrame {
         });
 
         btnReports.setBackground(new java.awt.Color(102, 153, 255));
-        btnReports.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnReports.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnReports.setForeground(java.awt.Color.white);
         btnReports.setText("Reports");
         btnReports.setBorder(null);
 
         btnLogout.setBackground(new java.awt.Color(255, 102, 102));
-        btnLogout.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnLogout.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,16 +267,29 @@ public class BasicGUI extends javax.swing.JFrame {
         });
 
         btnSettings.setBackground(new java.awt.Color(102, 153, 255));
-        btnSettings.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnSettings.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnSettings.setForeground(java.awt.Color.white);
         btnSettings.setText("Settings");
         btnSettings.setBorder(null);
+        btnSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSettingsActionPerformed(evt);
+            }
+        });
 
         btnLeaves.setBackground(new java.awt.Color(102, 153, 255));
-        btnLeaves.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnLeaves.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         btnLeaves.setForeground(java.awt.Color.white);
         btnLeaves.setText("Leaves");
         btnLeaves.setBorder(null);
+
+        jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("EMPLOYEE MANAGEMENT");
+
+        jLabel4.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("SYSTEM");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -229,12 +302,28 @@ public class BasicGUI extends javax.swing.JFrame {
             .addComponent(btnReports, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnLeaves, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnSettings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(19, 19, 19))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(jLabel4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(76, 76, 76)
                 .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,9 +337,9 @@ public class BasicGUI extends javax.swing.JFrame {
                 .addComponent(btnLeaves, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 285, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -276,7 +365,7 @@ public class BasicGUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Poppins Black", 0, 36)); // NOI18N
         jLabel2.setText("Dashboard");
 
-        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel3.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
@@ -316,7 +405,7 @@ public class BasicGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel7.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel6.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
@@ -359,7 +448,7 @@ public class BasicGUI extends javax.swing.JFrame {
         lblTime.setFont(new java.awt.Font("Poppins Black", 0, 24)); // NOI18N
         lblTime.setText("12:00 pm");
 
-        jPanel5.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel8.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
@@ -399,32 +488,12 @@ public class BasicGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.setBackground(new java.awt.Color(102, 153, 255));
-        jPanel3.setForeground(java.awt.Color.white);
+        panelBarChart.setBackground(new java.awt.Color(102, 153, 255));
+        panelBarChart.setForeground(java.awt.Color.white);
+        panelBarChart.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 573, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
-        );
-
-        jPanel9.setBackground(new java.awt.Color(102, 153, 255));
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        panelLineChart.setBackground(new java.awt.Color(102, 153, 255));
+        panelLineChart.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -447,10 +516,10 @@ public class BasicGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 46, Short.MAX_VALUE))
+                        .addComponent(panelLineChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(0, 45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,12 +540,12 @@ public class BasicGUI extends javax.swing.JFrame {
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelBarChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelLineChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(493, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1479, 782));
+        setSize(new java.awt.Dimension(1456, 782));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -507,6 +576,10 @@ public class BasicGUI extends javax.swing.JFrame {
             goToLogin();
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSettingsActionPerformed
     private void goToLogin() {
         if (log == null || !log.isDisplayable()) {
             log = new Login();
@@ -560,20 +633,22 @@ public class BasicGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnPayroll;
     private javax.swing.JButton btnReports;
     private javax.swing.JButton btnSettings;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel lblTime;
+    private javax.swing.JPanel panelBarChart;
+    private javax.swing.JPanel panelLineChart;
     private javax.swing.JLabel txtFieldTotalEmp;
     private javax.swing.JLabel txtFieldTotalEmp3;
     private javax.swing.JLabel txtFieldTotalEmp4;
