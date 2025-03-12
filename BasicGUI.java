@@ -157,35 +157,45 @@ public class BasicGUI extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(102, 153, 255));
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
 
-        btnAttendance.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnAttendance.setForeground(new java.awt.Color(0, 0, 0));
+        btnAttendance.setBackground(new java.awt.Color(102, 153, 255));
+        btnAttendance.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnAttendance.setForeground(java.awt.Color.white);
         btnAttendance.setText("Attendance");
+        btnAttendance.setBorder(null);
 
-        btnDashboard.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnDashboard.setForeground(new java.awt.Color(0, 0, 0));
+        btnDashboard.setBackground(new java.awt.Color(102, 153, 255));
+        btnDashboard.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnDashboard.setForeground(java.awt.Color.white);
         btnDashboard.setText("Dashboard");
+        btnDashboard.setBorder(null);
 
-        btnEmployee.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnEmployee.setForeground(new java.awt.Color(0, 0, 0));
+        btnEmployee.setBackground(new java.awt.Color(102, 153, 255));
+        btnEmployee.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnEmployee.setForeground(java.awt.Color.white);
         btnEmployee.setText("Employee");
+        btnEmployee.setBorder(null);
         btnEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEmployeeActionPerformed(evt);
             }
         });
 
-        btnPayroll.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnPayroll.setForeground(new java.awt.Color(0, 0, 0));
+        btnPayroll.setBackground(new java.awt.Color(102, 153, 255));
+        btnPayroll.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnPayroll.setForeground(java.awt.Color.white);
         btnPayroll.setText("Payroll");
+        btnPayroll.setBorder(null);
         btnPayroll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPayrollActionPerformed(evt);
             }
         });
 
-        btnReports.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnReports.setForeground(new java.awt.Color(0, 0, 0));
+        btnReports.setBackground(new java.awt.Color(102, 153, 255));
+        btnReports.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnReports.setForeground(java.awt.Color.white);
         btnReports.setText("Reports");
+        btnReports.setBorder(null);
 
         btnLogout.setBackground(new java.awt.Color(255, 102, 102));
         btnLogout.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -196,34 +206,30 @@ public class BasicGUI extends javax.swing.JFrame {
             }
         });
 
-        btnSettings.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnSettings.setForeground(new java.awt.Color(0, 0, 0));
+        btnSettings.setBackground(new java.awt.Color(102, 153, 255));
+        btnSettings.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnSettings.setForeground(java.awt.Color.white);
         btnSettings.setText("Settings");
+        btnSettings.setBorder(null);
 
-        btnLeaves.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnLeaves.setForeground(new java.awt.Color(0, 0, 0));
+        btnLeaves.setBackground(new java.awt.Color(102, 153, 255));
+        btnLeaves.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnLeaves.setForeground(java.awt.Color.white);
         btnLeaves.setText("Leaves");
+        btnLeaves.setBorder(null);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLeaves, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+            .addComponent(btnDashboard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnAttendance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnPayroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnReports, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnLeaves, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSettings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,7 +399,8 @@ public class BasicGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel3.setForeground(java.awt.Color.white);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -406,7 +413,7 @@ public class BasicGUI extends javax.swing.JFrame {
             .addGap(0, 430, Short.MAX_VALUE)
         );
 
-        jPanel9.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel9.setBackground(new java.awt.Color(102, 153, 255));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
