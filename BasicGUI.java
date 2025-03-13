@@ -30,8 +30,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class BasicGUI extends javax.swing.JFrame {
 
+    //toggling theme
     private boolean isDarkMode = false;
+    //database
     private Database db = new Database();
+
     private EmployeeForm empForm;
     private Login log;
     private PayrollForm pf;
@@ -79,7 +82,7 @@ public class BasicGUI extends javax.swing.JFrame {
         );
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(500, 450));
-        
+
         panelBarChart.removeAll();
         panelBarChart.add(chartPanel);
         panelBarChart.revalidate();
@@ -210,7 +213,7 @@ public class BasicGUI extends javax.swing.JFrame {
         panelLineChart = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Dashboard");
+        setTitle("Admin Dashboard");
         setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel2.setBackground(new java.awt.Color(102, 153, 255));
@@ -446,7 +449,6 @@ public class BasicGUI extends javax.swing.JFrame {
         );
 
         lblTime.setFont(new java.awt.Font("Poppins Black", 0, 24)); // NOI18N
-        lblTime.setText("12:00 pm");
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setForeground(new java.awt.Color(0, 0, 0));
