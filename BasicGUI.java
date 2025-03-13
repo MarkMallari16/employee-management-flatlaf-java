@@ -38,6 +38,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private EmployeeForm empForm;
     private Login log;
     private PayrollForm pf;
+    private AttendanceForm af;
 
     /**
      * Creates new form BasicGUI
@@ -224,6 +225,11 @@ public class BasicGUI extends javax.swing.JFrame {
         btnAttendance.setForeground(java.awt.Color.white);
         btnAttendance.setText("Attendance");
         btnAttendance.setBorder(null);
+        btnAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAttendanceActionPerformed(evt);
+            }
+        });
 
         btnDashboard.setBackground(new java.awt.Color(102, 153, 255));
         btnDashboard.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -582,6 +588,14 @@ public class BasicGUI extends javax.swing.JFrame {
     private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSettingsActionPerformed
+
+    private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
+        if (af == null || !af.isDisplayable()) {
+            af = new AttendanceForm();
+            af.setVisible(true);
+            disposeForm();
+        }
+    }//GEN-LAST:event_btnAttendanceActionPerformed
     private void goToLogin() {
         if (log == null || !log.isDisplayable()) {
             log = new Login();
