@@ -53,7 +53,7 @@ public class BasicGUI extends javax.swing.JFrame {
         displayBarChart();
         displayLineChart();
 
-//        txtFieldOne.putClientProperty("JComponent.roundRect", true);
+        //txtFieldOne.putClientProperty("JComponent.roundRect", true);
         //icons
         //default icon
         btnChangeTheme.setIcon(new FlatSVGIcon("svg/night.svg"));
@@ -89,7 +89,7 @@ public class BasicGUI extends javax.swing.JFrame {
         panelBarChart.revalidate();
         panelBarChart.repaint();
     }
-
+    //line chart
     private void displayLineChart() {
         CategoryDataset dataset = createDataset();
 
@@ -104,7 +104,7 @@ public class BasicGUI extends javax.swing.JFrame {
         panelLineChart.revalidate();
         panelLineChart.repaint();
     }
-
+    //dataset
     private CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -129,7 +129,7 @@ public class BasicGUI extends javax.swing.JFrame {
     }
 
     private void displayEmpTable() {
-        String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email"};
+        String[] columns = {"Employee ID", "Name", "Age", "Date of Birth", "Gender", "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
         for (int empId : db.getEmployee().keySet()) {
@@ -140,10 +140,15 @@ public class BasicGUI extends javax.swing.JFrame {
                     empId,
                     employeeData.getName(),
                     employeeData.getAge(),
+                    employeeData.getDateOfBirth(),
+                    employeeData.getGender(),
+                    employeeData.getStatus(),
+                    employeeData.getContactNum(),
+                    employeeData.getEmail(),
                     employeeData.getDepartment(),
                     employeeData.getPosition(),
-                    employeeData.getContactNum(),
-                    employeeData.getEmail()});
+                    employeeData.getLocationType()});
+
             }
         }
 
@@ -524,7 +529,7 @@ public class BasicGUI extends javax.swing.JFrame {
                         .addComponent(panelBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(panelLineChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(0, 49, Short.MAX_VALUE))
+                .addGap(0, 81, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -547,10 +552,10 @@ public class BasicGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelBarChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelLineChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(493, Short.MAX_VALUE))
+                .addContainerGap(511, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(1456, 782));
+        setSize(new java.awt.Dimension(1488, 800));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

@@ -15,7 +15,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
     private Database db = new Database();
     private int updEmpIdInt;
-    private String updEmpIdString, updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail;
+    private String updEmpIdString, updEmpName, updEmpAge, updDateOfBirth, updGender, updStatus, updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updLocationType;
     private EmployeeForm empForm;
     //data
     private Employee employee;
@@ -23,7 +23,9 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     /**
      * Creates new form UpdateEmployeeForm
      */
-    public UpdateEmployeeForm(int rowEmpIdInt, String rowEmpName, String rowEmpAge, String rowEmpDepartment, String rowEmpPosition, String rowEmpContactNum, String rowEmpEmail) {
+    public UpdateEmployeeForm(int rowEmpIdInt, String rowEmpName, String rowEmpAge, String rowEmpDateOfBirth, String rowEmpGender,
+            String rowEmpStatus, String rowEmpDepartment, String rowEmpPosition,
+            String rowEmpContactNum, String rowEmpEmail, String rowEmpLocationType) {
         initComponents();
         String rowEmpIdString = String.valueOf(rowEmpIdInt);
         String rowEmpAgeString = String.valueOf(rowEmpAge);
@@ -31,10 +33,10 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         txtFieldEmpId.setText(rowEmpIdString);
         txtFieldName.setText(rowEmpName);
         txtFieldAge.setText(rowEmpAgeString);
-        txtFieldDepartment.setText(rowEmpDepartment);
-        txtFieldPosition.setText(rowEmpPosition);
         txtFieldContactNum.setText(rowEmpContactNum);
         txtFieldEmail.setText(rowEmpEmail);
+        txtFieldDepartment.setText(rowEmpDepartment);
+        txtFieldPosition.setText(rowEmpPosition);
 
         //icons
         btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
@@ -216,13 +218,14 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         updEmpIdInt = Integer.parseInt(updEmpIdString);
         updEmpName = txtFieldName.getText();
         updEmpAge = txtFieldAge.getText();
-        updEmpDepartment = txtFieldDepartment.getText();
-        updEmpPosition = txtFieldPosition.getText();
         updEmpContactNum = txtFieldContactNum.getText();
         updEmpEmail = txtFieldEmail.getText();
+        updEmpDepartment = txtFieldDepartment.getText();
+        updEmpPosition = txtFieldPosition.getText();
 
 //        String[] updDatas = {updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail};
-        employee = new Employee(updEmpIdInt, updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail);
+        employee = new Employee(updEmpIdInt, updEmpName, updEmpAge, updDateOfBirth, updGender, updStatus,
+                updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updLocationType);
 
         db.updateEmployee(updEmpIdInt, employee);
 

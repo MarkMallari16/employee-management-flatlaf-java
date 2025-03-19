@@ -37,7 +37,8 @@ public class EmployeeForm extends javax.swing.JFrame {
     private TableRowSorter<DefaultTableModel> rowSorter;
     private DeleteForm df;
     private int rowEmpIdInt;
-    private String rowEmpName, rowEmpAge, rowEmpDepartment, rowEmpPosition, rowEmpContactNum, rowEmpEmail;
+    private String rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
+            rowEmpEmail, rowEmpDepartment, rowEmpPosition, rowEmpLocationType;
     private UpdateEmployeeForm empUpdateForm;
     private BasicGUI gui;
 
@@ -183,7 +184,9 @@ public class EmployeeForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
   private void displayEmpTable() {
-        String[] columns = {"Employee ID", "Name", "Age", "Department", "Position", "Contact Number", "Email"};
+        String[] columns = {"Employee ID", "Name", "Age", "Date of Birth", "Gender",
+            "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
+
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
         for (int empId : db.getEmployee().keySet()) {
@@ -194,15 +197,20 @@ public class EmployeeForm extends javax.swing.JFrame {
                     empId,
                     employeeData.getName(),
                     employeeData.getAge(),
+                    employeeData.getDateOfBirth(),
+                    employeeData.getGender(),
+                    employeeData.getStatus(),
+                    employeeData.getContactNum(),
+                    employeeData.getEmail(),
                     employeeData.getDepartment(),
                     employeeData.getPosition(),
-                    employeeData.getContactNum(),
-                    employeeData.getEmail()});
+                    employeeData.getLocationType()});
             }
         }
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setModel(model);
-
+        
+        //clicking row
         tblEmployee.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -218,7 +226,9 @@ public class EmployeeForm extends javax.swing.JFrame {
                     rowEmpEmail = (String) tblEmployee.getValueAt(row, 6);
 
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
-                        empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpName, rowEmpAge, rowEmpDepartment, rowEmpPosition, rowEmpContactNum, rowEmpEmail);
+                        empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
+                                rowEmpGender, rowEmpStatus, rowEmpContactNum, rowEmpEmail,
+                                rowEmpDepartment, rowEmpPosition, rowEmpLocationType);
                         empUpdateForm.setVisible(true);
                         disposeForm();
                     }
@@ -296,7 +306,7 @@ public class EmployeeForm extends javax.swing.JFrame {
             contentStream.newLineAtOffset(margin, y);
             contentStream.showText("ID    Name           Age   Department     Position");
             contentStream.endText();
-            
+
             y -= 20;
 
             contentStream.setFont(PDType1Font.HELVETICA, 10);
