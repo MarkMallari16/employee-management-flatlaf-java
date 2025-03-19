@@ -43,12 +43,11 @@ public class PayrollForm extends javax.swing.JFrame {
     public PayrollForm() {
         initComponents();
         displayPayrollTable();
-        
+
         //placeholder
         txtFieldSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
-        //icon
+        //icons
         txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
-
         btnAddSalary.setIcon(new FlatSVGIcon("svg/salary.svg"));
         btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
 
@@ -264,7 +263,7 @@ public class PayrollForm extends javax.swing.JFrame {
         double salary = Double.parseDouble(empIdSalary);
 
         if (!db.isEmpIdExists(empId)) {
-            JOptionPane.showMessageDialog(this, "Employee ID not exists.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Employee ID does not exists.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
