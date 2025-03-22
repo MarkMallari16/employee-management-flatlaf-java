@@ -119,7 +119,6 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        cDateOfBirth = new com.toedter.calendar.JCalendar();
         cbDepartment = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -129,6 +128,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         cbLocationType = new javax.swing.JComboBox<>();
+        dcDateOfBirth = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Add Employee");
@@ -201,12 +201,6 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel8.setText("Date of Birth");
-
-        cDateOfBirth.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cDateOfBirthMouseClicked(evt);
-            }
-        });
 
         cbDepartment.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         cbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -285,9 +279,9 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
                                     .addComponent(txtFieldName, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtFieldAge, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
-                                    .addComponent(cDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(dcDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
@@ -327,18 +321,6 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFieldAge, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel6)
@@ -355,7 +337,19 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbMaritalStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(cbMaritalStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dcDateOfBirth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFieldAge, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -389,19 +383,22 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         name = txtFieldName.getText();
         age = txtFieldAge.getText();
         //date of birth
-        Date selectedDate = cDateOfBirth.getDate();
+        Date selectedDate = dcDateOfBirth.getDate();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        
         dateOfBirth = (selectedDate != null) ? sdf.format(selectedDate) : null;
         selectedGender = (String) cbGender.getSelectedItem();
         selectedStatus = (String) cbMaritalStatus.getSelectedItem();
         contactNum = txtFieldContactNum.getText();
+        
         email = txtFieldEmail.getText();
         //job details
         selectedDept = (String) cbDepartment.getSelectedItem();
         position = txtFieldPosition.getText();
         selectedLocationType = (String) cbLocationType.getSelectedItem();
 
-        if (!validateField("Name", name)
+        if (
+                !validateField("Name", name)
                 || !validateField("Age", age)
                 || !validateField("Date of Birth", dateOfBirth)
                 || !validateField("Gender", selectedGender)
@@ -447,10 +444,6 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
     private void cbLocationTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocationTypeActionPerformed
 
     }//GEN-LAST:event_cbLocationTypeActionPerformed
-
-    private void cDateOfBirthMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cDateOfBirthMouseClicked
-
-    }//GEN-LAST:event_cDateOfBirthMouseClicked
     private boolean validateField(String fieldName, String field) {
         if (field == null || field.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, fieldName + " cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -509,11 +502,11 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEmployee;
     private javax.swing.JButton btnBack;
-    private com.toedter.calendar.JCalendar cDateOfBirth;
     private javax.swing.JComboBox<String> cbDepartment;
     private javax.swing.JComboBox<String> cbGender;
     private javax.swing.JComboBox<String> cbLocationType;
     private javax.swing.JComboBox<String> cbMaritalStatus;
+    private com.toedter.calendar.JDateChooser dcDateOfBirth;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
