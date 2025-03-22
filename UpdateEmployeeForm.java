@@ -15,7 +15,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
     private Database db = new Database();
     private int updEmpIdInt;
-    private String updEmpIdString, updEmpName, updEmpAge, updDateOfBirth, updGender, updStatus, updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updLocationType;
+    private String updEmpIdString, updEmpProfile, updEmpName, updEmpAge, updDateOfBirth, updGender, updStatus, updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updLocationType;
     private EmployeeForm empForm;
     //data
     private Employee employee;
@@ -224,7 +224,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         updEmpPosition = txtFieldPosition.getText();
 
 //        String[] updDatas = {updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail};
-        employee = new Employee(updEmpIdInt, updEmpName, updEmpAge, updDateOfBirth, updGender, updStatus,
+        employee = new Employee(updEmpIdInt, updEmpProfile, updEmpName, updEmpAge, updDateOfBirth, updGender, updStatus,
                 updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updLocationType);
 
         db.updateEmployee(updEmpIdInt, employee);

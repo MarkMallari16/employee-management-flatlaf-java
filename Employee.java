@@ -21,10 +21,11 @@ public class Employee {
     private String contactNum;
     private String email;
 
-    public Employee(int id, String name, String age, String dateOfBirth, String gender, String status,
+    public Employee(int id, String profile, String name, String age, String dateOfBirth, String gender, String status,
             String contactNum, String email, String department, String position, String locationType) {
         //personal info
         this.id = id;
+        this.profile = profile;
         this.name = name;
         this.age = age;
         this.dateOfBirth = dateOfBirth;

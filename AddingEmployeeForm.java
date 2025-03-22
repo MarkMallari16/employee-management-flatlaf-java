@@ -8,9 +8,12 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -25,10 +28,11 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
 
     private Database db = new Database();
     private static int empId = 2000;
-    private String name, age, dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType;
+    private String profile, name, age, dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType;
     private EmployeeForm empForm;
     //oop
     private Employee employee;
+    private JFileChooser fileChooser;
 
     /**
      * Creates new form AddingEmployeeForm
@@ -42,6 +46,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         btnAddEmployee.setIcon(new FlatSVGIcon("svg/person_plus.svg"));
         txtLblProfile.setIcon(new FlatSVGIcon("svg/default_profile.svg"));
 
+        //make the default profile centered
         txtLblProfile.setHorizontalAlignment(SwingConstants.CENTER);
         txtLblProfile.setVerticalAlignment(SwingConstants.CENTER);
 
@@ -414,7 +419,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
             return;
         }
 
-        employee = new Employee(empId, name, age, dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType);
+        employee = new Employee(empId, profile, name, age, dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType);
         db.addEmployee(empId, employee);
         empId++;
 
@@ -449,18 +454,25 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cbLocationTypeActionPerformed
 
     private void btnUploadProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadProfileActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
+        fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select profile");
 
         int result = fileChooser.showOpenDialog(null);
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
+            profile = selectedFile.getAbsolutePath();
+            
+            try {
+                BufferedImage originalImage = ImageIO.read(selectedFile);
 
-            Image img = icon.getImage().getScaledInstance(300, 200, Image.SCALE_SMOOTH);
-            txtLblProfile.setIcon(new ImageIcon(img));
-            txtLblProfile.setText(null);
+                Image resizedImage = originalImage.getScaledInstance(300, 200, Image.SCALE_SMOOTH);
+                txtLblProfile.setIcon(new ImageIcon(resizedImage));
+                txtLblProfile.setText(null);
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }//GEN-LAST:event_btnUploadProfileActionPerformed
     private boolean validateField(String fieldName, String field) {

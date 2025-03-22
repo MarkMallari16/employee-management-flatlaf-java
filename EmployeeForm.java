@@ -7,11 +7,16 @@ package com.mycompany.firstflatlaf;
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Desktop;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -34,10 +39,11 @@ public class EmployeeForm extends javax.swing.JFrame {
 
     //link for AddEmpForm
     private AddingEmployeeForm addingEmployeeForm;
+    //for searching and sorting
     private TableRowSorter<DefaultTableModel> rowSorter;
     private DeleteForm df;
     private int rowEmpIdInt;
-    private String rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
+    private String rowEmpProfile, rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
             rowEmpEmail, rowEmpDepartment, rowEmpPosition, rowEmpLocationType;
     private UpdateEmployeeForm empUpdateForm;
     private BasicGUI gui;
@@ -170,11 +176,12 @@ public class EmployeeForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDeleteLink, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExportPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExportPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDeleteLink, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(68, 68, 68))
@@ -184,17 +191,37 @@ public class EmployeeForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
   private void displayEmpTable() {
-        String[] columns = {"Employee ID", "Name", "Age", "Date of Birth", "Gender",
+        String[] columns = {"Employee ID", "Profile", "Name", "Age", "Date of Birth", "Gender",
             "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
+        
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 1) {
+                    return ImageIcon.class;
+                }
+                return String.class;
+            }
+        };
 
-        DefaultTableModel model = new DefaultTableModel(columns, 0);
-
+        //displaying data
         for (int empId : db.getEmployee().keySet()) {
             Employee employeeData = db.getEmployee().get(empId);
-
+            File profile = new File(employeeData.getProfile());
+            Image resizedImage = null;
+            
             if (employeeData != null) {
+                
+                try {
+                    BufferedImage originalImage = ImageIO.read(profile);
+                    resizedImage = originalImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    
+                }
                 model.addRow(new Object[]{
                     empId,
+                    resizedImage != null ? new ImageIcon(resizedImage) : "No Image",
                     employeeData.getName(),
                     employeeData.getAge(),
                     employeeData.getDateOfBirth(),
@@ -209,22 +236,23 @@ public class EmployeeForm extends javax.swing.JFrame {
         }
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setModel(model);
-        
+
         //clicking row
         tblEmployee.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = tblEmployee.getSelectedRow();
-
+                
                 if (row != -1) {
                     rowEmpIdInt = (Integer) tblEmployee.getValueAt(row, 0);
-                    rowEmpName = (String) tblEmployee.getValueAt(row, 1);
-                    rowEmpAge = (String) tblEmployee.getValueAt(row, 2);
-                    rowEmpDepartment = (String) tblEmployee.getValueAt(row, 3);
-                    rowEmpPosition = (String) tblEmployee.getValueAt(row, 4);
-                    rowEmpContactNum = (String) tblEmployee.getValueAt(row, 5);
-                    rowEmpEmail = (String) tblEmployee.getValueAt(row, 6);
-
+                    rowEmpProfile = (String) tblEmployee.getValueAt(row, 1);
+                    rowEmpName = (String) tblEmployee.getValueAt(row, 2);
+                    rowEmpAge = (String) tblEmployee.getValueAt(row, 3);
+                    rowEmpDepartment = (String) tblEmployee.getValueAt(row, 4);
+                    rowEmpPosition = (String) tblEmployee.getValueAt(row, 5);
+                    rowEmpContactNum = (String) tblEmployee.getValueAt(row, 6);
+                    rowEmpEmail = (String) tblEmployee.getValueAt(row, 7);
+                    
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
                         empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
                                 rowEmpGender, rowEmpStatus, rowEmpContactNum, rowEmpEmail,
@@ -234,21 +262,22 @@ public class EmployeeForm extends javax.swing.JFrame {
                     }
                 }
             }
-
+            
         });
-
+        tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblEmployee.setRowHeight(100);
         searchEmployee(model);
     }
-
+    
     private void searchEmployee(DefaultTableModel model) {
         rowSorter = new TableRowSorter<>(model);
         tblEmployee.setRowSorter(rowSorter);
-
+        
         txtFieldSearch.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 String searchText = txtFieldSearch.getText();
-
+                
                 if (searchText.trim().isEmpty()) {
                     rowSorter.setRowFilter(null);
                 } else {
@@ -272,7 +301,7 @@ public class EmployeeForm extends javax.swing.JFrame {
             disposeForm();
         }
     }//GEN-LAST:event_btnDeleteLinkActionPerformed
-
+    
     private void disposeForm() {
         this.dispose();
     }
@@ -291,11 +320,11 @@ public class EmployeeForm extends javax.swing.JFrame {
     private void btnExportPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPDFActionPerformed
         try {
             String filePath = "exported_employees.pdf";
-
+            
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
-
+            
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             float margin = 50;
@@ -306,31 +335,31 @@ public class EmployeeForm extends javax.swing.JFrame {
             contentStream.newLineAtOffset(margin, y);
             contentStream.showText("ID    Name           Age   Department     Position");
             contentStream.endText();
-
+            
             y -= 20;
-
+            
             contentStream.setFont(PDType1Font.HELVETICA, 10);
             for (int empId : db.getEmployee().keySet()) {
                 Employee employee = db.getEmployee().get(empId);
-
+                
                 contentStream.beginText();
                 contentStream.newLineAtOffset(50, y);
                 contentStream.showText(empId + "    " + employee.getName() + "    " + employee.getAge() + "    "
                         + employee.getDepartment() + "    " + employee.getPosition());
                 contentStream.endText();
-
+                
                 y -= 20;
             }
-
+            
             contentStream.close();
-
+            
             document.save(filePath);
             document.close();
-
+            
             JOptionPane.showMessageDialog(this, "Employees PDF Exported Successfully!");
-
+            
             File pdfFile = new File(filePath);
-
+            
             if (pdfFile.exists() && Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(pdfFile);
             }
