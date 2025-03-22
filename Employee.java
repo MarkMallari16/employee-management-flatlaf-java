@@ -5,6 +5,7 @@ public class Employee {
     //employee id
     private int id;
     //personal details
+    private String profile;
     private String name;
     private String age;
     private String dateOfBirth;
@@ -41,6 +42,16 @@ public class Employee {
     // getter 
     public int getId() {
         return id;
+    }
+
+    // setter
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    // getter 
+    public String getProfile() {
+        return profile;
     }
 
     // setter
