@@ -43,8 +43,9 @@ public class EmployeeForm extends javax.swing.JFrame {
     private TableRowSorter<DefaultTableModel> rowSorter;
     private DeleteForm df;
     private int rowEmpIdInt;
-    private String rowEmpProfile, rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
+    private String rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
             rowEmpEmail, rowEmpDepartment, rowEmpPosition, rowEmpLocationType;
+    private ImageIcon rowEmpProfile;
     private UpdateEmployeeForm empUpdateForm;
     private BasicGUI gui;
 
@@ -193,7 +194,7 @@ public class EmployeeForm extends javax.swing.JFrame {
   private void displayEmpTable() {
         String[] columns = {"Employee ID", "Profile", "Name", "Age", "Date of Birth", "Gender",
             "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
-        
+
         DefaultTableModel model = new DefaultTableModel(columns, 0) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -209,15 +210,15 @@ public class EmployeeForm extends javax.swing.JFrame {
             Employee employeeData = db.getEmployee().get(empId);
             File profile = new File(employeeData.getProfile());
             Image resizedImage = null;
-            
+
             if (employeeData != null) {
-                
+
                 try {
                     BufferedImage originalImage = ImageIO.read(profile);
-                    resizedImage = originalImage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+                    resizedImage = originalImage.getScaledInstance(100,100, Image.SCALE_SMOOTH);
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                    
+
                 }
                 model.addRow(new Object[]{
                     empId,
@@ -242,17 +243,17 @@ public class EmployeeForm extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = tblEmployee.getSelectedRow();
-                
+
                 if (row != -1) {
                     rowEmpIdInt = (Integer) tblEmployee.getValueAt(row, 0);
-                    rowEmpProfile = (String) tblEmployee.getValueAt(row, 1);
+                    rowEmpProfile = (ImageIcon) tblEmployee.getValueAt(row, 1);
                     rowEmpName = (String) tblEmployee.getValueAt(row, 2);
                     rowEmpAge = (String) tblEmployee.getValueAt(row, 3);
                     rowEmpDepartment = (String) tblEmployee.getValueAt(row, 4);
                     rowEmpPosition = (String) tblEmployee.getValueAt(row, 5);
                     rowEmpContactNum = (String) tblEmployee.getValueAt(row, 6);
                     rowEmpEmail = (String) tblEmployee.getValueAt(row, 7);
-                    
+
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
                         empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
                                 rowEmpGender, rowEmpStatus, rowEmpContactNum, rowEmpEmail,
@@ -262,22 +263,22 @@ public class EmployeeForm extends javax.swing.JFrame {
                     }
                 }
             }
-            
+
         });
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setRowHeight(100);
         searchEmployee(model);
     }
-    
+
     private void searchEmployee(DefaultTableModel model) {
         rowSorter = new TableRowSorter<>(model);
         tblEmployee.setRowSorter(rowSorter);
-        
+
         txtFieldSearch.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 String searchText = txtFieldSearch.getText();
-                
+
                 if (searchText.trim().isEmpty()) {
                     rowSorter.setRowFilter(null);
                 } else {
@@ -301,7 +302,7 @@ public class EmployeeForm extends javax.swing.JFrame {
             disposeForm();
         }
     }//GEN-LAST:event_btnDeleteLinkActionPerformed
-    
+
     private void disposeForm() {
         this.dispose();
     }
@@ -320,11 +321,11 @@ public class EmployeeForm extends javax.swing.JFrame {
     private void btnExportPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPDFActionPerformed
         try {
             String filePath = "exported_employees.pdf";
-            
+
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
-            
+
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             float margin = 50;
@@ -335,31 +336,31 @@ public class EmployeeForm extends javax.swing.JFrame {
             contentStream.newLineAtOffset(margin, y);
             contentStream.showText("ID    Name           Age   Department     Position");
             contentStream.endText();
-            
+
             y -= 20;
-            
+
             contentStream.setFont(PDType1Font.HELVETICA, 10);
             for (int empId : db.getEmployee().keySet()) {
                 Employee employee = db.getEmployee().get(empId);
-                
+
                 contentStream.beginText();
                 contentStream.newLineAtOffset(50, y);
                 contentStream.showText(empId + "    " + employee.getName() + "    " + employee.getAge() + "    "
                         + employee.getDepartment() + "    " + employee.getPosition());
                 contentStream.endText();
-                
+
                 y -= 20;
             }
-            
+
             contentStream.close();
-            
+
             document.save(filePath);
             document.close();
-            
+
             JOptionPane.showMessageDialog(this, "Employees PDF Exported Successfully!");
-            
+
             File pdfFile = new File(filePath);
-            
+
             if (pdfFile.exists() && Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(pdfFile);
             }
