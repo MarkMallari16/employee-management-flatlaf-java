@@ -44,7 +44,7 @@ public class EmployeeForm extends javax.swing.JFrame {
     private DeleteForm df;
     private int rowEmpIdInt;
     private ImageIcon rowEmpProfile;
-    private String rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
+    private String profilePath, rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
             rowEmpEmail, rowEmpDepartment, rowEmpPosition, rowEmpLocationType;
 
     private UpdateEmployeeForm empUpdateForm;
@@ -221,7 +221,6 @@ public class EmployeeForm extends javax.swing.JFrame {
 
                     } catch (IOException ex) {
                         ex.printStackTrace();
-
                     }
                 }
                 model.addRow(new Object[]{
@@ -262,7 +261,7 @@ public class EmployeeForm extends javax.swing.JFrame {
                     rowEmpPosition = (String) tblEmployee.getValueAt(row, 10);
 
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
-                        empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpProfile, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
+                        empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, profilePath, rowEmpProfile, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
                                 rowEmpGender, rowEmpStatus, rowEmpContactNum, rowEmpEmail,
                                 rowEmpDepartment, rowEmpPosition, rowEmpLocationType);
                         empUpdateForm.setVisible(true);

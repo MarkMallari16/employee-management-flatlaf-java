@@ -40,9 +40,9 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     /**
      * Creates new form UpdateEmployeeForm
      */
-    public UpdateEmployeeForm(int rowEmpIdInt, ImageIcon rowEmpProfile, String rowEmpName, String rowEmpAge, String rowEmpDateOfBirth, String rowEmpGender,
-            String rowEmpStatus, String rowEmpDepartment, String rowEmpPosition,
-            String rowEmpContactNum, String rowEmpEmail, String rowEmpLocationType) {
+    public UpdateEmployeeForm(int rowEmpIdInt, String profilePath, ImageIcon rowEmpProfile, String rowEmpName, String rowEmpAge, String rowEmpDateOfBirth, String rowEmpGender,
+            String rowEmpStatus, String rowEmpContactNum, String rowEmpEmail, String rowEmpDepartment, String rowEmpPosition,
+            String rowEmpLocationType) {
         initComponents();
         //make the default profile centered
         txtLblProfile.setHorizontalAlignment(SwingConstants.CENTER);
@@ -73,6 +73,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         cbGender.setSelectedItem(rowEmpGender);
         cbMaritalStatus.setSelectedItem(rowEmpStatus);
         txtFieldContactNum.setText(rowEmpContactNum);
+
         txtFieldEmail.setText(rowEmpEmail);
 
         //job details
@@ -409,7 +410,8 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         updEmpIdInt = Integer.parseInt(updEmpIdString);
         updEmpName = txtFieldName.getText();
         updEmpAge = txtFieldAge.getText();
-        updDateOfBirth = dcDateOfBirth.getDate().toString();
+//        sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        updDateOfBirth = sdf.format(dcDateOfBirth.getDate());
         updEmpGender = cbGender.getSelectedItem().toString();
         updEmpdStatus = cbMaritalStatus.getSelectedItem().toString();
         updEmpContactNum = txtFieldContactNum.getText();
@@ -418,8 +420,11 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         updEmpPosition = txtFieldPosition.getText();
         updEmpLocationType = cbLocationType.getSelectedItem().toString();
 
-        employee = new Employee(updEmpIdInt, updEmpProfile, updEmpName, updEmpAge, updDateOfBirth, updEmpGender, updEmpdStatus,
-                updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updEmpLocationType);
+        employee = new Employee(
+                updEmpIdInt, updEmpProfile, updEmpName, updEmpAge,
+                updDateOfBirth, updEmpGender, updEmpdStatus,
+                updEmpContactNum, updEmpEmail, updEmpDepartment,
+                updEmpPosition, updEmpLocationType);
 
         db.updateEmployee(updEmpIdInt, employee);
 
