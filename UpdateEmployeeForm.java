@@ -223,7 +223,6 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         updEmpDepartment = txtFieldDepartment.getText();
         updEmpPosition = txtFieldPosition.getText();
 
-//        String[] updDatas = {updEmpName, updEmpAge, updEmpDepartment, updEmpPosition, updEmpContactNum, updEmpEmail};
         employee = new Employee(updEmpIdInt, updEmpProfile, updEmpName, updEmpAge, updDateOfBirth, updGender, updStatus,
                 updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updLocationType);
 

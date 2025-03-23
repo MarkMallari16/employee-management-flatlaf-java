@@ -28,7 +28,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
 
     private Database db = new Database();
     private static int empId = 2000;
-    private String profile, name, age, dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType;
+    private String profile = "default_image", name, age, dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType;
     private EmployeeForm empForm;
     //oop
     private Employee employee;
@@ -457,15 +457,14 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select profile");
 
-        int result = fileChooser.showOpenDialog(null);
+        int result = fileChooser.showOpenDialog(this);
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             profile = selectedFile.getAbsolutePath();
-            
+
             try {
                 BufferedImage originalImage = ImageIO.read(selectedFile);
-
                 Image resizedImage = originalImage.getScaledInstance(300, 200, Image.SCALE_SMOOTH);
                 txtLblProfile.setIcon(new ImageIcon(resizedImage));
                 txtLblProfile.setText(null);

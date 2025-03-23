@@ -210,19 +210,22 @@ public class EmployeeForm extends javax.swing.JFrame {
             Employee employeeData = db.getEmployee().get(empId);
             File profile = new File(employeeData.getProfile());
             Image resizedImage = null;
+            System.out.println(employeeData.getProfile());
 
             if (employeeData != null) {
+                if (employeeData.getProfile() != null && !employeeData.getProfile().equals("default_image")) {
+                    try {
+                        BufferedImage originalImage = ImageIO.read(profile);
+                        resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 
-                try {
-                    BufferedImage originalImage = ImageIO.read(profile);
-                    resizedImage = originalImage.getScaledInstance(100,100, Image.SCALE_SMOOTH);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
 
+                    }
                 }
                 model.addRow(new Object[]{
                     empId,
-                    resizedImage != null ? new ImageIcon(resizedImage) : "No Image",
+                    !employeeData.getProfile().equals("default_image") ? new ImageIcon(resizedImage) : new FlatSVGIcon("svg/default_profile.svg"),
                     employeeData.getName(),
                     employeeData.getAge(),
                     employeeData.getDateOfBirth(),
@@ -319,10 +322,10 @@ public class EmployeeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackToDashboardActionPerformed
 
     private void btnExportPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPDFActionPerformed
-        try {
+        try (PDDocument document = new PDDocument();) {
             String filePath = "exported_employees.pdf";
 
-            PDDocument document = new PDDocument();
+            
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
@@ -355,7 +358,6 @@ public class EmployeeForm extends javax.swing.JFrame {
             contentStream.close();
 
             document.save(filePath);
-            document.close();
 
             JOptionPane.showMessageDialog(this, "Employees PDF Exported Successfully!");
 
