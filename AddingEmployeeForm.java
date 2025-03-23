@@ -96,7 +96,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         //department box
         String[] departments = {"IT", "HR", "Finance", "Marketing"};
         displayCombox(departments, cbDepartment);
-        
+
         //location type
         String[] workLocation = {"On-Site", "Remote", "Hybrid"};
         displayCombox(workLocation, cbLocationType);
@@ -392,7 +392,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         //personal information
         name = txtFieldName.getText();
         age = txtFieldAge.getText();
-        
+
         //date of birth
         Date selectedDate = dcDateOfBirth.getDate();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

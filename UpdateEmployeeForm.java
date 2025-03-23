@@ -28,7 +28,9 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
     private Database db = new Database();
     private int updEmpIdInt;
-    private String updEmpIdString, updEmpProfile, updEmpName, updEmpAge, updDateOfBirth, updEmpGender,
+    private String selectedProfile;
+    private String updEmpProfilePath;
+    private String updEmpIdString, updEmpName, updEmpAge, updDateOfBirth, updEmpGender,
             updEmpdStatus, updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updEmpLocationType;
     private EmployeeForm empForm;
     //data
@@ -40,7 +42,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     /**
      * Creates new form UpdateEmployeeForm
      */
-    public UpdateEmployeeForm(int rowEmpIdInt, String profilePath, ImageIcon rowEmpProfile, String rowEmpName, String rowEmpAge, String rowEmpDateOfBirth, String rowEmpGender,
+    public UpdateEmployeeForm(int rowEmpIdInt, ImageIcon rowEmpProfile, String rowEmpName, String rowEmpAge, String rowEmpDateOfBirth, String rowEmpGender,
             String rowEmpStatus, String rowEmpContactNum, String rowEmpEmail, String rowEmpDepartment, String rowEmpPosition,
             String rowEmpLocationType) {
         initComponents();
@@ -53,9 +55,9 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
         //personal details
         txtFieldEmpId.setText(rowEmpIdString);
-
         txtLblProfile.setIcon(rowEmpProfile);
-
+        
+        
         txtFieldName.setText(rowEmpName);
         txtFieldAge.setText(rowEmpAgeString);
 
@@ -98,6 +100,8 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
         String[] workLocation = {"On-Site", "Remote", "Hybrid"};
         displayCombox(workLocation, cbLocationType);
+        
+        
     }
 
     private void displayCombox(String[] items, JComboBox cb) {
@@ -407,21 +411,23 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         updEmpIdString = txtFieldEmpId.getText();
+        //parsing
         updEmpIdInt = Integer.parseInt(updEmpIdString);
+
         updEmpName = txtFieldName.getText();
         updEmpAge = txtFieldAge.getText();
-//        sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        updDateOfBirth = sdf.format(dcDateOfBirth.getDate());
-        updEmpGender = cbGender.getSelectedItem().toString();
-        updEmpdStatus = cbMaritalStatus.getSelectedItem().toString();
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
+        updDateOfBirth = sdf.format(dcDateOfBirth.getDate());
+        updEmpGender = (String) cbGender.getSelectedItem();
+        updEmpdStatus = (String) cbMaritalStatus.getSelectedItem();
         updEmpContactNum = txtFieldContactNum.getText();
         updEmpEmail = txtFieldEmail.getText();
-        updEmpDepartment = cbDepartment.getSelectedItem().toString();
+        updEmpDepartment = (String) cbDepartment.getSelectedItem();
         updEmpPosition = txtFieldPosition.getText();
-        updEmpLocationType = cbLocationType.getSelectedItem().toString();
+        updEmpLocationType = (String) cbLocationType.getSelectedItem();
 
         employee = new Employee(
-                updEmpIdInt, updEmpProfile, updEmpName, updEmpAge,
+                updEmpIdInt, updEmpProfilePath, updEmpName, updEmpAge,
                 updDateOfBirth, updEmpGender, updEmpdStatus,
                 updEmpContactNum, updEmpEmail, updEmpDepartment,
                 updEmpPosition, updEmpLocationType);
@@ -461,11 +467,12 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            updEmpProfile = selectedFile.getAbsolutePath();
+            updEmpProfilePath = selectedFile.getAbsolutePath();
 
             try {
                 BufferedImage originalImage = ImageIO.read(selectedFile);
                 Image resizedImage = originalImage.getScaledInstance(300, 200, Image.SCALE_SMOOTH);
+
                 txtLblProfile.setIcon(new ImageIcon(resizedImage));
                 txtLblProfile.setText(null);
 

@@ -42,9 +42,11 @@ public class EmployeeForm extends javax.swing.JFrame {
     //for searching and sorting
     private TableRowSorter<DefaultTableModel> rowSorter;
     private DeleteForm df;
+    //for emp id
     private int rowEmpIdInt;
+
     private ImageIcon rowEmpProfile;
-    private String profilePath, rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
+    private String rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
             rowEmpEmail, rowEmpDepartment, rowEmpPosition, rowEmpLocationType;
 
     private UpdateEmployeeForm empUpdateForm;
@@ -61,8 +63,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         //placeholder
         txtFieldSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
 
-//        txtFieldOne.putClientProperty("JComponent.roundRect", true);
-        //icons
         txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
         btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
         btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
@@ -204,40 +204,49 @@ public class EmployeeForm extends javax.swing.JFrame {
                 }
                 return String.class;
             }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         };
 
         //displaying data
         for (int empId : db.getEmployee().keySet()) {
             Employee employeeData = db.getEmployee().get(empId);
-            File profile = new File(employeeData.getProfile());
-            Image resizedImage = null;
-            System.out.println(employeeData.getProfile());
+            ImageIcon profileImage = new FlatSVGIcon("svg/default_profile.svg");
+            if (employeeData.getProfile() != null && !employeeData.getProfile().equals("default_image")) {
+                File profile = new File(employeeData.getProfile());
+                Image resizedImage = null;
 
-            if (employeeData != null) {
-                if (employeeData.getProfile() != null && !employeeData.getProfile().equals("default_image")) {
+                File profileFile = new File(employeeData.getProfile());
+
+                if (profileFile.exists()) {
                     try {
                         BufferedImage originalImage = ImageIO.read(profile);
                         resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 
+                        profileImage = new ImageIcon(resizedImage);
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
                 }
-                model.addRow(new Object[]{
-                    empId,
-                    !employeeData.getProfile().equals("default_image") ? new ImageIcon(resizedImage) : new FlatSVGIcon("svg/default_profile.svg"),
-                    employeeData.getName(),
-                    employeeData.getAge(),
-                    employeeData.getDateOfBirth(),
-                    employeeData.getGender(),
-                    employeeData.getStatus(),
-                    employeeData.getContactNum(),
-                    employeeData.getEmail(),
-                    employeeData.getDepartment(),
-                    employeeData.getPosition(),
-                    employeeData.getLocationType()});
             }
+            model.addRow(new Object[]{
+                empId,
+                profileImage,
+                employeeData.getName(),
+                employeeData.getAge(),
+                employeeData.getDateOfBirth(),
+                employeeData.getGender(),
+                employeeData.getStatus(),
+                employeeData.getContactNum(),
+                employeeData.getEmail(),
+                employeeData.getDepartment(),
+                employeeData.getPosition(),
+                employeeData.getLocationType()});
         }
+
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setModel(model);
 
@@ -259,9 +268,10 @@ public class EmployeeForm extends javax.swing.JFrame {
                     rowEmpEmail = (String) tblEmployee.getValueAt(row, 8);
                     rowEmpDepartment = (String) tblEmployee.getValueAt(row, 9);
                     rowEmpPosition = (String) tblEmployee.getValueAt(row, 10);
+                    rowEmpLocationType = (String) tblEmployee.getValueAt(row, 11);
 
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
-                        empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, profilePath, rowEmpProfile, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
+                        empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpProfile, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
                                 rowEmpGender, rowEmpStatus, rowEmpContactNum, rowEmpEmail,
                                 rowEmpDepartment, rowEmpPosition, rowEmpLocationType);
                         empUpdateForm.setVisible(true);
