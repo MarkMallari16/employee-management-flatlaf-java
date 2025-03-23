@@ -163,7 +163,7 @@
               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="cbLocationType" min="-2" pref="39" max="-2" attributes="0"/>
-              <EmptySpace pref="77" max="32767" attributes="0"/>
+              <EmptySpace pref="92" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAddEmployee" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="btnBack" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
@@ -177,7 +177,7 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins Black" size="24" style="1"/>
+          <Font name="Poppins Black" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Add Employee"/>
       </Properties>

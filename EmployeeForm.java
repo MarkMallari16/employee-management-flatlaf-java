@@ -43,9 +43,10 @@ public class EmployeeForm extends javax.swing.JFrame {
     private TableRowSorter<DefaultTableModel> rowSorter;
     private DeleteForm df;
     private int rowEmpIdInt;
+    private ImageIcon rowEmpProfile;
     private String rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
             rowEmpEmail, rowEmpDepartment, rowEmpPosition, rowEmpLocationType;
-    private ImageIcon rowEmpProfile;
+
     private UpdateEmployeeForm empUpdateForm;
     private BasicGUI gui;
 
@@ -252,13 +253,16 @@ public class EmployeeForm extends javax.swing.JFrame {
                     rowEmpProfile = (ImageIcon) tblEmployee.getValueAt(row, 1);
                     rowEmpName = (String) tblEmployee.getValueAt(row, 2);
                     rowEmpAge = (String) tblEmployee.getValueAt(row, 3);
-                    rowEmpDepartment = (String) tblEmployee.getValueAt(row, 4);
-                    rowEmpPosition = (String) tblEmployee.getValueAt(row, 5);
-                    rowEmpContactNum = (String) tblEmployee.getValueAt(row, 6);
-                    rowEmpEmail = (String) tblEmployee.getValueAt(row, 7);
+                    rowEmpDateOfBirth = (String) tblEmployee.getValueAt(row, 4);
+                    rowEmpGender = (String) tblEmployee.getValueAt(row, 5);
+                    rowEmpStatus = (String) tblEmployee.getValueAt(row, 6);
+                    rowEmpContactNum = (String) tblEmployee.getValueAt(row, 7);
+                    rowEmpEmail = (String) tblEmployee.getValueAt(row, 8);
+                    rowEmpDepartment = (String) tblEmployee.getValueAt(row, 9);
+                    rowEmpPosition = (String) tblEmployee.getValueAt(row, 10);
 
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
-                        empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
+                        empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpProfile, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
                                 rowEmpGender, rowEmpStatus, rowEmpContactNum, rowEmpEmail,
                                 rowEmpDepartment, rowEmpPosition, rowEmpLocationType);
                         empUpdateForm.setVisible(true);
@@ -325,7 +329,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         try (PDDocument document = new PDDocument();) {
             String filePath = "exported_employees.pdf";
 
-            
             PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 

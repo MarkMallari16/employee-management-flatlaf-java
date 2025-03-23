@@ -96,7 +96,8 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         //department box
         String[] departments = {"IT", "HR", "Finance", "Marketing"};
         displayCombox(departments, cbDepartment);
-
+        
+        //location type
         String[] workLocation = {"On-Site", "Remote", "Hybrid"};
         displayCombox(workLocation, cbLocationType);
     }
@@ -148,7 +149,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Add Employee");
 
-        jLabel1.setFont(new java.awt.Font("Poppins Black", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Poppins Black", 1, 14)); // NOI18N
         jLabel1.setText("Add Employee");
 
         txtFieldName.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -376,7 +377,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbLocationType, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -391,6 +392,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         //personal information
         name = txtFieldName.getText();
         age = txtFieldAge.getText();
+        
         //date of birth
         Date selectedDate = dcDateOfBirth.getDate();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
