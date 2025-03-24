@@ -335,13 +335,11 @@ public class EmployeeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackToDashboardActionPerformed
 
     private void btnExportPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPDFActionPerformed
-        try (PDDocument document = new PDDocument();) {
+        PDPage page = new PDPage(PDRectangle.A4);
+        try (PDDocument document = new PDDocument(); PDPageContentStream contentStream = new PDPageContentStream(document, page);) {
             String filePath = "exported_employees.pdf";
-
-            PDPage page = new PDPage(PDRectangle.A4);
             document.addPage(page);
 
-            PDPageContentStream contentStream = new PDPageContentStream(document, page);
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             float margin = 50;
             float y = page.getMediaBox().getHeight() - 50;
@@ -354,6 +352,11 @@ public class EmployeeForm extends javax.swing.JFrame {
 
             y -= 20;
 
+            if (db.getEmployee().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No employees to export.");
+                return;
+            }
+
             contentStream.setFont(PDType1Font.HELVETICA, 10);
             for (int empId : db.getEmployee().keySet()) {
                 Employee employee = db.getEmployee().get(empId);
@@ -365,6 +368,7 @@ public class EmployeeForm extends javax.swing.JFrame {
                 contentStream.endText();
 
                 y -= 20;
+
             }
 
             contentStream.close();
@@ -373,6 +377,7 @@ public class EmployeeForm extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Employees PDF Exported Successfully!");
 
+            //pdf file
             File pdfFile = new File(filePath);
 
             if (pdfFile.exists() && Desktop.isDesktopSupported()) {

@@ -40,7 +40,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtFieldSalary" min="-2" pref="274" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnAddSalary" min="-2" pref="189" max="-2" attributes="0"/>
+                              <Component id="btnAddSalary" min="-2" pref="225" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="txtFieldSearch" min="-2" pref="223" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
@@ -48,10 +48,8 @@
                       </Group>
                   </Group>
                   <Component id="jScrollPane1" alignment="0" min="-2" pref="1328" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="btnBackToDashboard" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnBackToDashboard" alignment="0" min="-2" pref="173" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="61" max="32767" attributes="0"/>
           </Group>
