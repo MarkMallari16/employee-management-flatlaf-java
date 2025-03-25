@@ -30,7 +30,11 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         txtFieldUsername.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter username");
+        txtFieldUsername.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/person.svg"));
+
         txtFieldPassword.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter password");
+        txtFieldPassword.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/password.svg"));
+
         btnLogin.setIcon(new FlatSVGIcon("svg/right_arrow.svg"));
         btnLogin.setHorizontalTextPosition(SwingConstants.LEFT);
 
