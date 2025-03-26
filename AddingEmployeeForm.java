@@ -467,7 +467,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
 
             try {
                 BufferedImage originalImage = ImageIO.read(selectedFile);
-                Image resizedImage = originalImage.getScaledInstance(300, 200, Image.SCALE_SMOOTH);
+                Image resizedImage = originalImage.getScaledInstance(295, 200, Image.SCALE_SMOOTH);
                 txtLblProfile.setIcon(new ImageIcon(resizedImage));
                 txtLblProfile.setText(null);
 
