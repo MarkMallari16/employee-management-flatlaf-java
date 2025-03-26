@@ -28,7 +28,6 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
     private Database db = new Database();
     private int updEmpIdInt;
-    private String selectedProfile;
     private String updEmpProfilePath;
     private String updEmpIdString, updEmpName, updEmpAge, updDateOfBirth, updEmpGender,
             updEmpdStatus, updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updEmpLocationType;
@@ -44,7 +43,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
      */
     public UpdateEmployeeForm(int rowEmpIdInt, ImageIcon rowEmpProfile, String rowEmpName, String rowEmpAge, String rowEmpDateOfBirth, String rowEmpGender,
             String rowEmpStatus, String rowEmpContactNum, String rowEmpEmail, String rowEmpDepartment, String rowEmpPosition,
-            String rowEmpLocationType) {
+            String rowEmpLocationType, String profilePath) {
         initComponents();
         //make the default profile centered
         txtLblProfile.setHorizontalAlignment(SwingConstants.CENTER);
@@ -54,10 +53,12 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         String rowEmpAgeString = String.valueOf(rowEmpAge);
 
         //personal details
+        updEmpProfilePath = profilePath;
+
+        System.out.println(updEmpProfilePath);
         txtFieldEmpId.setText(rowEmpIdString);
         txtLblProfile.setIcon(rowEmpProfile);
-        
-        
+
         txtFieldName.setText(rowEmpName);
         txtFieldAge.setText(rowEmpAgeString);
 
@@ -100,8 +101,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
         String[] workLocation = {"On-Site", "Remote", "Hybrid"};
         displayCombox(workLocation, cbLocationType);
-        
-        
+
     }
 
     private void displayCombox(String[] items, JComboBox cb) {
@@ -425,7 +425,6 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         updEmpDepartment = (String) cbDepartment.getSelectedItem();
         updEmpPosition = txtFieldPosition.getText();
         updEmpLocationType = (String) cbLocationType.getSelectedItem();
-
         employee = new Employee(
                 updEmpIdInt, updEmpProfilePath, updEmpName, updEmpAge,
                 updDateOfBirth, updEmpGender, updEmpdStatus,
@@ -500,7 +499,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

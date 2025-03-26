@@ -48,7 +48,8 @@ public class EmployeeForm extends javax.swing.JFrame {
     private ImageIcon rowEmpProfile;
     private String rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
             rowEmpEmail, rowEmpDepartment, rowEmpPosition, rowEmpLocationType;
-
+    //for profile path
+    private String profilePath;
     private UpdateEmployeeForm empUpdateForm;
     private BasicGUI gui;
 
@@ -194,7 +195,7 @@ public class EmployeeForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
   private void displayEmpTable() {
         String[] columns = {"Employee ID", "Profile", "Name", "Age", "Date of Birth", "Gender",
-            "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
+            "Status", "Contact Number", "Email", "Department", "Position", "Location Type", "Profile Path"};
 
         DefaultTableModel model = new DefaultTableModel(columns, 0) {
             @Override
@@ -214,6 +215,8 @@ public class EmployeeForm extends javax.swing.JFrame {
         //displaying data
         for (int empId : db.getEmployee().keySet()) {
             Employee employeeData = db.getEmployee().get(empId);
+
+            profilePath = employeeData.getProfile();
             ImageIcon profileImage = new FlatSVGIcon("svg/default_profile.svg");
             if (employeeData.getProfile() != null && !employeeData.getProfile().equals("default_image")) {
                 File profile = new File(employeeData.getProfile());
@@ -244,11 +247,16 @@ public class EmployeeForm extends javax.swing.JFrame {
                 employeeData.getEmail(),
                 employeeData.getDepartment(),
                 employeeData.getPosition(),
-                employeeData.getLocationType()});
+                employeeData.getLocationType(),
+                profilePath
+            });
         }
-
-        tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setModel(model);
+        
+        tblEmployee.getColumnModel().getColumn(12).setMinWidth(0);
+        tblEmployee.getColumnModel().getColumn(12).setMaxWidth(0);
+        tblEmployee.getColumnModel().getColumn(12).setWidth(0);
+        tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
         //clicking row
         tblEmployee.addMouseListener(new MouseAdapter() {
@@ -269,11 +277,12 @@ public class EmployeeForm extends javax.swing.JFrame {
                     rowEmpDepartment = (String) tblEmployee.getValueAt(row, 9);
                     rowEmpPosition = (String) tblEmployee.getValueAt(row, 10);
                     rowEmpLocationType = (String) tblEmployee.getValueAt(row, 11);
+                    profilePath = (String) tblEmployee.getValueAt(row, 12);
 
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
                         empUpdateForm = new UpdateEmployeeForm(rowEmpIdInt, rowEmpProfile, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
                                 rowEmpGender, rowEmpStatus, rowEmpContactNum, rowEmpEmail,
-                                rowEmpDepartment, rowEmpPosition, rowEmpLocationType);
+                                rowEmpDepartment, rowEmpPosition, rowEmpLocationType, profilePath);
                         empUpdateForm.setVisible(true);
                         disposeForm();
                     }
