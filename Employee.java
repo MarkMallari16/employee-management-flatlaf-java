@@ -5,7 +5,6 @@ public class Employee {
     //employee id
     private int id;
     //personal details
-    private String profilePath;
     private String profile;
     private String name;
     private String age;
@@ -26,7 +25,6 @@ public class Employee {
             String contactNum, String email, String department, String position, String locationType) {
         //personal info
         this.id = id;
-        this.profilePath = profilePath;
         this.profile = profile;
         this.name = name;
         this.age = age;
