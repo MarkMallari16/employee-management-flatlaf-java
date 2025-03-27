@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Mallari
  */
 public class DeleteForm extends javax.swing.JFrame {
-
+    
     private Database db = new Database();
     private EmployeeForm empForm;
 
@@ -27,19 +27,21 @@ public class DeleteForm extends javax.swing.JFrame {
 
         //icons
         btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
-
+        
         txtFieldId.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Employee ID");
+        btnDelete.setIcon(new FlatSVGIcon("svg/delete.svg"));
+        
         txtFieldId.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-
+                
                 if (!Character.isDigit(c)) {
                     e.consume();
                 }
             }
         });
-
+        
     }
 
     /**
@@ -59,6 +61,7 @@ public class DeleteForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Delete Employee");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jLabel1.setText("Delete Employee");
@@ -130,7 +133,7 @@ public class DeleteForm extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String employeeId = txtFieldId.getText();
         int employeeIntId;
-
+        
         try {
             employeeIntId = Integer.parseInt(employeeId);
         } catch (NumberFormatException e) {
@@ -142,7 +145,7 @@ public class DeleteForm extends javax.swing.JFrame {
             return;
         }
         db.removeEmployee(employeeIntId);
-
+        
         JOptionPane.showMessageDialog(this, "Employee successfully removed!", "Success", JOptionPane.INFORMATION_MESSAGE);
         goBackToDashboard();
 
@@ -158,7 +161,7 @@ public class DeleteForm extends javax.swing.JFrame {
             disposeForm();
         }
     }
-
+    
     private void disposeForm() {
         this.dispose();
     }
