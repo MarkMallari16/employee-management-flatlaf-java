@@ -9,8 +9,8 @@ public class Main {
         FlatLightLaf.setup();
 
         SwingUtilities.invokeLater(() -> {
-            BasicGUI gui = new BasicGUI();
-            gui.show();
+            Login log = new Login();
+            log.show();
         });
 
     }

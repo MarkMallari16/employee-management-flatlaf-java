@@ -49,7 +49,7 @@
                   </Group>
                   <Component id="jScrollPane1" alignment="0" min="-2" pref="1328" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnBackToDashboard" alignment="0" min="-2" pref="173" max="-2" attributes="0"/>
+                  <Component id="btnBackToDashboard" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="61" max="32767" attributes="0"/>
           </Group>
