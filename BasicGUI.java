@@ -114,10 +114,10 @@ public class BasicGUI extends javax.swing.JFrame {
     private CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        dataset.addValue(50, "Employees", "HR");
-        dataset.addValue(db.getTotalEmployees(), "Employees", "IT");
-        dataset.addValue(49, "Employees", "Marketing");
-        dataset.addValue(30, "Employees", "Operations");
+        dataset.addValue(3, "Employees", "IT");
+        dataset.addValue(2, "Employees", "HR");
+        dataset.addValue(4, "Employees", "Marketing");
+        dataset.addValue(6, "Employees", "Manager");
 
         return dataset;
     }

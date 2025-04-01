@@ -158,4 +158,5 @@ public class Employee {
     public void setLocationType(String locationType) {
         this.locationType = locationType;
     }
+ 
 }

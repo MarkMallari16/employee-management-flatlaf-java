@@ -87,22 +87,22 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
         //date of birth
         //gender
         String[] genders = {"Male", "Female"};
-        displayCombox(genders, cbGender);
+        displayComboBox(genders, cbGender);
 
         //status
         String[] statuses = {"Single", "Married", "Divorced"};
-        displayCombox(statuses, cbMaritalStatus);
+        displayComboBox(statuses, cbMaritalStatus);
 
         //department box
         String[] departments = {"IT", "HR", "Finance", "Marketing"};
-        displayCombox(departments, cbDepartment);
+        displayComboBox(departments, cbDepartment);
 
         //location type
         String[] workLocation = {"On-Site", "Remote", "Hybrid"};
-        displayCombox(workLocation, cbLocationType);
+        displayComboBox(workLocation, cbLocationType);
     }
 
-    private void displayCombox(String[] items, JComboBox cb) {
+    private void displayComboBox(String[] items, JComboBox cb) {
         cb.removeAllItems();
         for (String item : items) {
             cb.addItem(item);
