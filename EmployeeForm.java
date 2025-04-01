@@ -556,7 +556,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         if (af == null || !af.isDisplayable()) {
             af = new AttendanceForm();
             af.setVisible(true);
-
+            disposeForm();
         }
     }//GEN-LAST:event_btnAttendanceActionPerformed
 
@@ -564,6 +564,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         if (empForm == null || !empForm.isDisplayable()) {
             empForm = new EmployeeForm();
             empForm.setVisible(true);
+            disposeForm();
 
         }
     }//GEN-LAST:event_btnEmployeeActionPerformed
@@ -572,6 +573,8 @@ public class EmployeeForm extends javax.swing.JFrame {
         if (pf == null || !pf.isDisplayable()) {
             pf = new PayrollForm();
             pf.setVisible(true);
+            disposeForm();
+
         }
     }//GEN-LAST:event_btnPayrollActionPerformed
 
