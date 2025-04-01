@@ -6,6 +6,7 @@ package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -20,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -53,19 +55,35 @@ public class EmployeeForm extends javax.swing.JFrame {
     private UpdateEmployeeForm empUpdateForm;
     private BasicGUI gui;
 
+    private AttendanceForm af;
+    private EmployeeForm empForm;
+    private PayrollForm pf;
+    private Login log;
+
     /**
      * Creates new form EmployeeForm
      */
     public EmployeeForm() {
         initComponents();
+
         //displaying Employee Table
         displayEmpTable();
+
+        btnDashboard.setIcon(new FlatSVGIcon("svg/dashboard.svg"));
+        btnEmployee.setIcon(new FlatSVGIcon("svg/employee.svg"));
+        btnAttendance.setIcon(new FlatSVGIcon("svg/attendance.svg"));
+        btnPayroll.setIcon(new FlatSVGIcon("svg/payroll.svg"));
+
+        btnReports.setIcon(new FlatSVGIcon("svg/reports.svg"));
+        btnLeaves.setIcon(new FlatSVGIcon("svg/leaves.svg"));
+        btnSettings.setIcon(new FlatSVGIcon("svg/settings.svg"));
+        btnLogout.setIcon(new FlatSVGIcon("svg/logout.svg"));
 
         //placeholder
         txtFieldSearch.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
 
         txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
-        btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
+        //  btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
         btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
         btnDeleteLink.setIcon(new FlatSVGIcon("svg/delete.svg"));
         btnExportPDF.setIcon(new FlatSVGIcon("svg/pdf.svg"));
@@ -86,8 +104,18 @@ public class EmployeeForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
         txtFieldSearch = new javax.swing.JTextField();
-        btnBackToDashboard = new javax.swing.JButton();
         btnExportPDF = new javax.swing.JButton();
+        Sidebar = new javax.swing.JPanel();
+        btnAttendance = new javax.swing.JButton();
+        btnDashboard = new javax.swing.JButton();
+        btnEmployee = new javax.swing.JButton();
+        btnPayroll = new javax.swing.JButton();
+        btnReports = new javax.swing.JButton();
+        btnSettings = new javax.swing.JButton();
+        btnLeaves = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee");
@@ -131,14 +159,6 @@ public class EmployeeForm extends javax.swing.JFrame {
             }
         });
 
-        btnBackToDashboard.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        btnBackToDashboard.setText("Back to Dashboard");
-        btnBackToDashboard.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackToDashboardActionPerformed(evt);
-            }
-        });
-
         btnExportPDF.setBackground(new java.awt.Color(255, 102, 102));
         btnExportPDF.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnExportPDF.setText("Export to PDF");
@@ -148,46 +168,189 @@ public class EmployeeForm extends javax.swing.JFrame {
             }
         });
 
+        Sidebar.setBackground(new java.awt.Color(102, 153, 255));
+        Sidebar.setForeground(new java.awt.Color(0, 0, 0));
+
+        btnAttendance.setBackground(new java.awt.Color(102, 153, 255));
+        btnAttendance.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnAttendance.setForeground(java.awt.Color.white);
+        btnAttendance.setText("Attendance");
+        btnAttendance.setBorder(null);
+        btnAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAttendanceActionPerformed(evt);
+            }
+        });
+
+        btnDashboard.setBackground(new java.awt.Color(102, 153, 255));
+        btnDashboard.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnDashboard.setForeground(java.awt.Color.white);
+        btnDashboard.setText("Dashboard");
+        btnDashboard.setBorder(null);
+        btnDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDashboardActionPerformed(evt);
+            }
+        });
+
+        btnEmployee.setBackground(new java.awt.Color(102, 153, 255));
+        btnEmployee.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnEmployee.setForeground(java.awt.Color.white);
+        btnEmployee.setText("Employee");
+        btnEmployee.setBorder(null);
+        btnEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmployeeActionPerformed(evt);
+            }
+        });
+
+        btnPayroll.setBackground(new java.awt.Color(102, 153, 255));
+        btnPayroll.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnPayroll.setForeground(java.awt.Color.white);
+        btnPayroll.setText("Payroll");
+        btnPayroll.setBorder(null);
+        btnPayroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayrollActionPerformed(evt);
+            }
+        });
+
+        btnReports.setBackground(new java.awt.Color(102, 153, 255));
+        btnReports.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnReports.setForeground(java.awt.Color.white);
+        btnReports.setText("Reports");
+        btnReports.setBorder(null);
+
+        btnSettings.setBackground(new java.awt.Color(102, 153, 255));
+        btnSettings.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnSettings.setForeground(java.awt.Color.white);
+        btnSettings.setText("Settings");
+        btnSettings.setBorder(null);
+        btnSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSettingsActionPerformed(evt);
+            }
+        });
+
+        btnLeaves.setBackground(new java.awt.Color(102, 153, 255));
+        btnLeaves.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        btnLeaves.setForeground(java.awt.Color.white);
+        btnLeaves.setText("Leaves");
+        btnLeaves.setBorder(null);
+
+        jLabel2.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("EMPLOYEE MANAGEMENT");
+
+        jLabel4.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("SYSTEM");
+
+        btnLogout.setBackground(new java.awt.Color(255, 102, 102));
+        btnLogout.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SidebarLayout = new javax.swing.GroupLayout(Sidebar);
+        Sidebar.setLayout(SidebarLayout);
+        SidebarLayout.setHorizontalGroup(
+            SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnDashboard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnAttendance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnPayroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnReports, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnLeaves, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSettings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(SidebarLayout.createSequentialGroup()
+                .addGroup(SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SidebarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(SidebarLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(SidebarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        SidebarLayout.setVerticalGroup(
+            SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SidebarLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(77, 77, 77)
+                .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnReports, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnLeaves, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addComponent(Sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnBackToDashboard, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(btnAdd)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnDeleteLink)))
-                            .addGap(26, 26, 26)
+                            .addComponent(btnAdd)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnDeleteLink)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(btnExportPDF)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 50, Short.MAX_VALUE))
+                            .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(btnBackToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addGap(31, 31, 31)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExportPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDeleteLink, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Sidebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnDeleteLink, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnExportPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)))
+                .addContainerGap())
         );
 
         setSize(new java.awt.Dimension(1472, 791));
@@ -252,7 +415,7 @@ public class EmployeeForm extends javax.swing.JFrame {
             });
         }
         tblEmployee.setModel(model);
-        
+
         tblEmployee.getColumnModel().getColumn(12).setMinWidth(0);
         tblEmployee.getColumnModel().getColumn(12).setMaxWidth(0);
         tblEmployee.getColumnModel().getColumn(12).setWidth(0);
@@ -335,14 +498,6 @@ public class EmployeeForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldSearchActionPerformed
 
-    private void btnBackToDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToDashboardActionPerformed
-        if (gui == null || !gui.isDisplayable()) {
-            gui = new BasicGUI();
-            gui.setVisible(true);
-            disposeForm();
-        }
-    }//GEN-LAST:event_btnBackToDashboardActionPerformed
-
     private void btnExportPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPDFActionPerformed
         PDPage page = new PDPage(PDRectangle.A4);
         try (PDDocument document = new PDDocument(); PDPageContentStream contentStream = new PDPageContentStream(document, page);) {
@@ -397,6 +552,55 @@ public class EmployeeForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExportPDFActionPerformed
 
+    private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
+        if (af == null || !af.isDisplayable()) {
+            af = new AttendanceForm();
+            af.setVisible(true);
+
+        }
+    }//GEN-LAST:event_btnAttendanceActionPerformed
+
+    private void btnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeActionPerformed
+        if (empForm == null || !empForm.isDisplayable()) {
+            empForm = new EmployeeForm();
+            empForm.setVisible(true);
+
+        }
+    }//GEN-LAST:event_btnEmployeeActionPerformed
+
+    private void btnPayrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayrollActionPerformed
+        if (pf == null || !pf.isDisplayable()) {
+            pf = new PayrollForm();
+            pf.setVisible(true);
+        }
+    }//GEN-LAST:event_btnPayrollActionPerformed
+
+    private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSettingsActionPerformed
+
+    private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
+        if (gui == null || !gui.isDisplayable()) {
+            gui = new BasicGUI();
+            gui.setVisible(true);
+            disposeForm();
+        }
+    }//GEN-LAST:event_btnDashboardActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (choice == JOptionPane.YES_OPTION) {
+            goToLogin();
+        }
+    }//GEN-LAST:event_btnLogoutActionPerformed
+    private void goToLogin() {
+        if (log == null || !log.isDisplayable()) {
+            log = new Login();
+            log.setVisible(true);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -433,11 +637,21 @@ public class EmployeeForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Sidebar;
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnBackToDashboard;
+    private javax.swing.JButton btnAttendance;
+    private javax.swing.JButton btnDashboard;
     private javax.swing.JButton btnDeleteLink;
+    private javax.swing.JButton btnEmployee;
     private javax.swing.JButton btnExportPDF;
+    private javax.swing.JButton btnLeaves;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnPayroll;
+    private javax.swing.JButton btnReports;
+    private javax.swing.JButton btnSettings;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblEmployee;
     private javax.swing.JTextField txtFieldSearch;
