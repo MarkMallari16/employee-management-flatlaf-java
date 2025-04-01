@@ -123,12 +123,11 @@ public class BasicGUI extends javax.swing.JFrame {
     }
 
     private void displayTime() {
-        Timer timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                lblTime.setText(sdf.format(new Date()));
-            }
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        lblTime.setText(sdf.format(new Date()));
+
+        Timer timer = new Timer(1000, (ActionEvent e) -> {
+            lblTime.setText(sdf.format(new Date()));
         });
 
         timer.start();

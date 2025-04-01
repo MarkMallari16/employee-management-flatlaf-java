@@ -4,6 +4,7 @@
  */
 package com.mycompany.firstflatlaf;
 
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 
 /**
@@ -11,7 +12,7 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
  * @author Mallari
  */
 public class AttendanceForm extends javax.swing.JFrame {
-    
+
     private Database db = new Database();
     private BasicGUI gui;
 
@@ -20,8 +21,14 @@ public class AttendanceForm extends javax.swing.JFrame {
      */
     public AttendanceForm() {
         initComponents();
-        
+
+        //icons
+        txtFieldSearch.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
         btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
+        btnCurrentAttendance.setIcon(new FlatSVGIcon("svg/calendar.svg"));
+        btnLate.setIcon(new FlatSVGIcon("svg/late.svg"));
+        btnOvertime.setIcon(new FlatSVGIcon("svg/clock.svg"));
+
     }
 
     /**
@@ -38,7 +45,7 @@ public class AttendanceForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAttendance = new javax.swing.JTable();
         btnLate = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnOvertime = new javax.swing.JButton();
         btnBackToDashboard = new javax.swing.JButton();
         txtFieldSearch = new javax.swing.JTextField();
 
@@ -50,6 +57,11 @@ public class AttendanceForm extends javax.swing.JFrame {
 
         btnCurrentAttendance.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnCurrentAttendance.setText("Current Attendance");
+        btnCurrentAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCurrentAttendanceActionPerformed(evt);
+            }
+        });
 
         tblAttendance.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -67,8 +79,8 @@ public class AttendanceForm extends javax.swing.JFrame {
         btnLate.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnLate.setText("Late");
 
-        jButton4.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jButton4.setText("Overtime");
+        btnOvertime.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnOvertime.setText("Overtime");
 
         btnBackToDashboard.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnBackToDashboard.setText("Back to Dashboard");
@@ -93,7 +105,7 @@ public class AttendanceForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLate, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(584, 584, 584)
                         .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(37, Short.MAX_VALUE))
@@ -106,11 +118,12 @@ public class AttendanceForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCurrentAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLate, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFieldSearch)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCurrentAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLate, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
@@ -127,6 +140,10 @@ public class AttendanceForm extends javax.swing.JFrame {
             disposeForm();
         }
     }//GEN-LAST:event_btnBackToDashboardActionPerformed
+
+    private void btnCurrentAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurrentAttendanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCurrentAttendanceActionPerformed
     private void disposeForm() {
         this.dispose();
     }
@@ -170,7 +187,7 @@ public class AttendanceForm extends javax.swing.JFrame {
     private javax.swing.JButton btnBackToDashboard;
     private javax.swing.JButton btnCurrentAttendance;
     private javax.swing.JButton btnLate;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnOvertime;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAttendance;
