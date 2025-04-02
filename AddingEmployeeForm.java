@@ -27,7 +27,7 @@ import javax.swing.SwingConstants;
 public class AddingEmployeeForm extends javax.swing.JFrame {
 
     private Database db = new Database();
-    private static int empId = 2000;
+//    private static int empId = 2000;
     private String profile = "default_image", name, age, dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType;
     private EmployeeForm empForm;
     //oop
@@ -429,9 +429,8 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
             return;
         }
 
-        employee = new Employee(empId, profile, name, age, dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType);
-        db.addEmployee(empId, employee);
-        empId++;
+        employee = new Employee( profile, name, Integer.parseInt(age), dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType);
+        db.addEmployee(employee);
 
         JOptionPane.showMessageDialog(this, "Employee Successfully Added!", "Success", JOptionPane.INFORMATION_MESSAGE);
 

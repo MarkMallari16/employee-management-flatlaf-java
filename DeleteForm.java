@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Mallari
  */
 public class DeleteForm extends javax.swing.JFrame {
-    
+
     private Database db = new Database();
     private EmployeeForm empForm;
 
@@ -27,21 +27,21 @@ public class DeleteForm extends javax.swing.JFrame {
 
         //icons
         btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
-        
+
         txtFieldId.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Employee ID");
         btnDelete.setIcon(new FlatSVGIcon("svg/delete.svg"));
-        
+
         txtFieldId.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                
+
                 if (!Character.isDigit(c)) {
                     e.consume();
                 }
             }
         });
-        
+
     }
 
     /**
@@ -133,19 +133,20 @@ public class DeleteForm extends javax.swing.JFrame {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         String employeeId = txtFieldId.getText();
         int employeeIntId;
-        
-        try {
-            employeeIntId = Integer.parseInt(employeeId);
-        } catch (NumberFormatException e) {
+
+        if (employeeId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Employee ID must not be empty! Try again.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (!db.isEmpIdExists(employeeIntId)) {
-            JOptionPane.showMessageDialog(this, "Employee ID not found! Try again.", "Error", JOptionPane.ERROR_MESSAGE);
+
+        try {
+            employeeIntId = Integer.parseInt(employeeId);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid Employee ID! Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         db.removeEmployee(employeeIntId);
-        
+
         JOptionPane.showMessageDialog(this, "Employee successfully removed!", "Success", JOptionPane.INFORMATION_MESSAGE);
         goBackToDashboard();
 
@@ -161,7 +162,7 @@ public class DeleteForm extends javax.swing.JFrame {
             disposeForm();
         }
     }
-    
+
     private void disposeForm() {
         this.dispose();
     }

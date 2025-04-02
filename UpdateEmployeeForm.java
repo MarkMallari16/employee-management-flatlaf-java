@@ -29,7 +29,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     private Database db = new Database();
     private int updEmpIdInt;
     private String updEmpProfilePath;
-    private String updEmpIdString, updEmpName, updEmpAge, updDateOfBirth, updEmpGender,
+    private String updEmpName, updEmpAge, updDateOfBirth, updEmpGender,
             updEmpdStatus, updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updEmpLocationType;
     private EmployeeForm empForm;
     //data
@@ -416,10 +416,6 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        updEmpIdString = txtFieldEmpId.getText();
-        //parsing
-        updEmpIdInt = Integer.parseInt(updEmpIdString);
-
         updEmpName = txtFieldName.getText();
         updEmpAge = txtFieldAge.getText();
         sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -432,7 +428,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         updEmpPosition = txtFieldPosition.getText();
         updEmpLocationType = (String) cbLocationType.getSelectedItem();
         employee = new Employee(
-                updEmpIdInt, updEmpProfilePath, updEmpName, updEmpAge,
+                updEmpProfilePath, updEmpName, Integer.parseInt(updEmpAge),
                 updDateOfBirth, updEmpGender, updEmpdStatus,
                 updEmpContactNum, updEmpEmail, updEmpDepartment,
                 updEmpPosition, updEmpLocationType);

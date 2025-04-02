@@ -7,7 +7,7 @@ public class Employee {
     //personal details
     private String profile;
     private String name;
-    private String age;
+    private int age;
     private String dateOfBirth;
     private String gender;
     private String status;
@@ -21,10 +21,9 @@ public class Employee {
     private String contactNum;
     private String email;
 
-    public Employee(int id, String profile, String name, String age, String dateOfBirth, String gender, String status,
+    public Employee(String profile, String name, int age, String dateOfBirth, String gender, String status,
             String contactNum, String email, String department, String position, String locationType) {
         //personal info
-        this.id = id;
         this.profile = profile;
         this.name = name;
         this.age = age;
@@ -71,12 +70,12 @@ public class Employee {
     }
 
     // getter 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
     // setter
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -158,5 +157,5 @@ public class Employee {
     public void setLocationType(String locationType) {
         this.locationType = locationType;
     }
- 
+
 }
