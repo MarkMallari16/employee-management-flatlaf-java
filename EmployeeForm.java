@@ -16,6 +16,12 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -37,6 +43,9 @@ public class EmployeeForm extends javax.swing.JFrame {
 
     //database
     private Database db = new Database();
+    private static final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
+    private static final String USER = "root";
+    private static final String PASSWORD = "!M@rkcc16";
 
     //link for AddEmpForm
     private AddingEmployeeForm addingEmployeeForm;
@@ -359,6 +368,7 @@ public class EmployeeForm extends javax.swing.JFrame {
         String[] columns = {"Employee ID", "Profile", "Name", "Age", "Date of Birth", "Gender",
             "Status", "Contact Number", "Email", "Department", "Position", "Location Type", "Profile Path"};
 
+        //setup default table model
         DefaultTableModel model = new DefaultTableModel(columns, 0) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -374,45 +384,99 @@ public class EmployeeForm extends javax.swing.JFrame {
             }
         };
 
-        //displaying data
-        for (int empId : db.getEmployee().keySet()) {
-            Employee employeeData = db.getEmployee().get(empId);
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); Statement stmt = conn.createStatement()) {
+            String sql = "SELECT id, profile, name, age, date_of_birth, gender, status"
+                    + ", department, position, location_type, contact_num, email FROM employees";
+            ResultSet rs = stmt.executeQuery(sql);
 
-            profilePath = employeeData.getProfile();
-            ImageIcon profileImage = new FlatSVGIcon("svg/default_profile.svg");
-            if (employeeData.getProfile() != null && !employeeData.getProfile().equals("default_image")) {
-                File profile = new File(employeeData.getProfile());
-                Image resizedImage = null;
+            while (rs.next()) {
+                int empId = rs.getInt("id");
+                String empProfile = rs.getString("profile");
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                Date dateOfBirth = rs.getDate("date_of_birth");
+                String gender = rs.getString("gender");
+                String status = rs.getString("status");
+                String contactNum = rs.getString("contact_num");
+                String email = rs.getString("email");
+                String department = rs.getString("department");
+                String position = rs.getString("position");
+                String locationType = rs.getString("location_type");
 
-                File profileFile = new File(employeeData.getProfile());
+                ImageIcon profileImage = new ImageIcon("svg/default_profile.svg");
 
-                if (profileFile.exists()) {
-                    try {
-                        BufferedImage originalImage = ImageIO.read(profile);
-                        resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-
-                        profileImage = new ImageIcon(resizedImage);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
+                if (empProfile != null && !empProfile.equals("default_image")) {
+                    File profile = new File(empProfile);
+                    if (profile.exists()) {
+                        try {
+                            BufferedImage originalImage = ImageIO.read(profile);
+                            Image resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                            profileImage = new ImageIcon(resizedImage);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 }
+
+                model.addRow(new Object[]{
+                    empId,
+                    profileImage,
+                    name,
+                    age,
+                    dateOfBirth,
+                    gender,
+                    status,
+                    contactNum,
+                    email,
+                    department,
+                    position,
+                    locationType,
+                    profilePath
+                });
             }
-            model.addRow(new Object[]{
-                empId,
-                profileImage,
-                employeeData.getName(),
-                employeeData.getAge(),
-                employeeData.getDateOfBirth(),
-                employeeData.getGender(),
-                employeeData.getStatus(),
-                employeeData.getContactNum(),
-                employeeData.getEmail(),
-                employeeData.getDepartment(),
-                employeeData.getPosition(),
-                employeeData.getLocationType(),
-                profilePath
-            });
+        } catch (SQLException ex) {
+            System.out.println("Something went wrong.");
+            ex.printStackTrace();
         }
+        //displaying data
+//        for (int empId : db.getEmployee().keySet()) {
+//            Employee employeeData = db.getEmployee().get(empId);
+//
+//            profilePath = employeeData.getProfile();
+//            ImageIcon profileImage = new FlatSVGIcon("svg/default_profile.svg");
+//            if (employeeData.getProfile() != null && !employeeData.getProfile().equals("default_image")) {
+//                File profile = new File(employeeData.getProfile());
+//                Image resizedImage = null;
+//
+//                File profileFile = new File(employeeData.getProfile());
+//
+//                if (profileFile.exists()) {
+//                    try {
+//                        BufferedImage originalImage = ImageIO.read(profile);
+//                        resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+//
+//                        profileImage = new ImageIcon(resizedImage);
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            }
+//            model.addRow(new Object[]{
+//                empId,
+//                profileImage,
+//                employeeData.getName(),
+//                employeeData.getAge(),
+//                employeeData.getDateOfBirth(),
+//                employeeData.getGender(),
+//                employeeData.getStatus(),
+//                employeeData.getContactNum(),
+//                employeeData.getEmail(),
+//                employeeData.getDepartment(),
+//                employeeData.getPosition(),
+//                employeeData.getLocationType(),
+//                profilePath
+//            });
+//        }
         tblEmployee.setModel(model);
 
         tblEmployee.getColumnModel().getColumn(12).setMinWidth(0);

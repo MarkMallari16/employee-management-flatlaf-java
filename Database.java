@@ -8,23 +8,15 @@ import java.util.HashMap;
 
 public class Database {
 
-    private final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
-    private final String USER = "root";
-    private final String PASSWORD = "!M@rkcc16";
+    private static final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
+    private static final String USER = "root";
+    private static final String PASSWORD = "!M@rkcc16";
     private static HashMap<Integer, Employee> employeesDb = new HashMap<>();
     private static HashMap<Integer, Payroll> payrollDb = new HashMap<>();
 
     public Database() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-//            Connection conn = DriverManager.getConnection(url, user, password);
-//
-//            if (conn != null) {
-//                System.out.println("Connected");
-//                conn.close();
-//            } else {
-//                System.out.println("MySQL connection Failed.");
-//            }
 
         } catch (ClassNotFoundException ex) {
             System.out.println("MYSQL Driver not found");
