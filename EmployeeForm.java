@@ -405,12 +405,13 @@ public class EmployeeForm extends javax.swing.JFrame {
 
                 ImageIcon profileImage = new ImageIcon("svg/default_profile.svg");
 
-                if (empProfile != null && !empProfile.equals("default_image")) {
+                if (empProfile != null) {
                     File profile = new File(empProfile);
                     if (profile.exists()) {
                         try {
                             BufferedImage originalImage = ImageIO.read(profile);
                             Image resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+                            
                             profileImage = new ImageIcon(resizedImage);
                         } catch (IOException ex) {
                             ex.printStackTrace();

@@ -17,19 +17,22 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
     private Database db = new Database();
 
     //hold data
-    private String idString;
+    private String payrollIdString, empIdString;
     private String salaryString;
-    private int idInt;
+    //parsing
+
+    private int payrollIdInt, empIdInt;
     private double salaryDouble;
     //link
     private PayrollForm pf;
 
-    public UpdatePayrollForm(int empId, double empSalary) {
+    public UpdatePayrollForm(int payrollId, int empId, double empSalary) {
         initComponents();
-        idString = String.valueOf(empId);
+        payrollIdString = String.valueOf(payrollId);
+        empIdString = String.valueOf(empId);
         salaryString = String.valueOf(empSalary);
 
-        txtFieldEmpId.setText(idString);
+        txtFieldEmpId.setText(empIdString);
         txtFieldSalary.setText(salaryString);
 
         //icons
@@ -130,21 +133,23 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        idInt = Integer.parseInt(txtFieldEmpId.getText());
+        payrollIdInt = Integer.parseInt(payrollIdString);
+        empIdInt = Integer.parseInt(txtFieldEmpId.getText());
         salaryDouble = Double.parseDouble(txtFieldSalary.getText());
+        
+        Payroll payroll = new Payroll(empIdInt, salaryDouble);
 
-        Payroll payroll = new Payroll(idInt, salaryDouble);
-
-        db.updatePayroll(idInt, payroll);
+        System.out.println(payrollIdInt);
+        db.updatePayroll(payrollIdInt, payroll);
 
         JOptionPane.showMessageDialog(this, "Successfully Updated.");
         goToPayroll();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        idInt = Integer.parseInt(txtFieldEmpId.getText());
+        payrollIdInt = Integer.parseInt(payrollIdString);
 
-        db.removePayroll(idInt);
+        db.removePayroll(payrollIdInt);
 
         JOptionPane.showMessageDialog(this, "Successfully Deleted.");
         goToPayroll();

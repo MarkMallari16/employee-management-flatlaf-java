@@ -10,6 +10,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -24,12 +29,16 @@ public class PayrollForm extends javax.swing.JFrame {
 
     //temporary database
     private Database db = new Database();
+    private static final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
+    private static final String USER = "root";
+    private static final String PASSWORD = "!M@rkcc16";
 
     //hold data
     private String empIdString, empIdSalary;
 
     private Payroll payroll;
     //for row
+    private int rowEmpPayrollId;
     private int rowEmpId;
     private double rowEmpSalary;
 
@@ -78,19 +87,29 @@ public class PayrollForm extends javax.swing.JFrame {
     }
 
     private void displayPayrollTable() {
-        String[] columns = {"Employee ID", "Salary"};
+        String[] columns = {"Payroll ID", "Employee ID", "Salary"};
 
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
-        for (int empId : db.getPayroll().keySet()) {
-            Payroll payrollData = db.getPayroll().get(empId);
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); Statement stmt = conn.createStatement()) {
+            String sql = "SELECT * FROM payroll";
 
-            if (payrollData != null) {
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                int payrollId = rs.getInt("id");
+                int employeeId = rs.getInt("employee_id");
+                double empSalary = rs.getDouble("salary");
+
                 model.addRow(new Object[]{
-                    empId,
-                    payrollData.getSalary()
+                    payrollId,
+                    employeeId,
+                    empSalary
                 });
             }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
 
         tblEmployeePayroll.setModel(model);
@@ -104,11 +123,12 @@ public class PayrollForm extends javax.swing.JFrame {
                 int row = tblEmployeePayroll.getSelectedRow();
 
                 if (row != -1) {
-                    rowEmpId = (Integer) tblEmployeePayroll.getValueAt(row, 0);
-                    rowEmpSalary = (Double) tblEmployeePayroll.getValueAt(row, 1);
+                    rowEmpPayrollId = (Integer) tblEmployeePayroll.getValueAt(row, 0);
+                    rowEmpId = (Integer) tblEmployeePayroll.getValueAt(row, 1);
+                    rowEmpSalary = (Double) tblEmployeePayroll.getValueAt(row, 2);
 
                     if (upf == null || !upf.isDisplayable()) {
-                        upf = new UpdatePayrollForm(rowEmpId, rowEmpSalary);
+                        upf = new UpdatePayrollForm(rowEmpPayrollId, rowEmpId, rowEmpSalary);
                         upf.setVisible(true);
                         disposeForm();
                     }
@@ -254,7 +274,6 @@ public class PayrollForm extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         //convert to int
         int empId = Integer.parseInt(empIdString);
         //convert to double
@@ -264,7 +283,6 @@ public class PayrollForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Employee ID does not exists.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         payroll = new Payroll(empId, salary);
 
         JOptionPane.showMessageDialog(this,

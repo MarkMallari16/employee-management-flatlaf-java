@@ -3,6 +3,7 @@ package com.mycompany.firstflatlaf;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -63,7 +64,19 @@ public class Database {
     }
 
     public boolean isEmpIdExists(int id) {
-        return employeesDb.containsKey(id);
+        String sql = "SELECT COUNT(*) FROM employees WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
     }
 
     //deleting employee
@@ -121,7 +134,23 @@ public class Database {
     }
 
     public void addPayroll(int id, Payroll payroll) {
-        payrollDb.put(id, payroll);
+        String sql = "INSERT INTO payroll (employee_id, salary) VALUES (?,?)";
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.setDouble(2, payroll.getSalary());
+
+            int rowAffected = pstmt.executeUpdate();
+
+            if (rowAffected > 0) {
+                System.out.println("Successfully added.");
+            } else {
+                System.out.println("Failed to add employee salary.");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
         System.out.println("Successfully added.");
     }
@@ -135,11 +164,42 @@ public class Database {
     }
 
     public void updatePayroll(int id, Payroll payroll) {
-        payrollDb.replace(id, payroll);
+        String sql = "UPDATE payroll SET employee_id = ?, salary = ? WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, payroll.getEmpId());
+            pstmt.setDouble(2, payroll.getSalary());
+            pstmt.setInt(3, id);
+
+            int rowAffected = pstmt.executeUpdate();
+
+            if (rowAffected > 0) {
+                System.out.println("Employee Salary updated successfully.");
+            } else {
+                System.out.println("Failed to update employee salary.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void removePayroll(int id) {
-        payrollDb.remove(id);
+        String sql = "DELETE FROM payroll WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+
+            int rowAffected = pstmt.executeUpdate();
+
+            if (rowAffected > 0) {
+                System.out.println("Employee Payroll successfully deleted.");
+            } else {
+                System.out.println("Failed to delete employee payroll.");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

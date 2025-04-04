@@ -1,7 +1,6 @@
 package com.mycompany.firstflatlaf;
 
 public class Payroll {
-
     private int empId;
     private double salary;
 
