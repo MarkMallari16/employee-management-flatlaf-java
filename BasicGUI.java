@@ -71,7 +71,8 @@ public class BasicGUI extends javax.swing.JFrame {
         lblEmployeesIcon.setIcon(new FlatSVGIcon("svg/employees.svg"));
         lblTotalReports.setIcon(new FlatSVGIcon("svg/flag.svg"));
         lblActive.setIcon(new FlatSVGIcon("svg/active_employees.svg"));
-
+        
+        System.out.println(db.getTotalEmployees());
         txtFieldTotalEmp.setText(String.valueOf(db.getTotalEmployees()));
     }
 
