@@ -29,7 +29,8 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     private Database db = new Database();
     private int updEmpIdInt;
     private String updEmpProfilePath;
-    private String updEmpName, updEmpAge, updDateOfBirth, updEmpGender,
+    private int updEmpAge;
+    private String updEmpName, updDateOfBirth, updEmpGender,
             updEmpdStatus, updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updEmpLocationType;
     private EmployeeForm empForm;
     //data
@@ -41,7 +42,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     /**
      * Creates new form UpdateEmployeeForm
      */
-    public UpdateEmployeeForm(int rowEmpIdInt, ImageIcon rowEmpProfile, String rowEmpName, String rowEmpAge, String rowEmpDateOfBirth, String rowEmpGender,
+    public UpdateEmployeeForm(int rowEmpIdInt, ImageIcon rowEmpProfile, String rowEmpName, int rowEmpAge, String rowEmpDateOfBirth, String rowEmpGender,
             String rowEmpStatus, String rowEmpContactNum, String rowEmpEmail, String rowEmpDepartment, String rowEmpPosition,
             String rowEmpLocationType, String profilePath) {
         initComponents();
@@ -54,7 +55,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
         //personal details
         updEmpProfilePath = profilePath;
-
+        System.out.println("Setted: " + profilePath);
         System.out.println(updEmpProfilePath);
         txtFieldEmpId.setText(rowEmpIdString);
         txtLblProfile.setIcon(rowEmpProfile);
@@ -152,6 +153,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Update Employee");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         jLabel1.setText("Update Employee");
@@ -416,8 +418,9 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        updEmpIdInt = Integer.parseInt(txtFieldEmpId.getText());
         updEmpName = txtFieldName.getText();
-        updEmpAge = txtFieldAge.getText();
+        updEmpAge = Integer.parseInt(txtFieldAge.getText());
         sdf = new SimpleDateFormat("yyyy-MM-dd");
         updDateOfBirth = sdf.format(dcDateOfBirth.getDate());
         updEmpGender = (String) cbGender.getSelectedItem();
@@ -427,8 +430,10 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         updEmpDepartment = (String) cbDepartment.getSelectedItem();
         updEmpPosition = txtFieldPosition.getText();
         updEmpLocationType = (String) cbLocationType.getSelectedItem();
+        System.out.println("Path: " + updEmpProfilePath);
+        //set
         employee = new Employee(
-                updEmpProfilePath, updEmpName, Integer.parseInt(updEmpAge),
+                updEmpProfilePath, updEmpName, updEmpAge,
                 updDateOfBirth, updEmpGender, updEmpdStatus,
                 updEmpContactNum, updEmpEmail, updEmpDepartment,
                 updEmpPosition, updEmpLocationType);

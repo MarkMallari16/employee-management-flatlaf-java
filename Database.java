@@ -24,6 +24,7 @@ public class Database {
         }
     }
 
+    //adding employee
     public void addEmployee(Employee employee) {
 //        employeesDb.put(id, employee);
 //
@@ -65,6 +66,7 @@ public class Database {
         return employeesDb.containsKey(id);
     }
 
+    //deleting employee
     public void removeEmployee(int id) {
         String sql = "DELETE FROM employees WHERE id = ?";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -84,7 +86,34 @@ public class Database {
     }
 
     public void updateEmployee(int id, Employee employee) {
-        employeesDb.replace(id, employee);
+        String sql = "UPDATE employees SET profile = ?, name = ?, age = ?, date_of_birth = ?, gender = ?, status = ?, "
+                + "department = ?, position = ?, location_type = ?, contact_num = ?, email = ? WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, employee.getProfile());
+            pstmt.setString(2, employee.getName());
+            pstmt.setInt(3, employee.getAge());
+            pstmt.setDate(4, java.sql.Date.valueOf(employee.getDateOfBirth())); // Ensure Date is in 'YYYY-MM-DD'
+            pstmt.setString(5, employee.getGender());
+            pstmt.setString(6, employee.getStatus());
+            pstmt.setString(7, employee.getDepartment());
+            pstmt.setString(8, employee.getPosition());
+            pstmt.setString(9, employee.getLocationType());
+            pstmt.setString(10, employee.getContactNum());
+            pstmt.setString(11, employee.getEmail());
+            pstmt.setInt(12, id);
+
+            int rowAffected = pstmt.executeUpdate();
+
+            if (rowAffected > 0) {
+                System.out.println(rowAffected + " row(s) updated.");
+                System.out.println(id);
+            } else {
+                System.out.println("Failed to update employee");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public int getTotalEmployees() {

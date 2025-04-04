@@ -229,6 +229,7 @@ public class BasicGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin Dashboard");
         setBackground(new java.awt.Color(204, 204, 204));
+        setResizable(false);
 
         Sidebar.setBackground(new java.awt.Color(102, 153, 255));
         Sidebar.setForeground(new java.awt.Color(0, 0, 0));

@@ -148,6 +148,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Add Employee");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Poppins Black", 1, 14)); // NOI18N
         jLabel1.setText("Add Employee");

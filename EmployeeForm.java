@@ -6,7 +6,6 @@ package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -21,7 +20,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -56,7 +54,8 @@ public class EmployeeForm extends javax.swing.JFrame {
     private int rowEmpIdInt;
 
     private ImageIcon rowEmpProfile;
-    private String rowEmpName, rowEmpAge, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
+    private int rowEmpAge;
+    private String rowEmpName, rowEmpDateOfBirth, rowEmpGender, rowEmpStatus, rowEmpContactNum,
             rowEmpEmail, rowEmpDepartment, rowEmpPosition, rowEmpLocationType;
     //for profile path
     private String profilePath;
@@ -127,6 +126,7 @@ public class EmployeeForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel1.setText("Employees");
@@ -394,7 +394,7 @@ public class EmployeeForm extends javax.swing.JFrame {
                 String empProfile = rs.getString("profile");
                 String name = rs.getString("name");
                 int age = rs.getInt("age");
-                Date dateOfBirth = rs.getDate("date_of_birth");
+                String dateOfBirth = rs.getDate("date_of_birth").toString();
                 String gender = rs.getString("gender");
                 String status = rs.getString("status");
                 String contactNum = rs.getString("contact_num");
@@ -431,52 +431,13 @@ public class EmployeeForm extends javax.swing.JFrame {
                     department,
                     position,
                     locationType,
-                    profilePath
+                    empProfile
                 });
             }
         } catch (SQLException ex) {
             System.out.println("Something went wrong.");
             ex.printStackTrace();
         }
-        //displaying data
-//        for (int empId : db.getEmployee().keySet()) {
-//            Employee employeeData = db.getEmployee().get(empId);
-//
-//            profilePath = employeeData.getProfile();
-//            ImageIcon profileImage = new FlatSVGIcon("svg/default_profile.svg");
-//            if (employeeData.getProfile() != null && !employeeData.getProfile().equals("default_image")) {
-//                File profile = new File(employeeData.getProfile());
-//                Image resizedImage = null;
-//
-//                File profileFile = new File(employeeData.getProfile());
-//
-//                if (profileFile.exists()) {
-//                    try {
-//                        BufferedImage originalImage = ImageIO.read(profile);
-//                        resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-//
-//                        profileImage = new ImageIcon(resizedImage);
-//                    } catch (IOException ex) {
-//                        ex.printStackTrace();
-//                    }
-//                }
-//            }
-//            model.addRow(new Object[]{
-//                empId,
-//                profileImage,
-//                employeeData.getName(),
-//                employeeData.getAge(),
-//                employeeData.getDateOfBirth(),
-//                employeeData.getGender(),
-//                employeeData.getStatus(),
-//                employeeData.getContactNum(),
-//                employeeData.getEmail(),
-//                employeeData.getDepartment(),
-//                employeeData.getPosition(),
-//                employeeData.getLocationType(),
-//                profilePath
-//            });
-//        }
         tblEmployee.setModel(model);
 
         tblEmployee.getColumnModel().getColumn(12).setMinWidth(0);
@@ -494,7 +455,7 @@ public class EmployeeForm extends javax.swing.JFrame {
                     rowEmpIdInt = (Integer) tblEmployee.getValueAt(row, 0);
                     rowEmpProfile = (ImageIcon) tblEmployee.getValueAt(row, 1);
                     rowEmpName = (String) tblEmployee.getValueAt(row, 2);
-                    rowEmpAge = (String) tblEmployee.getValueAt(row, 3);
+                    rowEmpAge = (Integer) tblEmployee.getValueAt(row, 3);
                     rowEmpDateOfBirth = (String) tblEmployee.getValueAt(row, 4);
                     rowEmpGender = (String) tblEmployee.getValueAt(row, 5);
                     rowEmpStatus = (String) tblEmployee.getValueAt(row, 6);
@@ -503,6 +464,7 @@ public class EmployeeForm extends javax.swing.JFrame {
                     rowEmpDepartment = (String) tblEmployee.getValueAt(row, 9);
                     rowEmpPosition = (String) tblEmployee.getValueAt(row, 10);
                     rowEmpLocationType = (String) tblEmployee.getValueAt(row, 11);
+                    //get the value of profile path
                     profilePath = (String) tblEmployee.getValueAt(row, 12);
 
                     if (empUpdateForm == null || !empUpdateForm.isDisplayable()) {
