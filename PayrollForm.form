@@ -67,15 +67,15 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtFieldEmpId" pref="44" max="32767" attributes="0"/>
+                      <Component id="txtFieldEmpId" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtFieldSalary" max="32767" attributes="0"/>
                           <Component id="txtFieldSearch" min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="btnAddSalary" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="txtFieldSalary" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnAddSalary" alignment="0" pref="44" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
