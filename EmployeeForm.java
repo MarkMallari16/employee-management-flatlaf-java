@@ -75,7 +75,8 @@ public class EmployeeForm extends javax.swing.JFrame {
 
         //displaying Employee Table
         displayEmpTable();
-
+        
+        //sidebar icons
         btnDashboard.setIcon(new FlatSVGIcon("svg/dashboard.svg"));
         btnEmployee.setIcon(new FlatSVGIcon("svg/employee.svg"));
         btnAttendance.setIcon(new FlatSVGIcon("svg/attendance.svg"));

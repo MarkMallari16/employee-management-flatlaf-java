@@ -10,20 +10,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 /**
  *
  * @author Mallari
  */
 public class Login extends javax.swing.JFrame {
-    
+
     private String myUsername = "admin";
     private String myPassword = "admin123";
-    
+
     private String username;
     private char[] charPass;
     private String password;
-    
+
     private BasicGUI gui;
 
     /**
@@ -33,13 +34,15 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         txtFieldUsername.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter username");
         txtFieldUsername.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/person.svg"));
-        
+
         txtFieldPassword.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter password");
         txtFieldPassword.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/password.svg"));
-        
+        //hide/unhide password
+        txtFieldPassword.putClientProperty(FlatClientProperties.STYLE, "showRevealButton:true");
+
         btnLogin.setIcon(new FlatSVGIcon("svg/right_arrow.svg"));
         btnLogin.setHorizontalTextPosition(SwingConstants.LEFT);
-        
+
         txtFieldPassword.addKeyListener((new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -48,7 +51,7 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         }));
-        
+
         btnLogin.addActionListener(e -> login());
     }
 
@@ -177,18 +180,18 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFieldUsernameActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        
+
     }//GEN-LAST:event_btnLoginActionPerformed
     public void login() {
         username = txtFieldUsername.getText().trim();
         charPass = txtFieldPassword.getPassword();
         password = new String(charPass);
-        
+
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username and Password are required!", "Login Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         if (username.equals(myUsername) && password.equals(myPassword)) {
             goToDashboard();
         } else {
@@ -196,7 +199,7 @@ public class Login extends javax.swing.JFrame {
             txtFieldUsername.requestFocus();
         }
     }
-    
+
     private void goToDashboard() {
         if (gui == null || !gui.isDisplayable()) {
             gui = new BasicGUI();

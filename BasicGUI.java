@@ -4,17 +4,13 @@
  */
 package com.mycompany.firstflatlaf;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -29,8 +25,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class BasicGUI extends javax.swing.JFrame {
 
-    //toggling theme
-    private boolean isDarkMode = false;
     //database
     private Database db = new Database();
 
@@ -38,6 +32,7 @@ public class BasicGUI extends javax.swing.JFrame {
     private Login log;
     private PayrollForm pf;
     private AttendanceForm af;
+    private SettingsForm st;
 
     /**
      * Creates new form BasicGUI
@@ -54,9 +49,6 @@ public class BasicGUI extends javax.swing.JFrame {
 
         //txtFieldOne.putClientProperty("JComponent.roundRect", true);
         //icons
-        //default icon
-        btnChangeTheme.setIcon(new FlatSVGIcon("svg/night.svg"));
-
         //icons
         btnDashboard.setIcon(new FlatSVGIcon("svg/dashboard.svg"));
         btnEmployee.setIcon(new FlatSVGIcon("svg/employee.svg"));
@@ -71,7 +63,7 @@ public class BasicGUI extends javax.swing.JFrame {
         lblEmployeesIcon.setIcon(new FlatSVGIcon("svg/employees.svg"));
         lblTotalReports.setIcon(new FlatSVGIcon("svg/flag.svg"));
         lblActive.setIcon(new FlatSVGIcon("svg/active_employees.svg"));
-        
+
         System.out.println(db.getTotalEmployees());
         txtFieldTotalEmp.setText(String.valueOf(db.getTotalEmployees()));
     }
@@ -163,24 +155,11 @@ public class BasicGUI extends javax.swing.JFrame {
         this.dispose();
     }
 
-    private void toggleTheme() {
-        isDarkMode = ThemeManager.isDarkMode();
-        isDarkMode = !isDarkMode;
-        ThemeManager.setDarkMode(isDarkMode);
-        try {
-            if (isDarkMode) {
-                UIManager.setLookAndFeel(new FlatDarkLaf());
-                btnChangeTheme.setIcon(new FlatSVGIcon("svg/light.svg"));
-            } else {
-
-                UIManager.setLookAndFeel(new FlatLightLaf());
-
-                btnChangeTheme.setIcon(new FlatSVGIcon("svg/night.svg"));
-            }
-
-            SwingUtilities.updateComponentTreeUI(this);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+    private void goToSettings() {
+        if (st == null || !st.isDisplayable()) {
+            st = new SettingsForm();
+            disposeForm();
+            st.setVisible(true);
         }
     }
 
@@ -205,7 +184,6 @@ public class BasicGUI extends javax.swing.JFrame {
         btnLeaves = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        btnChangeTheme = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -379,13 +357,6 @@ public class BasicGUI extends javax.swing.JFrame {
             .addComponent(Sidebar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        btnChangeTheme.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnChangeTheme.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangeThemeActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Poppins Black", 0, 36)); // NOI18N
         jLabel2.setText("Dashboard");
 
@@ -549,8 +520,7 @@ public class BasicGUI extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTime)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(72, 72, 72))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -571,10 +541,8 @@ public class BasicGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTime)
-                            .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(41, 41, 41)
+                        .addComponent(lblTime)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -590,10 +558,6 @@ public class BasicGUI extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1488, 800));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnChangeThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeThemeActionPerformed
-        toggleTheme();
-    }//GEN-LAST:event_btnChangeThemeActionPerformed
 
     private void btnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeActionPerformed
         if (empForm == null || !empForm.isDisplayable()) {
@@ -620,7 +584,7 @@ public class BasicGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
-        // TODO add your handling code here:
+        goToSettings();
     }//GEN-LAST:event_btnSettingsActionPerformed
 
     private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
@@ -676,7 +640,6 @@ public class BasicGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Sidebar;
     private javax.swing.JButton btnAttendance;
-    private javax.swing.JButton btnChangeTheme;
     private javax.swing.JButton btnDashboard;
     private javax.swing.JButton btnEmployee;
     private javax.swing.JButton btnLeaves;
