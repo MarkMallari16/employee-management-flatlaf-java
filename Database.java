@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 
 public class Database {
@@ -16,13 +17,13 @@ public class Database {
     private static HashMap<Integer, Payroll> payrollDb = new HashMap<>();
 
     public Database() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-        } catch (ClassNotFoundException ex) {
-            System.out.println("MYSQL Driver not found");
-            ex.printStackTrace();
-        }
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//
+//        } catch (ClassNotFoundException ex) {
+//            System.out.println("MYSQL Driver not found");
+//            ex.printStackTrace();
+//        }
     }
 
     //adding employee
@@ -106,7 +107,7 @@ public class Database {
             pstmt.setString(1, employee.getProfile());
             pstmt.setString(2, employee.getName());
             pstmt.setInt(3, employee.getAge());
-            pstmt.setDate(4, java.sql.Date.valueOf(employee.getDateOfBirth())); // Ensure Date is in 'YYYY-MM-DD'
+            pstmt.setDate(4, java.sql.Date.valueOf(employee.getDateOfBirth())); 
             pstmt.setString(5, employee.getGender());
             pstmt.setString(6, employee.getStatus());
             pstmt.setString(7, employee.getDepartment());
@@ -130,7 +131,20 @@ public class Database {
     }
 
     public int getTotalEmployees() {
-        return employeesDb.size();
+        String sql = "SELECT COUNT(id) FROM employees";
+        int totalEmployees = 0;
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+
+            if (rs.next()) {
+                totalEmployees = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return totalEmployees;
     }
 
     public void addPayroll(int id, Payroll payroll) {
@@ -196,7 +210,6 @@ public class Database {
             } else {
                 System.out.println("Failed to delete employee payroll.");
             }
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

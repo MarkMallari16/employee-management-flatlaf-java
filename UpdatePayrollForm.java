@@ -38,6 +38,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         //icons
         btnUpdate.setIcon(new FlatSVGIcon("svg/edit.svg"));
         btnDelete.setIcon(new FlatSVGIcon("svg/delete.svg"));
+        btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
     }
 
     /**
@@ -56,6 +57,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         txtFieldSalary = new javax.swing.JTextField();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Update Emeployee Payroll");
@@ -92,6 +94,15 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
             }
         });
 
+        btnBack.setBackground(new java.awt.Color(255, 255, 255));
+        btnBack.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,7 +116,8 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtFieldEmpId)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -125,10 +137,12 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(603, 439));
+        setSize(new java.awt.Dimension(603, 474));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -136,7 +150,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         payrollIdInt = Integer.parseInt(payrollIdString);
         empIdInt = Integer.parseInt(txtFieldEmpId.getText());
         salaryDouble = Double.parseDouble(txtFieldSalary.getText());
-        
+
         Payroll payroll = new Payroll(empIdInt, salaryDouble);
 
         System.out.println(payrollIdInt);
@@ -154,6 +168,10 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Successfully Deleted.");
         goToPayroll();
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        goToPayroll();
+    }//GEN-LAST:event_btnBackActionPerformed
     private void goToPayroll() {
         if (pf == null || !pf.isDisplayable()) {
             pf = new PayrollForm();
@@ -198,6 +216,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
