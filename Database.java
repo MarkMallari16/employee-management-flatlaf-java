@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Database {
 
@@ -24,6 +25,18 @@ public class Database {
 //            System.out.println("MYSQL Driver not found");
 //            ex.printStackTrace();
 //        }
+    }
+
+    //insert data (for dynamic and reusability)
+    public void insertData(String query, Objects[] values) {
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            for (int i = 0; i < values.length; i++) {
+                pstmt.setObject(i + 1, values[i]);
+            }
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     //adding employee
@@ -107,7 +120,7 @@ public class Database {
             pstmt.setString(1, employee.getProfile());
             pstmt.setString(2, employee.getName());
             pstmt.setInt(3, employee.getAge());
-            pstmt.setDate(4, java.sql.Date.valueOf(employee.getDateOfBirth())); 
+            pstmt.setDate(4, java.sql.Date.valueOf(employee.getDateOfBirth()));
             pstmt.setString(5, employee.getGender());
             pstmt.setString(6, employee.getStatus());
             pstmt.setString(7, employee.getDepartment());
