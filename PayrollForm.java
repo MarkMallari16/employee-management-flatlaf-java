@@ -12,9 +12,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -40,6 +40,7 @@ public class PayrollForm extends javax.swing.JFrame {
     //for row
     private int rowEmpPayrollId;
     private int rowEmpId;
+    private String rowEmpName;
     private double rowEmpSalary;
 
     //dashboard
@@ -87,23 +88,27 @@ public class PayrollForm extends javax.swing.JFrame {
     }
 
     private void displayPayrollTable() {
-        String[] columns = {"Payroll ID", "Employee ID", "Salary"};
+        String[] columns = {"Payroll ID", "Employee ID", "Employee Name", "Salary"};
 
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); Statement stmt = conn.createStatement()) {
-            String sql = "SELECT * FROM payroll";
+        String sql = "SELECT payroll.id AS payroll_id, payroll.employee_id, employees.name, payroll.salary "
+                + "FROM payroll "
+                + "INNER JOIN employees ON payroll.employee_id = employees.id";
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                int payrollId = rs.getInt("id");
+                int payrollId = rs.getInt("payroll_id");
                 int employeeId = rs.getInt("employee_id");
+                String empName = rs.getString("name");
                 double empSalary = rs.getDouble("salary");
 
                 model.addRow(new Object[]{
                     payrollId,
                     employeeId,
+                    empName,
                     empSalary
                 });
             }
@@ -125,10 +130,11 @@ public class PayrollForm extends javax.swing.JFrame {
                 if (row != -1) {
                     rowEmpPayrollId = (Integer) tblEmployeePayroll.getValueAt(row, 0);
                     rowEmpId = (Integer) tblEmployeePayroll.getValueAt(row, 1);
-                    rowEmpSalary = (Double) tblEmployeePayroll.getValueAt(row, 2);
+                    rowEmpName = (String) tblEmployeePayroll.getValueAt(row, 2);
+                    rowEmpSalary = (Double) tblEmployeePayroll.getValueAt(row, 3);
 
                     if (upf == null || !upf.isDisplayable()) {
-                        upf = new UpdatePayrollForm(rowEmpPayrollId, rowEmpId, rowEmpSalary);
+                        upf = new UpdatePayrollForm(rowEmpPayrollId, rowEmpId, rowEmpName, rowEmpSalary);
                         upf.setVisible(true);
                         disposeForm();
                     }
@@ -159,6 +165,7 @@ public class PayrollForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee Payroll");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel1.setText("Employee Payroll");

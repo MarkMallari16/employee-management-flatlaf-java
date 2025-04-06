@@ -17,7 +17,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
     private Database db = new Database();
 
     //hold data
-    private String payrollIdString, empIdString;
+    private String payrollIdString, empIdString, empName;
     private String salaryString;
     //parsing
 
@@ -26,13 +26,15 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
     //link
     private PayrollForm pf;
 
-    public UpdatePayrollForm(int payrollId, int empId, double empSalary) {
+    public UpdatePayrollForm(int payrollId, int empId, String empName, double empSalary) {
         initComponents();
         payrollIdString = String.valueOf(payrollId);
         empIdString = String.valueOf(empId);
+        
         salaryString = String.valueOf(empSalary);
 
         txtFieldEmpId.setText(empIdString);
+        txtFieldName.setText(empName);
         txtFieldSalary.setText(salaryString);
 
         //icons
@@ -58,6 +60,8 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        txtFieldName = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Update Emeployee Payroll");
@@ -103,6 +107,12 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
             }
         });
 
+        txtFieldName.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtFieldName.setEnabled(false);
+
+        jLabel4.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jLabel4.setText("Employee Name");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,7 +127,9 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
                     .addComponent(txtFieldEmpId)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtFieldName)
+                    .addComponent(jLabel4))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -129,20 +141,24 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtFieldEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtFieldSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(36, 36, 36)
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(603, 474));
+        setSize(new java.awt.Dimension(603, 577));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -222,7 +238,9 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txtFieldEmpId;
+    private javax.swing.JTextField txtFieldName;
     private javax.swing.JTextField txtFieldSalary;
     // End of variables declaration//GEN-END:variables
 }
