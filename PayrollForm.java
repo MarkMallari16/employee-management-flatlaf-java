@@ -15,6 +15,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -34,7 +37,7 @@ public class PayrollForm extends javax.swing.JFrame {
     private static final String PASSWORD = "!M@rkcc16";
 
     //hold data
-    private String empIdString, empIdSalary;
+    private String selectedStringEmpId, empIdSalary;
 
     private Payroll payroll;
     //for row
@@ -61,19 +64,6 @@ public class PayrollForm extends javax.swing.JFrame {
         btnAddSalary.setIcon(new FlatSVGIcon("svg/salary.svg"));
         btnBackToDashboard.setIcon(new FlatSVGIcon("svg/back.svg"));
 
-        //validate and filter character in textfield
-        txtFieldEmpId.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-
-                if (!Character.isDigit(c)) {
-                    e.consume();
-                }
-            }
-
-        });
-
         txtFieldSalary.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -83,7 +73,43 @@ public class PayrollForm extends javax.swing.JFrame {
                     e.consume();
                 }
             }
+        });
+        cbEmployeeId.removeAllItems();
 
+        //display data of employees in combo box
+        displayEmpComBox();
+    }
+
+    private void displayEmpComBox() {
+        String sql = "SELECT e.id FROM employees e LEFT JOIN payroll p ON e.id = p.employee_id WHERE p.salary IS NULL";
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        cbEmployeeId.setModel(model);
+
+        model.addElement("Select Employee ID");
+
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                model.addElement(id + "");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        cbEmployeeId.setRenderer(new DefaultListCellRenderer() {
+            public java.awt.Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                java.awt.Component comp = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                if (index == 0) {
+                    comp.setEnabled(false);
+                } else {
+                    comp.setEnabled(true);
+                }
+
+                return comp;
+            }
         });
     }
 
@@ -157,11 +183,11 @@ public class PayrollForm extends javax.swing.JFrame {
         tblEmployeePayroll = new javax.swing.JTable();
         btnAddSalary = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtFieldEmpId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtFieldSalary = new javax.swing.JTextField();
         btnBackToDashboard = new javax.swing.JButton();
         txtFieldSearch = new javax.swing.JTextField();
+        cbEmployeeId = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Employee Payroll");
@@ -195,8 +221,6 @@ public class PayrollForm extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel2.setText("Employee ID");
 
-        txtFieldEmpId.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-
         jLabel3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel3.setText("Salary");
 
@@ -216,6 +240,8 @@ public class PayrollForm extends javax.swing.JFrame {
             }
         });
 
+        cbEmployeeId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -226,8 +252,8 @@ public class PayrollForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(txtFieldEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cbEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
@@ -239,7 +265,7 @@ public class PayrollForm extends javax.swing.JFrame {
                                 .addGap(9, 9, 9))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1328, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBackToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBackToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -247,21 +273,19 @@ public class PayrollForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(btnBackToDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFieldEmpId))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAddSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                             .addComponent(txtFieldSalary, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAddSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))))
+                            .addComponent(cbEmployeeId, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(65, Short.MAX_VALUE))
@@ -272,24 +296,22 @@ public class PayrollForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSalaryActionPerformed
-        empIdString = txtFieldEmpId.getText();
         empIdSalary = txtFieldSalary.getText();
 
         //validate textfield 
-        if (empIdString.isEmpty() || empIdSalary.isEmpty()) {
+        if (cbEmployeeId.getSelectedItem().equals("Select Employee ID") || cbEmployeeId.getItemCount() == 0 || empIdSalary.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please input Employee id and salary!",
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        //convert to int
-        int empId = Integer.parseInt(empIdString);
+        //get selected empId
+        selectedStringEmpId = (String) cbEmployeeId.getSelectedItem();
+        //convert empId to int
+        int empId = Integer.parseInt(selectedStringEmpId);
+
         //convert to double
         double salary = Double.parseDouble(empIdSalary);
 
-        if (!db.isEmpIdExists(empId)) {
-            JOptionPane.showMessageDialog(this, "Employee ID does not exists.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         payroll = new Payroll(empId, salary);
 
         JOptionPane.showMessageDialog(this,
@@ -298,7 +320,6 @@ public class PayrollForm extends javax.swing.JFrame {
 
         db.addPayroll(empId, payroll);
 
-        txtFieldEmpId.setText(null);
         txtFieldSalary.setText(null);
 
         displayPayrollTable();
@@ -376,12 +397,12 @@ public class PayrollForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddSalary;
     private javax.swing.JButton btnBackToDashboard;
+    private javax.swing.JComboBox<String> cbEmployeeId;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblEmployeePayroll;
-    private javax.swing.JTextField txtFieldEmpId;
     private javax.swing.JTextField txtFieldSalary;
     private javax.swing.JTextField txtFieldSearch;
     // End of variables declaration//GEN-END:variables
