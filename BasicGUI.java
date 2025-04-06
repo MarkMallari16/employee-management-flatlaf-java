@@ -7,6 +7,7 @@ package com.mycompany.firstflatlaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -25,7 +26,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class BasicGUI extends javax.swing.JFrame {
 
     //database
-    private Database db = new Database();
+    private Database db;
 
     private EmployeeForm empForm;
     private Login log;
@@ -37,8 +38,19 @@ public class BasicGUI extends javax.swing.JFrame {
      * Creates new form BasicGUI
      */
     public BasicGUI() {
-
         initComponents();
+        try {
+            db = Database.getInstance();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            db = Database.getInstance();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         displayTime();
 
         //chart

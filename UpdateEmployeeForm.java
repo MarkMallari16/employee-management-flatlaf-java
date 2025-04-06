@@ -9,10 +9,13 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -26,7 +29,7 @@ import javax.swing.SwingConstants;
  */
 public class UpdateEmployeeForm extends javax.swing.JFrame {
 
-    private Database db = new Database();
+    private Database db;
     private int updEmpIdInt;
     private String updEmpProfilePath;
     private int updEmpAge;
@@ -46,6 +49,13 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
             String rowEmpStatus, String rowEmpContactNum, String rowEmpEmail, String rowEmpDepartment, String rowEmpPosition,
             String rowEmpLocationType, String profilePath) {
         initComponents();
+
+        try {
+            db = Database.getInstance();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         //make the default profile centered
         txtLblProfile.setHorizontalAlignment(SwingConstants.CENTER);
         txtLblProfile.setVerticalAlignment(SwingConstants.CENTER);

@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Objects;
 
 public class Database {
 
@@ -19,6 +17,7 @@ public class Database {
 
     public Database() {
         try {
+            //optional
             Class.forName("com.mysql.cj.jdbc.Driver");
             this.conn = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (ClassNotFoundException ex) {
@@ -45,17 +44,16 @@ public class Database {
     }
 
     //insert data (for dynamic and reusability)
-    public void insertData(String query, Objects[] values) {
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(query)) {
-            for (int i = 0; i < values.length; i++) {
-                pstmt.setObject(i + 1, values[i]);
-            }
-            pstmt.executeUpdate();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
+//    public void insertData(String query, Objects[] values) {
+//        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(query)) {
+//            for (int i = 0; i < values.length; i++) {
+//                pstmt.setObject(i + 1, values[i]);
+//            }
+//            pstmt.executeUpdate();
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
     //adding employee
     public void addEmployee(Employee employee) {
 //        employeesDb.put(id, employee);
@@ -65,7 +63,7 @@ public class Database {
         String sql = "INSERT INTO employees (profile, name, age, date_of_birth, gender, status, department, position, location_type, contact_num, email) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, employee.getProfile());
             pstmt.setString(2, employee.getName());
             pstmt.setInt(3, employee.getAge());
@@ -92,7 +90,7 @@ public class Database {
 
     public boolean isEmpIdExists(int id) {
         String sql = "SELECT COUNT(*) FROM employees WHERE id = ?";
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
 
@@ -109,7 +107,7 @@ public class Database {
     //deleting employee
     public void removeEmployee(int id) {
         String sql = "DELETE FROM employees WHERE id = ?";
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
 
@@ -129,7 +127,7 @@ public class Database {
         String sql = "UPDATE employees SET profile = ?, name = ?, age = ?, date_of_birth = ?, gender = ?, status = ?, "
                 + "department = ?, position = ?, location_type = ?, contact_num = ?, email = ? WHERE id = ?";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, employee.getProfile());
             pstmt.setString(2, employee.getName());
             pstmt.setInt(3, employee.getAge());
@@ -160,7 +158,7 @@ public class Database {
         String sql = "SELECT COUNT(id) FROM employees";
         int totalEmployees = 0;
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); Statement stmt = conn.createStatement()) {
+        try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
 
             if (rs.next()) {
@@ -176,7 +174,7 @@ public class Database {
     public void addPayroll(int id, Payroll payroll) {
         String sql = "INSERT INTO payroll (employee_id, salary) VALUES (?,?)";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.setDouble(2, payroll.getSalary());
 
@@ -198,7 +196,7 @@ public class Database {
     public void updatePayroll(int id, Payroll payroll) {
         String sql = "UPDATE payroll SET employee_id = ?, salary = ? WHERE id = ?";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, payroll.getEmpId());
             pstmt.setDouble(2, payroll.getSalary());
             pstmt.setInt(3, id);
@@ -218,7 +216,7 @@ public class Database {
     public void removePayroll(int id) {
         String sql = "DELETE FROM payroll WHERE id = ?";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
 
             int rowAffected = pstmt.executeUpdate();

@@ -31,7 +31,7 @@ import javax.swing.table.TableRowSorter;
 public class PayrollForm extends javax.swing.JFrame {
 
     //temporary database
-    private Database db = new Database();
+    private Database db;
     private static final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
     private static final String USER = "root";
     private static final String PASSWORD = "!M@rkcc16";
@@ -55,6 +55,12 @@ public class PayrollForm extends javax.swing.JFrame {
 
     public PayrollForm() {
         initComponents();
+        try {
+            db = Database.getInstance();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         displayPayrollTable();
 
         //placeholder
@@ -121,7 +127,7 @@ public class PayrollForm extends javax.swing.JFrame {
         String sql = "SELECT payroll.id AS payroll_id, payroll.employee_id, employees.name, payroll.salary "
                 + "FROM payroll "
                 + "INNER JOIN employees ON payroll.employee_id = employees.id";
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
 
             ResultSet rs = pstmt.executeQuery();
 

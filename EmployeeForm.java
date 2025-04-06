@@ -40,7 +40,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 public class EmployeeForm extends javax.swing.JFrame {
 
     //database
-    private Database db = new Database();
+    private Database db;
     private static final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
     private static final String USER = "root";
     private static final String PASSWORD = "!M@rkcc16";
@@ -72,6 +72,11 @@ public class EmployeeForm extends javax.swing.JFrame {
      */
     public EmployeeForm() {
         initComponents();
+        try {
+            db = Database.getInstance();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
         //displaying Employee Table
         displayEmpTable();
@@ -385,7 +390,7 @@ public class EmployeeForm extends javax.swing.JFrame {
             }
         };
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); Statement stmt = conn.createStatement()) {
+        try (Statement stmt = db.getConnection().createStatement()) {
             String sql = "SELECT id, profile, name, age, date_of_birth, gender, status"
                     + ", department, position, location_type, contact_num, email FROM employees";
             ResultSet rs = stmt.executeQuery(sql);

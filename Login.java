@@ -23,12 +23,7 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class Login extends javax.swing.JFrame {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
-    private static final String USER = "root";
-    private static final String PASSWORD = "!M@rkcc16";
-    private String myUsername = "admin";
-    private String myPassword = "admin123";
-
+    private Database db;
     private String username;
     private char[] charPass;
     private String password;
@@ -40,6 +35,12 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        try {
+            db = Database.getInstance();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         txtFieldUsername.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Enter username");
         txtFieldUsername.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/person.svg"));
 
@@ -201,10 +202,10 @@ public class Login extends javax.swing.JFrame {
             return;
         }
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 String hashedPassword = rs.getString("password");
                 if (BCrypt.checkpw(password, hashedPassword)) {

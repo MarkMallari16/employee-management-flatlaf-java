@@ -301,6 +301,7 @@ public class SettingsForm extends javax.swing.JFrame {
         int choice = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {
+            disposeForm();
             goToLogin();
         }
     }//GEN-LAST:event_btnLogoutActionPerformed

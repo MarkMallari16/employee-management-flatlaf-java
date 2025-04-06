@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.imageio.ImageIO;
@@ -26,7 +27,7 @@ import javax.swing.SwingConstants;
  */
 public class AddingEmployeeForm extends javax.swing.JFrame {
 
-    private Database db = new Database();
+    private Database db;
 //    private static int empId = 2000;
     private String profile = "svg/default_profile.svg", name, age, dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType;
     private EmployeeForm empForm;
@@ -39,6 +40,12 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
      */
     public AddingEmployeeForm() {
         initComponents();
+
+        try {
+            db = Database.getInstance();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
         //icons
         btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
@@ -431,7 +438,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
             return;
         }
 
-        employee = new Employee( profile, name, Integer.parseInt(age), dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType);
+        employee = new Employee(profile, name, Integer.parseInt(age), dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType);
         db.addEmployee(employee);
 
         JOptionPane.showMessageDialog(this, "Employee Successfully Added!", "Success", JOptionPane.INFORMATION_MESSAGE);

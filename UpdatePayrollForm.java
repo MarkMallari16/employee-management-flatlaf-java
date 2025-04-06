@@ -5,6 +5,7 @@
 package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,7 +15,7 @@ import javax.swing.JOptionPane;
 public class UpdatePayrollForm extends javax.swing.JFrame {
 
     //database
-    private Database db = new Database();
+    private Database db;
 
     //hold data
     private String payrollIdString, empIdString, empName;
@@ -28,9 +29,16 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
 
     public UpdatePayrollForm(int payrollId, int empId, String empName, double empSalary) {
         initComponents();
+
+        try {
+            db = Database.getInstance();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         payrollIdString = String.valueOf(payrollId);
         empIdString = String.valueOf(empId);
-        
+
         salaryString = String.valueOf(empSalary);
 
         txtFieldEmpId.setText(empIdString);
