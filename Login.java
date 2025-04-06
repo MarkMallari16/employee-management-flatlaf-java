@@ -8,9 +8,14 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -18,6 +23,9 @@ import javax.swing.UIManager;
  */
 public class Login extends javax.swing.JFrame {
 
+    private static final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
+    private static final String USER = "root";
+    private static final String PASSWORD = "!M@rkcc16";
     private String myUsername = "admin";
     private String myPassword = "admin123";
 
@@ -51,8 +59,8 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         }));
-
         btnLogin.addActionListener(e -> login());
+
     }
 
     /**
@@ -186,17 +194,30 @@ public class Login extends javax.swing.JFrame {
         username = txtFieldUsername.getText().trim();
         charPass = txtFieldPassword.getPassword();
         password = new String(charPass);
+        String sql = "SELECT * FROM users WHERE username = ?";
 
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username and Password are required!", "Login Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (username.equals(myUsername) && password.equals(myPassword)) {
-            goToDashboard();
-        } else {
-            JOptionPane.showMessageDialog(this, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
-            txtFieldUsername.requestFocus();
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                String hashedPassword = rs.getString("password");
+                if (BCrypt.checkpw(password, hashedPassword)) {
+                    goToDashboard();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                    txtFieldUsername.requestFocus();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "User not found.", "Login Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
 
