@@ -11,20 +11,37 @@ import java.util.Objects;
 
 public class Database {
 
+    private static Database instance;
+    private Connection conn;
     private static final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
     private static final String USER = "root";
     private static final String PASSWORD = "!M@rkcc16";
-    private static HashMap<Integer, Employee> employeesDb = new HashMap<>();
-    private static HashMap<Integer, Payroll> payrollDb = new HashMap<>();
 
     public Database() {
-//        try {
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//
-//        } catch (ClassNotFoundException ex) {
-//            System.out.println("MYSQL Driver not found");
-//            ex.printStackTrace();
-//        }
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            this.conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (ClassNotFoundException ex) {
+            System.out.println("MYSQL Driver not found");
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public Connection getConnection() {
+        return conn;
+    }
+
+    public static Database getInstance() throws SQLException {
+        if (instance == null || instance.getConnection().isClosed()) {
+            synchronized (Database.class) {
+                if (instance == null || instance.getConnection().isClosed()) {
+                    instance = new Database();
+                }
+            }
+        }
+        return instance;
     }
 
     //insert data (for dynamic and reusability)
@@ -71,10 +88,6 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public HashMap<Integer, Employee> getEmployee() {
-        return employeesDb;
     }
 
     public boolean isEmpIdExists(int id) {
@@ -180,14 +193,6 @@ public class Database {
         }
 
         System.out.println("Successfully added.");
-    }
-
-    public HashMap<Integer, Payroll> getPayroll() {
-        return payrollDb;
-    }
-
-    public boolean isPayrollExists(int id) {
-        return payrollDb.containsKey(id);
     }
 
     public void updatePayroll(int id, Payroll payroll) {

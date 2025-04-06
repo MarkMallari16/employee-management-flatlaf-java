@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -41,7 +40,6 @@ public class BasicGUI extends javax.swing.JFrame {
 
         initComponents();
         displayTime();
-        displayEmpTable();
 
         //chart
         displayBarChart();
@@ -123,32 +121,6 @@ public class BasicGUI extends javax.swing.JFrame {
         });
 
         timer.start();
-    }
-
-    private void displayEmpTable() {
-        String[] columns = {"Employee ID", "Name", "Age", "Date of Birth", "Gender", "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
-        DefaultTableModel model = new DefaultTableModel(columns, 0);
-
-        for (int empId : db.getEmployee().keySet()) {
-            Employee employeeData = db.getEmployee().get(empId);
-
-            if (employeeData != null) {
-                model.addRow(new Object[]{
-                    empId,
-                    employeeData.getName(),
-                    employeeData.getAge(),
-                    employeeData.getDateOfBirth(),
-                    employeeData.getGender(),
-                    employeeData.getStatus(),
-                    employeeData.getContactNum(),
-                    employeeData.getEmail(),
-                    employeeData.getDepartment(),
-                    employeeData.getPosition(),
-                    employeeData.getLocationType()});
-
-            }
-        }
-
     }
 
     private void disposeForm() {

@@ -75,7 +75,7 @@ public class EmployeeForm extends javax.swing.JFrame {
 
         //displaying Employee Table
         displayEmpTable();
-        
+
         //sidebar icons
         btnDashboard.setIcon(new FlatSVGIcon("svg/dashboard.svg"));
         btnEmployee.setIcon(new FlatSVGIcon("svg/employee.svg"));
@@ -412,7 +412,7 @@ public class EmployeeForm extends javax.swing.JFrame {
                         try {
                             BufferedImage originalImage = ImageIO.read(profile);
                             Image resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-                            
+
                             profileImage = new ImageIcon(resizedImage);
                         } catch (IOException ex) {
                             ex.printStackTrace();
@@ -526,57 +526,57 @@ public class EmployeeForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFieldSearchActionPerformed
 
     private void btnExportPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPDFActionPerformed
-        PDPage page = new PDPage(PDRectangle.A4);
-        try (PDDocument document = new PDDocument(); PDPageContentStream contentStream = new PDPageContentStream(document, page);) {
-            String filePath = "exported_employees.pdf";
-            document.addPage(page);
-
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            float margin = 50;
-            float y = page.getMediaBox().getHeight() - 50;
-
-            // Table Header
-            contentStream.beginText();
-            contentStream.newLineAtOffset(margin, y);
-            contentStream.showText("ID    Name           Age   Department     Position");
-            contentStream.endText();
-
-            y -= 20;
-
-            if (db.getEmployee().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "No employees to export.");
-                return;
-            }
-
-            contentStream.setFont(PDType1Font.HELVETICA, 10);
-            for (int empId : db.getEmployee().keySet()) {
-                Employee employee = db.getEmployee().get(empId);
-
-                contentStream.beginText();
-                contentStream.newLineAtOffset(50, y);
-                contentStream.showText(empId + "    " + employee.getName() + "    " + employee.getAge() + "    "
-                        + employee.getDepartment() + "    " + employee.getPosition());
-                contentStream.endText();
-
-                y -= 20;
-
-            }
-
-            contentStream.close();
-
-            document.save(filePath);
-
-            JOptionPane.showMessageDialog(this, "Employees PDF Exported Successfully!");
-
-            //pdf file
-            File pdfFile = new File(filePath);
-
-            if (pdfFile.exists() && Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().open(pdfFile);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//        PDPage page = new PDPage(PDRectangle.A4);
+//        try (PDDocument document = new PDDocument(); PDPageContentStream contentStream = new PDPageContentStream(document, page);) {
+//            String filePath = "exported_employees.pdf";
+//            document.addPage(page);
+//
+//            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+//            float margin = 50;
+//            float y = page.getMediaBox().getHeight() - 50;
+//
+//            // Table Header
+//            contentStream.beginText();
+//            contentStream.newLineAtOffset(margin, y);
+//            contentStream.showText("ID    Name           Age   Department     Position");
+//            contentStream.endText();
+//
+//            y -= 20;
+//
+//            if (db.getEmployee().isEmpty()) {
+//                JOptionPane.showMessageDialog(this, "No employees to export.");
+//                return;
+//            }
+//
+//            contentStream.setFont(PDType1Font.HELVETICA, 10);
+//            for (int empId : db.getEmployee().keySet()) {
+//                Employee employee = db.getEmployee().get(empId);
+//
+//                contentStream.beginText();
+//                contentStream.newLineAtOffset(50, y);
+//                contentStream.showText(empId + "    " + employee.getName() + "    " + employee.getAge() + "    "
+//                        + employee.getDepartment() + "    " + employee.getPosition());
+//                contentStream.endText();
+//
+//                y -= 20;
+//
+//            }
+//
+//            contentStream.close();
+//
+//            document.save(filePath);
+//
+//            JOptionPane.showMessageDialog(this, "Employees PDF Exported Successfully!");
+//
+//            //pdf file
+//            File pdfFile = new File(filePath);
+//
+//            if (pdfFile.exists() && Desktop.isDesktopSupported()) {
+//                Desktop.getDesktop().open(pdfFile);
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
     }//GEN-LAST:event_btnExportPDFActionPerformed
 
     private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
