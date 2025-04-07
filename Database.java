@@ -32,13 +32,9 @@ public class Database {
         return conn;
     }
 
-    public static Database getInstance() throws SQLException {
+    public static synchronized Database getInstance() throws SQLException {
         if (instance == null || instance.getConnection().isClosed()) {
-            synchronized (Database.class) {
-                if (instance == null || instance.getConnection().isClosed()) {
-                    instance = new Database();
-                }
-            }
+            instance = new Database();
         }
         return instance;
     }
