@@ -19,10 +19,6 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-/**
- *
- * @author Mallari
- */
 public class BasicGUI extends javax.swing.JFrame {
 
     //database
