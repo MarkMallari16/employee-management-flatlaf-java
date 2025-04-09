@@ -52,10 +52,6 @@ public class Database {
 //    }
     //adding employee
     public void addEmployee(Employee employee) {
-//        employeesDb.put(id, employee);
-//
-//        System.out.println("Successfully added!");
-
         String sql = "INSERT INTO employees (profile, name, age, date_of_birth, gender, status, department, position, location_type, contact_num, email) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

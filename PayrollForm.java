@@ -74,10 +74,17 @@ public class PayrollForm extends javax.swing.JFrame {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
+                String text = txtFieldSalary.getText();
 
-                if (!Character.isDigit(c)) {
-                    e.consume();
+                if (Character.isDigit(c)) {
+                    return;
                 }
+
+                if (c == '.' && !text.contains(".")) {
+                    return;
+                }
+
+                e.consume();
             }
         });
         cbEmployeeId.removeAllItems();

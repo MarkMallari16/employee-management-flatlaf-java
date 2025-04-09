@@ -27,11 +27,6 @@ import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 /**
  *
@@ -41,9 +36,7 @@ public class EmployeeForm extends javax.swing.JFrame {
 
     //database
     private Database db;
-    private static final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
-    private static final String USER = "root";
-    private static final String PASSWORD = "!M@rkcc16";
+
 
     //link for AddEmpForm
     private AddingEmployeeForm addingEmployeeForm;

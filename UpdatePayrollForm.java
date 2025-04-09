@@ -5,6 +5,8 @@
 package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -18,7 +20,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
     private Database db;
 
     //hold data
-    private String payrollIdString, empIdString, empName;
+    private String payrollIdString, empIdString;
     private String salaryString;
     //parsing
 
@@ -49,6 +51,24 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         btnUpdate.setIcon(new FlatSVGIcon("svg/edit.svg"));
         btnDelete.setIcon(new FlatSVGIcon("svg/delete.svg"));
         btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
+
+        txtFieldSalary.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                String text = txtFieldSalary.getText();
+
+                if (Character.isDigit(c)) {
+                    return;
+                }
+                if (c == '.' && !text.contains(".")) {
+                    return;
+                }
+
+                e.consume();
+
+            }
+        });
     }
 
     /**
