@@ -92,10 +92,10 @@
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtLblProfile" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnUploadProfile" alignment="0" min="-2" pref="274" max="-2" attributes="0"/>
+                          <Component id="txtLblProfile" max="32767" attributes="0"/>
+                          <Component id="btnUploadProfile" pref="300" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="210" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -110,7 +110,7 @@
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtFieldEmpId" min="-2" pref="38" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
@@ -155,9 +155,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="dcDateOfBirth" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtLblProfile" min="-2" pref="188" max="-2" attributes="0"/>
+                      <Component id="txtLblProfile" min="-2" pref="201" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnUploadProfile" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>

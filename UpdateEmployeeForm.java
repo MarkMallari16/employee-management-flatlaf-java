@@ -14,8 +14,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -68,7 +66,8 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         System.out.println("Setted: " + profilePath);
         System.out.println(updEmpProfilePath);
         txtFieldEmpId.setText(rowEmpIdString);
-        txtLblProfile.setIcon(rowEmpProfile);
+
+        txtLblProfile.setIcon(getProfileIcon(rowEmpProfile));
 
         txtFieldName.setText(rowEmpName);
         txtFieldAge.setText(rowEmpAgeString);
@@ -113,6 +112,15 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
         String[] workLocation = {"On-Site", "Remote", "Hybrid"};
         displayCombox(workLocation, cbLocationType);
 
+    }
+
+    private ImageIcon getProfileIcon(ImageIcon imageIcon) {
+        //getting image
+        Image origImage = imageIcon.getImage();
+        Image resizedImage = origImage.getScaledInstance(300, 200, Image.SCALE_AREA_AVERAGING);
+        ImageIcon resizedIcon = new ImageIcon(resizedImage);
+
+        return resizedIcon;
     }
 
     private void displayCombox(String[] items, JComboBox cb) {
@@ -343,8 +351,8 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtLblProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnUploadProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(210, 210, 210))))
+                            .addComponent(btnUploadProfile, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                        .addGap(184, 184, 184))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,7 +363,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFieldEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(jLabel9)
@@ -391,9 +399,9 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dcDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLblProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtLblProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnUploadProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)

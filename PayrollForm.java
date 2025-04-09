@@ -32,13 +32,10 @@ public class PayrollForm extends javax.swing.JFrame {
 
     //temporary database
     private Database db;
-    private static final String URL = "jdbc:mysql://localhost:3306/db_employee_management";
-    private static final String USER = "root";
-    private static final String PASSWORD = "!M@rkcc16";
 
     //hold data
     private String selectedStringEmpId, empIdSalary;
-
+    //for link
     private Payroll payroll;
     //for row
     private int rowEmpPayrollId;
@@ -48,13 +45,14 @@ public class PayrollForm extends javax.swing.JFrame {
 
     //dashboard
     private BasicGUI gui;
-
+    //for update form
     private UpdatePayrollForm upf;
-
+    //for searching payroll employee
     private TableRowSorter<DefaultTableModel> rowSorter;
 
     public PayrollForm() {
         initComponents();
+
         try {
             db = Database.getInstance();
         } catch (SQLException ex) {
@@ -100,7 +98,7 @@ public class PayrollForm extends javax.swing.JFrame {
 
         model.addElement("Select Employee ID");
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -114,7 +112,6 @@ public class PayrollForm extends javax.swing.JFrame {
         cbEmployeeId.setRenderer(new DefaultListCellRenderer() {
             public java.awt.Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 java.awt.Component comp = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
                 if (index == 0) {
                     comp.setEnabled(false);
                 } else {
