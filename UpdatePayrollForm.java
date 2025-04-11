@@ -27,7 +27,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
     private int payrollIdInt, empIdInt;
     private double salaryDouble;
     //link
-    private PayrollForm pf;
+    private MainForm mainForm;
 
     public UpdatePayrollForm(int payrollId, int empId, String empName, double empSalary) {
         initComponents();
@@ -217,9 +217,9 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         goToPayroll();
     }//GEN-LAST:event_btnBackActionPerformed
     private void goToPayroll() {
-        if (pf == null || !pf.isDisplayable()) {
-            pf = new PayrollForm();
-            pf.setVisible(true);
+        if (mainForm == null || !mainForm.isDisplayable()) {
+            mainForm = new MainForm(3);
+            mainForm.setVisible(true);
             this.dispose();
         }
     }
