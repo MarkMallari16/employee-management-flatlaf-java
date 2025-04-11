@@ -26,7 +26,7 @@ public class Login extends javax.swing.JFrame {
     private char[] charPass;
     private String password;
 
-    private BasicGUI gui;
+    private MainForm mainForm;
 
     /**
      * Creates new form Login
@@ -207,7 +207,7 @@ public class Login extends javax.swing.JFrame {
             if (rs.next()) {
                 String hashedPassword = rs.getString("password");
                 if (BCrypt.checkpw(password, hashedPassword)) {
-                    goToDashboard();
+                    goToMainForm();
                 } else {
                     JOptionPane.showMessageDialog(this, "Invalid username or password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
                     txtFieldUsername.requestFocus();
@@ -220,10 +220,10 @@ public class Login extends javax.swing.JFrame {
         }
     }
 
-    private void goToDashboard() {
-        if (gui == null || !gui.isDisplayable()) {
-            gui = new BasicGUI();
-            gui.setVisible(true);
+    private void goToMainForm() {
+        if (mainForm == null || !mainForm.isDisplayable()) {
+            mainForm = new MainForm(0);
+            mainForm.setVisible(true);
             this.dispose();
         }
     }
