@@ -915,10 +915,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="1093" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -931,7 +928,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="txtFieldSalary" min="-2" pref="274" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="btnAddSalary2" min="-2" pref="225" max="-2" attributes="0"/>
+                                          <Component id="btnAddEmpSalary" min="-2" pref="225" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="txtFieldSearchPayroll" min="-2" pref="223" max="-2" attributes="0"/>
                                       </Group>
@@ -958,7 +955,7 @@
                                   <Component id="txtFieldSalary" alignment="1" max="32767" attributes="0"/>
                                   <Component id="cbEmployeeId" alignment="1" min="-2" pref="44" max="-2" attributes="0"/>
                                   <Component id="txtFieldSearchPayroll" alignment="1" min="-2" pref="37" max="-2" attributes="0"/>
-                                  <Component id="btnAddSalary2" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="btnAddEmpSalary" alignment="1" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -991,7 +988,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btnAddSalary2">
+            <Component class="javax.swing.JButton" name="btnAddEmpSalary">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="66" type="rgb"/>
@@ -1002,7 +999,7 @@
                 <Property name="text" type="java.lang.String" value="ADD EMPLOYEE SALARY"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddSalary2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddEmpSalaryActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
@@ -1044,6 +1041,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbEmployeeIdActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>

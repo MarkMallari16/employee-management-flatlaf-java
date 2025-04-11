@@ -72,6 +72,7 @@ public class MainForm extends javax.swing.JFrame {
     private String profilePath;
 
     //settings datas
+    private String username;
     private int userId;
     private char[] charArrayPass;
     private String passString;
@@ -247,10 +248,11 @@ public class MainForm extends javax.swing.JFrame {
         tblEmployee.getColumnModel().getColumn(12).setWidth(0);
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-        tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tblEmployee.setRowHeight(100);
         //for employee
         searchField(txtFieldSearchEmployee, tblEmployee, model);
+
+        tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblEmployee.setRowHeight(100);
 
         //clicking row
         tblEmployee.addMouseListener(new MouseAdapter() {
@@ -394,24 +396,6 @@ public class MainForm extends javax.swing.JFrame {
         });
     }
 
-    private void searchEmployeePayroll(DefaultTableModel model) {
-        rowSorter = new TableRowSorter<>(model);
-
-        tblEmployeePayroll.setRowSorter(rowSorter);
-
-        txtFieldSearchEmployee.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                String searchText = txtFieldSearchEmployee.getText();
-                if (searchText.trim().isEmpty()) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
-                }
-            }
-        });
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -471,7 +455,7 @@ public class MainForm extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblEmployeePayroll = new javax.swing.JTable();
-        btnAddSalary2 = new javax.swing.JButton();
+        btnAddEmpSalary = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtFieldSalary = new javax.swing.JTextField();
@@ -1014,12 +998,12 @@ public class MainForm extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(tblEmployeePayroll);
 
-        btnAddSalary2.setBackground(new java.awt.Color(102, 153, 255));
-        btnAddSalary2.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        btnAddSalary2.setText("ADD EMPLOYEE SALARY");
-        btnAddSalary2.addActionListener(new java.awt.event.ActionListener() {
+        btnAddEmpSalary.setBackground(new java.awt.Color(102, 153, 255));
+        btnAddEmpSalary.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnAddEmpSalary.setText("ADD EMPLOYEE SALARY");
+        btnAddEmpSalary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddSalary2ActionPerformed(evt);
+                btnAddEmpSalaryActionPerformed(evt);
             }
         });
 
@@ -1038,6 +1022,11 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         cbEmployeeId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbEmployeeId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEmployeeIdActionPerformed(evt);
+            }
+        });
 
         jLabel21.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel21.setText("Payroll");
@@ -1063,7 +1052,7 @@ public class MainForm extends javax.swing.JFrame {
                                 .addGroup(jPanel4Layout.createSequentialGroup()
                                     .addComponent(txtFieldSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnAddSalary2, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAddEmpSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtFieldSearchPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1188, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1083,7 +1072,7 @@ public class MainForm extends javax.swing.JFrame {
                             .addComponent(txtFieldSalary, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cbEmployeeId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtFieldSearchPayroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAddSalary2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnAddEmpSalary, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 600, Short.MAX_VALUE))
@@ -1272,6 +1261,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
         tabContentPane.setSelectedIndex(6);
+        setAdminInfo();
     }//GEN-LAST:event_btnSettingsActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -1319,7 +1309,7 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCurrentAttendanceActionPerformed
 
-    private void btnAddSalary2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSalary2ActionPerformed
+    private void btnAddEmpSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmpSalaryActionPerformed
         empIdSalary = txtFieldSalary.getText();
 
         //validate textfield
@@ -1344,11 +1334,13 @@ public class MainForm extends javax.swing.JFrame {
 
         db.addPayroll(empId, payroll);
 
-        txtFieldSalary.setText(null);
+        cbEmployeeId.setSelectedIndex(0);
 
+        txtFieldSalary.setText(null);
+        displayEmpComBox();
         displayPayrollTable();
 
-    }//GEN-LAST:event_btnAddSalary2ActionPerformed
+    }//GEN-LAST:event_btnAddEmpSalaryActionPerformed
 
     private void txtFieldSearchPayrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldSearchPayrollActionPerformed
         // TODO add your handling code here:
@@ -1394,9 +1386,30 @@ public class MainForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Password successfully updated.");
             txtFieldPassword.setText("");
         } catch (SQLException ex) {
-
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
+    private void setAdminInfo() {
+        String sql = "SELECT id,username FROM users WHERE id = 1000";
+
+        try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                userId = rs.getInt("id");
+                System.out.println(userId);
+                username = rs.getString("username");
+            }
+            txtFieldUsername.setText(username);
+            txtFieldPassword.setText("");
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    private void cbEmployeeIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEmployeeIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbEmployeeIdActionPerformed
     //logout 
     private void goToLogin() {
         if (log == null || !log.isDisplayable()) {
@@ -1448,9 +1461,9 @@ public class MainForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Sidebar;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAddEmpSalary;
     private javax.swing.JButton btnAddSalary;
     private javax.swing.JButton btnAddSalary1;
-    private javax.swing.JButton btnAddSalary2;
     private javax.swing.JButton btnAttendance;
     private javax.swing.JButton btnChangeTheme;
     private javax.swing.JButton btnCurrentAttendance;
