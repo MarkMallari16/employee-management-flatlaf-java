@@ -30,7 +30,7 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
     private Database db;
 //    private static int empId = 2000;
     private String profile = "svg/default_profile.svg", name, age, dateOfBirth, selectedGender, selectedStatus, contactNum, email, selectedDept, position, selectedLocationType;
-    private EmployeeForm empForm;
+    private MainForm mainForm;
     //oop
     private Employee employee;
     private JFileChooser fileChooser;
@@ -501,9 +501,9 @@ public class AddingEmployeeForm extends javax.swing.JFrame {
     }
 
     private void goBackToDashboard() {
-        if (empForm == null || !empForm.isDisplayable()) {
-            empForm = new EmployeeForm();
-            empForm.setVisible(true);
+        if (mainForm == null || !mainForm.isDisplayable()) {
+            mainForm = new MainForm(1);
+            mainForm.setVisible(true);
             disposeForm();
         }
     }
