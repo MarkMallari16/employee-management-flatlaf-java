@@ -10,8 +10,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,7 +42,7 @@ public class PayrollForm extends javax.swing.JFrame {
     private double rowEmpSalary;
 
     //dashboard
-    private BasicGUI gui;
+    private Dashboard gui;
     //for update form
     private UpdatePayrollForm upf;
     //for searching payroll employee
@@ -85,6 +83,7 @@ public class PayrollForm extends javax.swing.JFrame {
                 e.consume();
             }
         });
+        
         cbEmployeeId.removeAllItems();
 
         //display data of employees in combo box
@@ -92,6 +91,7 @@ public class PayrollForm extends javax.swing.JFrame {
     }
 
     private void displayEmpComBox() {
+        //display only no employee payrolls
         String sql = "SELECT e.id FROM employees e LEFT JOIN payroll p ON e.id = p.employee_id WHERE p.salary IS NULL";
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         cbEmployeeId.setModel(model);
@@ -359,7 +359,7 @@ public class PayrollForm extends javax.swing.JFrame {
     }
     private void btnBackToDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToDashboardActionPerformed
         if (gui == null || !gui.isDisplayable()) {
-            gui = new BasicGUI();
+            gui = new Dashboard();
             gui.setVisible(true);
             disposeForm();
         }
