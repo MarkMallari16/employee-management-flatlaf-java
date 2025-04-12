@@ -33,7 +33,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     private int updEmpAge;
     private String updEmpName, updDateOfBirth, updEmpGender,
             updEmpdStatus, updEmpContactNum, updEmpEmail, updEmpDepartment, updEmpPosition, updEmpLocationType;
-    private EmployeeForm empForm;
+    private MainForm mainForm;
     //data
     private Employee employee;
     private JFileChooser fileChooser;
@@ -434,7 +434,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        goBackToDashboard();
+        goBackToMainForm();
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -462,7 +462,7 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this, "Employee successfully update!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
-        goBackToDashboard();
+        goBackToMainForm();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void cbDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDepartmentActionPerformed
@@ -507,10 +507,10 @@ public class UpdateEmployeeForm extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnUploadProfileActionPerformed
-    private void goBackToDashboard() {
-        if (empForm == null || !empForm.isDisplayable()) {
-            empForm = new EmployeeForm();
-            empForm.setVisible(true);
+    private void goBackToMainForm() {
+        if (mainForm == null || !mainForm.isDisplayable()) {
+            mainForm = new MainForm(1);
+            mainForm.setVisible(true);
             disposeForm();
         }
     }
