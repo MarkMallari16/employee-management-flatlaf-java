@@ -107,29 +107,26 @@ public class MainForm extends javax.swing.JFrame {
         btnEmployee.setIcon(new FlatSVGIcon("svg/employee.svg"));
         btnAttendance.setIcon(new FlatSVGIcon("svg/attendance.svg"));
         btnPayroll.setIcon(new FlatSVGIcon("svg/payroll.svg"));
-        
+
         btnReports.setIcon(new FlatSVGIcon("svg/reports.svg"));
         btnLeaves.setIcon(new FlatSVGIcon("svg/leaves.svg"));
         btnSettings.setIcon(new FlatSVGIcon("svg/settings.svg"));
         btnLogout.setIcon(new FlatSVGIcon("svg/logout.svg"));
-        
+
         btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
         btnDeleteLink.setIcon(new FlatSVGIcon("svg/delete.svg"));
         btnExportPDF.setIcon(new FlatSVGIcon("svg/pdf.svg"));
-        
+
         btnAddEmpSalary.setIcon(new FlatSVGIcon("svg/salary.svg"));
-        
+
         btnCurrentAttendance.setIcon(new FlatSVGIcon("svg/calendar.svg"));
         btnLate.setIcon(new FlatSVGIcon("svg/late.svg"));
         btnOvertime.setIcon(new FlatSVGIcon("svg/clock.svg"));
 
-        //search 
-        //placeholder
-        txtFieldSearchEmployee.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
-        txtFieldSearchEmployee.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
-        
-        txtFieldSearchPayroll.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
-        txtFieldSearchPayroll.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
+        //search icon and placeholder
+        setSearchIconPlaceHolder(txtFieldSearchEmployee);
+        setSearchIconPlaceHolder(txtFieldSearchPayroll);
+        setSearchIconPlaceHolder(txtFieldSearchAttendance);
 
         //overviews
         txtFieldTotalEmp.setText(String.valueOf(db.getTotalEmployees()));
@@ -160,33 +157,38 @@ public class MainForm extends javax.swing.JFrame {
                 }
             }
         });
-        
+
     }
-    
+
+    private void setSearchIconPlaceHolder(JTextField textField) {
+        textField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
+        textField.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
+    }
+
     private void removeTabsHeader() {
         tabContentPane.setUI(new BasicTabbedPaneUI() {
             @Override
             protected int calculateTabAreaHeight(int tabPlacement, int horizonCount, int maxTabHeight) {
                 return 0;
             }
-            
+
             @Override
             protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) {
-                
+
             }
-            
+
             @Override
             protected void installListeners() {
                 // Don't install listeners - disables interaction
             }
-            
+
             @Override
             protected void installKeyboardActions() {
                 // Don't install keyboard actions - disables tab switching with keyboard
             }
         });
     }
-    
+
     private void displayEmpTable() {
         String[] columns = {"Employee ID", "Profile", "Name", "Age", "Date of Birth", "Gender",
             "Status", "Contact Number", "Email", "Department", "Position", "Location Type", "Profile Path"};
@@ -200,18 +202,18 @@ public class MainForm extends javax.swing.JFrame {
                 }
                 return String.class;
             }
-            
+
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        
+
         try (Statement stmt = db.getConnection().createStatement()) {
             String sql = "SELECT id, profile, name, age, date_of_birth, gender, status"
                     + ", department, position, location_type, contact_num, email FROM employees";
             ResultSet rs = stmt.executeQuery(sql);
-            
+
             while (rs.next()) {
                 int empId = rs.getInt("id");
                 String empProfile = rs.getString("profile");
@@ -225,23 +227,23 @@ public class MainForm extends javax.swing.JFrame {
                 String department = rs.getString("department");
                 String position = rs.getString("position");
                 String locationType = rs.getString("location_type");
-                
+
                 ImageIcon profileImage = new ImageIcon("svg/default_profile.svg");
-                
+
                 if (empProfile != null) {
                     File profile = new File(empProfile);
                     if (profile.exists()) {
                         try {
                             BufferedImage originalImage = ImageIO.read(profile);
                             Image resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-                            
+
                             profileImage = new ImageIcon(resizedImage);
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
                     }
                 }
-                
+
                 model.addRow(new Object[]{
                     empId,
                     profileImage,
@@ -262,9 +264,9 @@ public class MainForm extends javax.swing.JFrame {
             System.out.println("Something went wrong.");
             ex.printStackTrace();
         }
-        
+
         tblEmployee.setModel(model);
-        
+
         tblEmployee.getColumnModel().getColumn(12).setMinWidth(0);
         tblEmployee.getColumnModel().getColumn(12).setMaxWidth(0);
         tblEmployee.getColumnModel().getColumn(12).setWidth(0);
@@ -275,7 +277,7 @@ public class MainForm extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = tblEmployee.getSelectedRow();
-                
+
                 if (row != -1) {
                     rowEmpIdInt = (Integer) tblEmployee.getValueAt(row, 0);
                     rowEmpProfile = (ImageIcon) tblEmployee.getValueAt(row, 1);
@@ -291,7 +293,7 @@ public class MainForm extends javax.swing.JFrame {
                     rowEmpLocationType = (String) tblEmployee.getValueAt(row, 11);
                     //get the value of profile path
                     profilePath = (String) tblEmployee.getValueAt(row, 12);
-                    
+
                     if (euf == null || !euf.isDisplayable()) {
                         euf = new UpdateEmployeeForm(rowEmpIdInt, rowEmpProfile, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
                                 rowEmpGender, rowEmpStatus, rowEmpContactNum, rowEmpEmail,
@@ -301,24 +303,24 @@ public class MainForm extends javax.swing.JFrame {
                     }
                 }
             }
-            
+
         });
         //for employee
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setRowHeight(100);
         searchField(txtFieldSearchEmployee, tblEmployee, model);
     }
-    
+
     private void searchField(JTextField textField, JTable table, DefaultTableModel model) {
         TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<>(model);
-        
+
         table.setRowSorter(rowSorter);
-        
+
         textField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 String searchText = textField.getText() != null ? textField.getText() : "";
-                
+
                 if (searchText.trim().isEmpty()) {
                     rowSorter.setRowFilter(null);
                 } else {
@@ -327,25 +329,25 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void displayPayrollTable() {
         String[] columns = {"Payroll ID", "Employee ID", "Employee Name", "Salary"};
-        
+
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        
+
         String sql = "SELECT payroll.id AS payroll_id, payroll.employee_id, employees.name, payroll.salary "
                 + "FROM payroll "
                 + "INNER JOIN employees ON payroll.employee_id = employees.id";
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
-            
+
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 int payrollId = rs.getInt("payroll_id");
                 int employeeId = rs.getInt("employee_id");
                 String empName = rs.getString("name");
                 double empSalary = rs.getDouble("salary");
-                
+
                 model.addRow(new Object[]{
                     payrollId,
                     employeeId,
@@ -353,27 +355,27 @@ public class MainForm extends javax.swing.JFrame {
                     empSalary
                 });
             }
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
         tblEmployeePayroll.setModel(model);
         tblEmployeePayroll.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         //for payroll
         searchField(txtFieldSearchPayroll, tblEmployeePayroll, model);
-        
+
         tblEmployeePayroll.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = tblEmployeePayroll.getSelectedRow();
-                
+
                 if (row != -1) {
                     rowEmpPayrollId = (Integer) tblEmployeePayroll.getValueAt(row, 0);
                     rowEmpId = (Integer) tblEmployeePayroll.getValueAt(row, 1);
                     rowEmpName = (String) tblEmployeePayroll.getValueAt(row, 2);
                     rowEmpSalary = (Double) tblEmployeePayroll.getValueAt(row, 3);
-                    
+
                     if (upf == null || !upf.isDisplayable()) {
                         upf = new UpdatePayrollForm(rowEmpPayrollId, rowEmpId, rowEmpName, rowEmpSalary);
                         upf.setVisible(true);
@@ -383,17 +385,17 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void displayEmpComBox() {
         String sql = "SELECT e.id FROM employees e LEFT JOIN payroll p ON e.id = p.employee_id WHERE p.salary IS NULL";
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         cbEmployeeId.setModel(model);
-        
+
         model.addElement("Select Employee ID");
-        
+
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
-            
+
             while (rs.next()) {
                 int id = rs.getInt("id");
                 model.addElement(id + "");
@@ -401,7 +403,7 @@ public class MainForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
         cbEmployeeId.setRenderer(new DefaultListCellRenderer() {
             public java.awt.Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 java.awt.Component comp = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -410,7 +412,7 @@ public class MainForm extends javax.swing.JFrame {
                 } else {
                     comp.setEnabled(true);
                 }
-                
+
                 return comp;
             }
         });
@@ -1258,11 +1260,11 @@ public class MainForm extends javax.swing.JFrame {
     private void displayTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         txtTime.setText(sdf.format(new Date()));
-        
+
         Timer timer = new Timer(1000, (e) -> {
             txtTime.setText(sdf.format(new Date()));
         });
-        
+
         timer.start();
     }
     private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
@@ -1318,7 +1320,7 @@ public class MainForm extends javax.swing.JFrame {
             String hashedPassword = BCrypt.hashpw(passString, BCrypt.gensalt());
             pstmt.setString(1, hashedPassword);
             pstmt.setInt(2, userId);
-            
+
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(this, "Password successfully updated.");
             txtFieldPassword.setText("");
@@ -1355,17 +1357,17 @@ public class MainForm extends javax.swing.JFrame {
 
         //convert to double
         double salary = Double.parseDouble(empIdSalary);
-        
+
         payroll = new Payroll(empId, salary);
-        
+
         JOptionPane.showMessageDialog(this,
                 "Payroll of Employee Successfully added.", "Success",
                 JOptionPane.INFORMATION_MESSAGE);
-        
+
         db.addPayroll(empId, payroll);
-        
+
         cbEmployeeId.setSelectedIndex(0);
-        
+
         txtFieldSalary.setText(null);
         displayEmpComBox();
         displayPayrollTable();
@@ -1415,13 +1417,13 @@ public class MainForm extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-    
+
     private void setAdminInfo() {
         String sql = "SELECT id,username FROM users WHERE id = 1000";
-        
+
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 userId = rs.getInt("id");
                 System.out.println(userId);
@@ -1429,7 +1431,7 @@ public class MainForm extends javax.swing.JFrame {
             }
             txtFieldUsername.setText(username);
             txtFieldPassword.setText("");
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -1442,7 +1444,7 @@ public class MainForm extends javax.swing.JFrame {
             disposeForm();
         }
     }
-    
+
     private void disposeForm() {
         this.dispose();
     }
