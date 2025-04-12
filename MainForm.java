@@ -127,7 +127,9 @@ public class MainForm extends javax.swing.JFrame {
         setSearchIconPlaceHolder(txtFieldSearchEmployee);
         setSearchIconPlaceHolder(txtFieldSearchPayroll);
         setSearchIconPlaceHolder(txtFieldSearchAttendance);
-
+        //validate salary field
+        validateSalaryField();
+        
         //overviews
         txtFieldTotalEmp.setText(String.valueOf(db.getTotalEmployees()));
 
@@ -1416,6 +1418,28 @@ public class MainForm extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void validateSalaryField() {
+        txtFieldSalary.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char letter = e.getKeyChar();
+                String text = txtFieldSalary.getText();
+
+                if (Character.isDigit(letter)) {
+                    return;
+                }
+
+                if (letter == '.' && !text.contains(".")) {
+                    return;
+                }
+
+                e.consume();
+
+            }
+        });
+
     }
 
     private void setAdminInfo() {
