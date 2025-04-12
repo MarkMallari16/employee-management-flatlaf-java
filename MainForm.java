@@ -129,7 +129,7 @@ public class MainForm extends javax.swing.JFrame {
         setSearchIconPlaceHolder(txtFieldSearchAttendance);
         //validate salary field
         validateSalaryField();
-        
+
         //overviews
         txtFieldTotalEmp.setText(String.valueOf(db.getTotalEmployees()));
 
@@ -389,7 +389,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     private void displayEmpComBox() {
-        String sql = "SELECT e.id FROM employees e LEFT JOIN payroll p ON e.id = p.employee_id WHERE p.salary IS NULL";
+        String sql = "SELECT e.id, e.name FROM employees e LEFT JOIN payroll p ON e.id = p.employee_id WHERE p.salary IS NULL";
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         cbEmployeeId.setModel(model);
 
@@ -400,7 +400,8 @@ public class MainForm extends javax.swing.JFrame {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
-                model.addElement(id + "");
+                String name = rs.getString("name");
+                model.addElement(+id + " - " + name);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -1259,6 +1260,8 @@ public class MainForm extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1472, 800));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    //display time
     private void displayTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         txtTime.setText(sdf.format(new Date()));
@@ -1352,10 +1355,12 @@ public class MainForm extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         //get selected empId
         selectedStringEmpId = (String) cbEmployeeId.getSelectedItem();
+        String[] parts = selectedStringEmpId.split(" - ");
         //convert empId to int
-        int empId = Integer.parseInt(selectedStringEmpId);
+        int empId = Integer.parseInt(parts[0]);
 
         //convert to double
         double salary = Double.parseDouble(empIdSalary);
