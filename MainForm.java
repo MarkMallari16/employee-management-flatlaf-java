@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.imageio.ImageIO;
@@ -143,6 +144,9 @@ public class MainForm extends javax.swing.JFrame {
         displayEmpTable();
         //display payrolls table
         displayPayrollTable();
+        //display attendance
+        displayAttendanceTable();
+        
         //display payroll combo box
         displayEmpComBox();
         //disable update password first
@@ -340,9 +344,7 @@ public class MainForm extends javax.swing.JFrame {
         String sql = "SELECT payroll.id AS payroll_id, payroll.employee_id, employees.name, payroll.salary "
                 + "FROM payroll "
                 + "INNER JOIN employees ON payroll.employee_id = employees.id";
-        try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
-
-            ResultSet rs = pstmt.executeQuery();
+        try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql); ResultSet rs = pstmt.executeQuery();) {
 
             while (rs.next()) {
                 int payrollId = rs.getInt("payroll_id");
@@ -386,6 +388,38 @@ public class MainForm extends javax.swing.JFrame {
                 }
             }
         });
+    }
+
+    private void displayAttendanceTable() {
+        String[] columns = {"ID", "Employee ID", "Date", "Check In", "Check Out", "Status"};
+        DefaultTableModel model = new DefaultTableModel(columns, 0);
+
+        String sql = "SELECT * FROM attendance";
+
+        try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int employeeId = rs.getInt("employee_id");
+                String date = rs.getString("date");
+                Time checkIn = rs.getTime("check_in");
+                Time checkOut = rs.getTime("check_out");
+                String status = rs.getString("status");
+
+                model.addRow(new Object[]{
+                    id,
+                    employeeId,
+                    date,
+                    checkIn,
+                    checkOut,
+                    status
+                });
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        tblAttendance.setModel(model);
     }
 
     private void displayEmpComBox() {
@@ -489,8 +523,12 @@ public class MainForm extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblReports = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblLeaves = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -1101,21 +1139,38 @@ public class MainForm extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel20.setText("Reports");
 
+        tblReports.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(tblReports);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jLabel20)
-                .addContainerGap(1180, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20)
-                .addContainerGap(1338, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(703, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab5", jPanel5);
@@ -1123,21 +1178,38 @@ public class MainForm extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel19.setText("Leaves");
 
+        tblLeaves.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane6.setViewportView(tblLeaves);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel19)
-                .addContainerGap(1187, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 1204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel19)
-                .addContainerGap(1338, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(690, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab6", jPanel6);
@@ -1567,6 +1639,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel lblActive;
     private javax.swing.JLabel lblEmployeesIcon;
     private javax.swing.JLabel lblText;
@@ -1576,6 +1650,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTable tblAttendance1;
     private javax.swing.JTable tblEmployee;
     private javax.swing.JTable tblEmployeePayroll;
+    private javax.swing.JTable tblLeaves;
+    private javax.swing.JTable tblReports;
     private javax.swing.JPasswordField txtFieldPassword;
     private javax.swing.JTextField txtFieldSalary;
     private javax.swing.JTextField txtFieldSearchAttendance;
