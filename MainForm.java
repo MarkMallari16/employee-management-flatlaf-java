@@ -25,6 +25,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -98,6 +99,9 @@ public class MainForm extends javax.swing.JFrame {
         }
         //default index
         tabContentPane.setSelectedIndex(tabIndex);
+        
+        //default active links
+        setActiveBtn(btnDashboard);
 
         //remove tab border
         tabContentPane.setBorder(BorderFactory.createEmptyBorder());
@@ -146,7 +150,7 @@ public class MainForm extends javax.swing.JFrame {
         displayPayrollTable();
         //display attendance
         displayAttendanceTable();
-        
+
         //display payroll combo box
         displayEmpComBox();
         //disable update password first
@@ -418,7 +422,7 @@ public class MainForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
+
         tblAttendance.setModel(model);
     }
 
@@ -1344,24 +1348,43 @@ public class MainForm extends javax.swing.JFrame {
 
         timer.start();
     }
+
+    private void setActiveBtn(JButton currentBtn) {
+
+        btnDashboard.setEnabled(true);
+        btnAttendance.setEnabled(true);
+        btnEmployee.setEnabled(true);
+        btnPayroll.setEnabled(true);
+        btnReports.setEnabled(true);
+        btnLeaves.setEnabled(true);
+        btnSettings.setEnabled(true);
+
+        currentBtn.setEnabled(false);
+    }
     private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
         tabContentPane.setSelectedIndex(2);
+        setActiveBtn(btnAttendance);
     }//GEN-LAST:event_btnAttendanceActionPerformed
 
     private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
         tabContentPane.setSelectedIndex(0);
+        setActiveBtn(btnDashboard);
     }//GEN-LAST:event_btnDashboardActionPerformed
 
     private void btnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeActionPerformed
         tabContentPane.setSelectedIndex(1);
+        setActiveBtn(btnEmployee);
     }//GEN-LAST:event_btnEmployeeActionPerformed
 
     private void btnPayrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayrollActionPerformed
         tabContentPane.setSelectedIndex(3);
+        setActiveBtn(btnPayroll);
     }//GEN-LAST:event_btnPayrollActionPerformed
 
     private void btnSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingsActionPerformed
         tabContentPane.setSelectedIndex(6);
+        setActiveBtn(btnSettings);
+        //get the admin info
         setAdminInfo();
     }//GEN-LAST:event_btnSettingsActionPerformed
 
@@ -1374,12 +1397,13 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
         tabContentPane.setSelectedIndex(4);
+        setActiveBtn(btnReports);
 
     }//GEN-LAST:event_btnReportsActionPerformed
 
     private void btnLeavesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeavesActionPerformed
         tabContentPane.setSelectedIndex(5);
-
+        setActiveBtn(btnLeaves);
     }//GEN-LAST:event_btnLeavesActionPerformed
 
     private void btnUpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePasswordActionPerformed
