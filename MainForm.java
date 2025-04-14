@@ -31,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -97,9 +98,14 @@ public class MainForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        //set time icon
+        txtTime.setIcon(new FlatSVGIcon("svg/timer.svg"));
+        //align time in vertical center
+        txtTime.setVerticalTextPosition(SwingConstants.CENTER);
+
         //default index
         tabContentPane.setSelectedIndex(tabIndex);
-        
+
         //default active links
         setActiveBtn(btnDashboard);
 
