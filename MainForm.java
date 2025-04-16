@@ -233,10 +233,11 @@ public class MainForm extends javax.swing.JFrame {
         try (Statement stmt = db.getConnection().createStatement()) {
             String sql = "SELECT id, profile, name, age, date_of_birth, gender, status"
                     + ", department, position, location_type, contact_num, email FROM employees";
+
             ResultSet rs = stmt.executeQuery(sql);
 
+            //display all employees
             while (rs.next()) {
-
                 int empId = rs.getInt("id");
                 String empProfile = rs.getString("profile");
                 String name = rs.getString("name");
@@ -346,7 +347,7 @@ public class MainForm extends javax.swing.JFrame {
                 if (searchText.trim().isEmpty()) {
                     rowSorter.setRowFilter(null);
                 } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)^" + searchText));
                 }
             }
         });
