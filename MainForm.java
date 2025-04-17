@@ -4,6 +4,8 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -38,6 +40,10 @@ import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -149,6 +155,9 @@ public class MainForm extends javax.swing.JFrame {
         //overviews
         txtFieldTotalEmp.setText(String.valueOf(db.getTotalEmployees()));
 
+        //charts
+        displayBarChart();
+
         //remove tab headers
         removeTabsHeader();
 
@@ -178,6 +187,32 @@ public class MainForm extends javax.swing.JFrame {
                 }
             }
         });
+
+    }
+
+    private void displayBarChart() {
+        //dataset
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(db.getTotalEmployees(), "Employees", "IT");
+        dataset.addValue(24, "Employees", "Marketing");
+        dataset.addValue(2, "Employees", "HR");
+        dataset.addValue(26, "Employees", "Finance");
+
+        JFreeChart barChart = ChartFactory.createBarChart("Employees by Department",
+                "Department", "Number of Employees", dataset);
+
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        chartPanel.setPreferredSize(new Dimension(580, 490));
+
+        //remove ui first
+        panelBarChart1.removeAll();
+        //set layout 
+        panelBarChart1.setLayout(new BorderLayout());
+        //adding bar chart
+        panelBarChart1.add(chartPanel, BorderLayout.CENTER);
+        //revalidates ui
+        panelBarChart1.revalidate();
+        panelBarChart1.repaint();
 
     }
 
@@ -513,6 +548,8 @@ public class MainForm extends javax.swing.JFrame {
         lblEmployeesIcon = new javax.swing.JLabel();
         lblIconTotalEmp = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        panelBarChart2 = new javax.swing.JPanel();
+        panelBarChart1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
@@ -882,6 +919,32 @@ public class MainForm extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel18.setText("Dashboard");
 
+        panelBarChart2.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelBarChart2Layout = new javax.swing.GroupLayout(panelBarChart2);
+        panelBarChart2.setLayout(panelBarChart2Layout);
+        panelBarChart2Layout.setHorizontalGroup(
+            panelBarChart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelBarChart2Layout.setVerticalGroup(
+            panelBarChart2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 485, Short.MAX_VALUE)
+        );
+
+        panelBarChart1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panelBarChart1Layout = new javax.swing.GroupLayout(panelBarChart1);
+        panelBarChart1.setLayout(panelBarChart1Layout);
+        panelBarChart1Layout.setHorizontalGroup(
+            panelBarChart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 585, Short.MAX_VALUE)
+        );
+        panelBarChart1Layout.setVerticalGroup(
+            panelBarChart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 485, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -890,12 +953,17 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(panelBarChart1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(panelBarChart2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -908,7 +976,11 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(1187, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelBarChart2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelBarChart1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(684, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab1", jPanel1);
@@ -1716,6 +1788,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblIconTotalRep;
     private javax.swing.JLabel lblText;
     private javax.swing.JLabel lblTotalReports;
+    private javax.swing.JPanel panelBarChart1;
+    private javax.swing.JPanel panelBarChart2;
     private javax.swing.JTabbedPane tabContentPane;
     private javax.swing.JTable tblAttendance;
     private javax.swing.JTable tblAttendance1;
