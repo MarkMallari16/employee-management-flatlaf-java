@@ -4,6 +4,9 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import java.awt.BorderLayout;
@@ -52,6 +55,8 @@ import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import java.awt.Desktop;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
 
 /**
  *
@@ -1630,22 +1635,34 @@ public class MainForm extends javax.swing.JFrame {
             "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
 
         String filePath = "employees.pdf";
+        String logoPath = "C:\\Users\\markm\\OneDrive\\Documents\\NetBeansProjects\\BasicCRUD\\src\\main\\resources\\svg\\employees.png";
 
+        //writer
         PdfWriter writer = null;
 
         try (Statement stmt = db.getConnection().createStatement()) {
             writer = new PdfWriter(filePath);
+            //pdf doc
             PdfDocument pdf = new PdfDocument(writer);
-            Document document = new Document(pdf);
 
+            //document
+            Document document = new Document(pdf, PageSize.A4.rotate());
+
+            ImageData imageData = ImageDataFactory.create(logoPath);
+            com.itextpdf.layout.element.Image logo = new com.itextpdf.layout.element.Image(imageData);
+            logo.setWidth(50);
+            logo.setHeight(50);
+            
+            document.add(logo);
             document.add(new Paragraph("Employees")
+                    .setMarginTop(20)
                     .setFontSize(18)
                     .setBold());
 
             float[] columnWidths = new float[columns.length];
 
             for (int i = 0; i < columns.length; i++) {
-                columnWidths[i] += 2;
+                columnWidths[i] = 2;
             }
 
             Table table = new Table(columnWidths);
@@ -1661,7 +1678,6 @@ public class MainForm extends javax.swing.JFrame {
 
             //fetching emp datas 
             while (rs.next()) {
-
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int age = rs.getInt("age");
@@ -1703,7 +1719,6 @@ public class MainForm extends javax.swing.JFrame {
                 System.out.println("Pdf file not exists.");
             }
 
-            JOptionPane.showMessageDialog(this, "Exmployees successfully exported.");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
