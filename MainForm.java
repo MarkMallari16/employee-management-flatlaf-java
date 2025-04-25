@@ -4,13 +4,12 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.formdev.flatlaf.ui.FlatLineBorder;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -31,10 +30,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
@@ -50,6 +47,11 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.mindrot.jbcrypt.BCrypt;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import java.awt.Desktop;
 
 /**
  *
@@ -194,8 +196,6 @@ public class MainForm extends javax.swing.JFrame {
         });
 
     }
-
-  
 
     private void displayBarChart() {
         //dataset
@@ -1626,7 +1626,87 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnExportPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPDFActionPerformed
+        String[] columns = {"Employee ID", "Name", "Age", "Date of Birth", "Gender",
+            "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
 
+        String filePath = "employees.pdf";
+
+        PdfWriter writer = null;
+
+        try (Statement stmt = db.getConnection().createStatement()) {
+            writer = new PdfWriter(filePath);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+
+            document.add(new Paragraph("Employees")
+                    .setFontSize(18)
+                    .setBold());
+
+            float[] columnWidths = new float[columns.length];
+
+            for (int i = 0; i < columns.length; i++) {
+                columnWidths[i] += 2;
+            }
+
+            Table table = new Table(columnWidths);
+
+            for (String column : columns) {
+                table.addCell(new Cell().add(new Paragraph(column)));
+            }
+
+            String sql = "SELECT id, name, age, date_of_birth, gender, status"
+                    + ", department, position, location_type, contact_num, email FROM employees";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            //fetching emp datas 
+            while (rs.next()) {
+
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                Date dateOfBirth = rs.getDate("date_of_birth");
+                String gender = rs.getString("gender");
+                String status = rs.getString("status");
+                String department = rs.getString("department");
+                String position = rs.getString("position");
+                String locationType = rs.getString("location_type");
+                String contactNum = rs.getString("contact_num");
+                String email = rs.getString("email");
+
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(id))));
+                table.addCell(new Cell().add(new Paragraph(name)));
+                table.addCell(new Cell().add(new Paragraph(String.valueOf(age))));
+                table.addCell(new Cell().add(new Paragraph(dateOfBirth.toString())));
+                table.addCell(new Cell().add(new Paragraph(gender)));
+                table.addCell(new Cell().add(new Paragraph(status)));
+                table.addCell(new Cell().add(new Paragraph(contactNum)));
+                table.addCell(new Cell().add(new Paragraph(email)));
+                table.addCell(new Cell().add(new Paragraph(department)));
+                table.addCell(new Cell().add(new Paragraph(position)));
+                table.addCell(new Cell().add(new Paragraph(locationType)));
+            }
+
+            //adding to pdf document
+            document.add(table);
+
+            document.close();
+
+            File fileExported = new File(filePath);
+            if (fileExported.exists()) {
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(fileExported);
+                } else {
+                    System.out.println("Error");
+                }
+            } else {
+                System.out.println("Pdf file not exists.");
+            }
+
+            JOptionPane.showMessageDialog(this, "Exmployees successfully exported.");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnExportPDFActionPerformed
 
     private void txtFieldSearchEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldSearchEmployeeActionPerformed
