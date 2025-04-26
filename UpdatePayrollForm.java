@@ -5,8 +5,17 @@
 package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import java.awt.Desktop;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -51,6 +60,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         btnUpdate.setIcon(new FlatSVGIcon("svg/edit.svg"));
         btnDelete.setIcon(new FlatSVGIcon("svg/delete.svg"));
         btnBack.setIcon(new FlatSVGIcon("svg/back.svg"));
+        btnExportPayroll.setIcon(new FlatSVGIcon("svg/pdf.svg"));
 
         txtFieldSalary.addKeyListener(new KeyAdapter() {
             @Override
@@ -90,9 +100,10 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         txtFieldName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        btnExportPayroll = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Update Emeployee Payroll");
+        setTitle("Update Employee Payroll");
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel1.setText("Update Employee Payroll");
@@ -141,23 +152,34 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel4.setText("Employee Name");
 
+        btnExportPayroll.setBackground(new java.awt.Color(255, 102, 102));
+        btnExportPayroll.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnExportPayroll.setText("Export to PDF");
+        btnExportPayroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportPayrollActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
-                    .addComponent(txtFieldSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(txtFieldEmpId)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFieldName)
-                    .addComponent(jLabel4))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel3)
+                        .addComponent(txtFieldSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1)
+                        .addComponent(txtFieldEmpId)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtFieldName)
+                        .addComponent(jLabel4))
+                    .addComponent(btnExportPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -165,7 +187,9 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addGap(31, 31, 31)
+                .addGap(14, 14, 14)
+                .addComponent(btnExportPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtFieldEmpId, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,10 +207,10 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
-        setSize(new java.awt.Dimension(603, 577));
+        setSize(new java.awt.Dimension(603, 595));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -216,6 +240,67 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         goToPayroll();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnExportPayrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPayrollActionPerformed
+        payrollIdInt = Integer.parseInt(payrollIdString);
+
+        String filePath = null;
+
+        String sql = "SELECT e.name, e.position, e.department, p.salary "
+                + "FROM payroll p INNER JOIN employees e ON p.employee_id = e.id "
+                + "WHERE p.id = ?";
+
+        try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
+            pstmt.setInt(1, payrollIdInt);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String name = rs.getString("name");
+                String position = rs.getString("position");
+                String department = rs.getString("department");
+                double salary = rs.getDouble("salary");
+
+                filePath = empIdString + "_payroll.pdf";
+
+                try (PdfWriter writer = new PdfWriter(filePath); PdfDocument pdf = new PdfDocument(writer); Document document = new Document(pdf, PageSize.A4.rotate());) {
+                    document.add(new Paragraph("Payroll Information")
+                            .setFontSize(24)
+                            .setMarginBottom(16)
+                            .setBold());
+                    document.add(new Paragraph(name + " Payroll")
+                            .setBold()
+                            .setMarginBottom(6)
+                            .setFontSize(18));
+
+                    document.add(new Paragraph("Employee Payroll Information"));
+                    document.add(new Paragraph("Name: " + name));
+                    document.add(new Paragraph("Position: " + position));
+                    document.add(new Paragraph("Department: " + department));
+                    document.add(new Paragraph("========================================================================"));
+                    document.add(new Paragraph("Salary: ₱" + salary));
+                };
+
+                File fileExported = new File(filePath);
+                if (fileExported.exists()) {
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(fileExported);
+                    } else {
+                        System.out.println("Error!");
+                    }
+                } else {
+                    System.out.println("File not supported");
+                }
+            } else {
+                System.out.println("Not executed.");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        System.out.println("Hello");
+
+    }//GEN-LAST:event_btnExportPayrollActionPerformed
+
     private void goToPayroll() {
         if (mainForm == null || !mainForm.isDisplayable()) {
             mainForm = new MainForm(3);
@@ -262,6 +347,7 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnExportPayroll;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
