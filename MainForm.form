@@ -787,7 +787,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnDeleteLink" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnExportPDF" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnExportEmployee" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -810,7 +810,7 @@
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="btnAdd" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                               <Component id="btnDeleteLink" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="btnExportPDF" alignment="3" max="32767" attributes="0"/>
+                              <Component id="btnExportEmployee" alignment="3" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -850,7 +850,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFieldSearchEmployeeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnExportPDF">
+            <Component class="javax.swing.JButton" name="btnExportEmployee">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="66" red="ff" type="rgb"/>
@@ -861,7 +861,7 @@
                 <Property name="text" type="java.lang.String" value="Export to PDF"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportPDFActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportEmployeeActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">

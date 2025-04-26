@@ -149,7 +149,7 @@ public class MainForm extends javax.swing.JFrame {
 
         btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
         btnDeleteLink.setIcon(new FlatSVGIcon("svg/delete.svg"));
-        btnExportPDF.setIcon(new FlatSVGIcon("svg/pdf.svg"));
+        btnExportEmployee.setIcon(new FlatSVGIcon("svg/pdf.svg"));
 
         btnAddEmpSalary.setIcon(new FlatSVGIcon("svg/salary.svg"));
 
@@ -566,7 +566,7 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
         txtFieldSearchEmployee = new javax.swing.JTextField();
-        btnExportPDF = new javax.swing.JButton();
+        btnExportEmployee = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         btnDeleteLink = new javax.swing.JButton();
@@ -1023,12 +1023,12 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        btnExportPDF.setBackground(new java.awt.Color(255, 102, 102));
-        btnExportPDF.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        btnExportPDF.setText("Export to PDF");
-        btnExportPDF.addActionListener(new java.awt.event.ActionListener() {
+        btnExportEmployee.setBackground(new java.awt.Color(255, 102, 102));
+        btnExportEmployee.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnExportEmployee.setText("Export to PDF");
+        btnExportEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportPDFActionPerformed(evt);
+                btnExportEmployeeActionPerformed(evt);
             }
         });
 
@@ -1066,7 +1066,7 @@ public class MainForm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDeleteLink)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExportPDF))
+                                .addComponent(btnExportEmployee))
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtFieldSearchEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1083,7 +1083,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnDeleteLink, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnExportPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnExportEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1630,7 +1630,7 @@ public class MainForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnExportPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportPDFActionPerformed
+    private void btnExportEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportEmployeeActionPerformed
         String[] columns = {"Employee ID", "Name", "Age", "Date of Birth", "Gender",
             "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
 
@@ -1723,7 +1723,7 @@ public class MainForm extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }//GEN-LAST:event_btnExportPDFActionPerformed
+    }//GEN-LAST:event_btnExportEmployeeActionPerformed
 
     private void txtFieldSearchEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldSearchEmployeeActionPerformed
         // TODO add your handling code here:
@@ -1844,7 +1844,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnDashboard;
     private javax.swing.JButton btnDeleteLink;
     private javax.swing.JButton btnEmployee;
-    private javax.swing.JButton btnExportPDF;
+    private javax.swing.JButton btnExportEmployee;
     private javax.swing.JButton btnLate;
     private javax.swing.JButton btnLeaves;
     private javax.swing.JButton btnLogout;
