@@ -1635,7 +1635,7 @@ public class MainForm extends javax.swing.JFrame {
             "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
 
         String filePath = "employees.pdf";
-        String logoPath = "C:\\Users\\markm\\OneDrive\\Documents\\NetBeansProjects\\BasicCRUD\\src\\main\\resources\\svg\\employees.png";
+        String logoPath = "C:\\Users\\markm\\OneDrive\\Documents\\NetBeansProjects\\BasicCRUD\\src\\main\\resources\\svg\\logo.png";
 
         //writer
         PdfWriter writer = null;
@@ -1648,11 +1648,12 @@ public class MainForm extends javax.swing.JFrame {
             //document
             Document document = new Document(pdf, PageSize.A4.rotate());
 
+            //logo employee management
             ImageData imageData = ImageDataFactory.create(logoPath);
             com.itextpdf.layout.element.Image logo = new com.itextpdf.layout.element.Image(imageData);
-            logo.setWidth(50);
-            logo.setHeight(50);
-            
+            logo.setWidth(90);
+            logo.setHeight(90);
+
             document.add(logo);
             document.add(new Paragraph("Employees")
                     .setMarginTop(20)
