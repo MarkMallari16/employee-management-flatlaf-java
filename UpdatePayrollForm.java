@@ -5,6 +5,8 @@
 package com.mycompany.firstflatlaf;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -245,6 +247,8 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         payrollIdInt = Integer.parseInt(payrollIdString);
 
         String filePath = null;
+        //logo path
+        String logoPath = "C:\\Users\\markm\\OneDrive\\Documents\\NetBeansProjects\\BasicCRUD\\src\\main\\resources\\svg\\logo.png";
 
         String sql = "SELECT e.name, e.position, e.department, p.salary "
                 + "FROM payroll p INNER JOIN employees e ON p.employee_id = e.id "
@@ -264,8 +268,17 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
                 filePath = empIdString + "_payroll.pdf";
 
                 try (PdfWriter writer = new PdfWriter(filePath); PdfDocument pdf = new PdfDocument(writer); Document document = new Document(pdf, PageSize.A4.rotate());) {
+                    ImageData imageData = ImageDataFactory.create(logoPath);
+                    //logo initialization
+                    com.itextpdf.layout.element.Image logo = new com.itextpdf.layout.element.Image(imageData);
+                    logo.setWidth(80);
+                    logo.setHeight(60);
+                    //addigng logo
+                    document.add(logo);
+
                     document.add(new Paragraph("Payroll Information")
                             .setFontSize(24)
+                            .setMarginTop(20)
                             .setMarginBottom(16)
                             .setBold());
                     document.add(new Paragraph(name + " Payroll")
