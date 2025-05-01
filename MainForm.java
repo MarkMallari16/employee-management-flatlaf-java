@@ -4,8 +4,6 @@ import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.itextpdf.io.image.ImageData;
-import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -604,6 +602,8 @@ public class MainForm extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         txtFieldPassword = new javax.swing.JPasswordField();
         btnUpdatePassword = new javax.swing.JButton();
+        txtFieldConfirmPassword = new javax.swing.JPasswordField();
+        jLabel18 = new javax.swing.JLabel();
         txtTime = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -791,7 +791,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addGroup(panelActiveEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelActiveEmpLayout.createSequentialGroup()
                                 .addComponent(lblText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                                 .addComponent(lblIconActiveEmp))
                             .addGroup(panelActiveEmpLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
@@ -812,7 +812,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(panelActiveEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblText)
                     .addComponent(lblIconActiveEmp))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addComponent(jLabel7))
         );
 
@@ -893,16 +893,17 @@ public class MainForm extends javax.swing.JFrame {
         panelEmployeeLayout.setHorizontalGroup(
             panelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEmployeeLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(17, 17, 17)
                 .addGroup(panelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelEmployeeLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
                         .addComponent(lblEmployeesIcon)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEmployeeLayout.createSequentialGroup()
                         .addGroup(panelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelEmployeeLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
                                 .addComponent(lblIconTotalEmp))
                             .addGroup(panelEmployeeLayout.createSequentialGroup()
                                 .addComponent(txtFieldTotalEmp)
@@ -919,15 +920,12 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(panelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(lblIconTotalEmp))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEmployeeLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEmployeeLayout.createSequentialGroup()
                         .addComponent(txtFieldTotalEmp5)
                         .addGap(25, 25, 25))
-                    .addGroup(panelEmployeeLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFieldTotalEmp)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(txtFieldTotalEmp, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
         panelLine.setBackground(new java.awt.Color(255, 255, 255));
@@ -942,7 +940,7 @@ public class MainForm extends javax.swing.JFrame {
         );
         panelLineLayout.setVerticalGroup(
             panelLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
+            .addGap(0, 496, Short.MAX_VALUE)
         );
 
         panelBarChart1.setBackground(new java.awt.Color(255, 255, 255));
@@ -956,7 +954,7 @@ public class MainForm extends javax.swing.JFrame {
         );
         panelBarChart1Layout.setVerticalGroup(
             panelBarChart1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -964,11 +962,11 @@ public class MainForm extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelBarChart1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -976,7 +974,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(panelTotalRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelActiveEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -987,10 +985,10 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(panelTotalRep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelBarChart1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(675, 675, 675))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelBarChart1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(664, 664, 664))
         );
 
         tabContentPane.addTab("tab1", jPanel1);
@@ -1025,7 +1023,6 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        jLabel1.setText("Employees");
 
         btnAdd.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnAdd.setText("Add");
@@ -1049,7 +1046,7 @@ public class MainForm extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1244, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1060,7 +1057,7 @@ public class MainForm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnExportEmployee))
                             .addComponent(jLabel1))
-                        .addGap(677, 677, 677)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtFieldSearchEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
@@ -1069,16 +1066,15 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtFieldSearchEmployee)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDeleteLink, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnExportEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteLink, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExportEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFieldSearchEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(703, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab2", jPanel2);
@@ -1201,8 +1197,7 @@ public class MainForm extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addGap(214, 214, 214)
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel12))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(cbEmployeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -1231,7 +1226,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(btnAddEmpSalary, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(689, Short.MAX_VALUE))
+                .addContainerGap(701, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab4", jPanel4);
@@ -1263,7 +1258,7 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(706, Short.MAX_VALUE))
+                .addContainerGap(718, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab5", jPanel5);
@@ -1286,16 +1281,16 @@ public class MainForm extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 1274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(42, 42, 42)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(672, Short.MAX_VALUE))
+                .addContainerGap(715, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab6", jPanel6);
@@ -1324,7 +1319,7 @@ public class MainForm extends javax.swing.JFrame {
         jLabel16.setText("Username");
 
         jLabel17.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jLabel17.setText("Change Password");
+        jLabel17.setText("Password");
 
         btnUpdatePassword.setBackground(new java.awt.Color(102, 153, 255));
         btnUpdatePassword.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -1335,22 +1330,28 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel18.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jLabel18.setText("Confirm Password");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17)
-                    .addComponent(txtFieldUsername)
-                    .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(txtFieldConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14)
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel15)
+                        .addComponent(jLabel16)
+                        .addComponent(jLabel17)
+                        .addComponent(txtFieldUsername)
+                        .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(1037, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -1372,9 +1373,13 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFieldConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(983, Short.MAX_VALUE))
+                .addContainerGap(923, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab7", jPanel7);
@@ -1410,8 +1415,8 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTime)
                     .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addComponent(tabContentPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabContentPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1422, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(Sidebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1601,69 +1606,66 @@ public class MainForm extends javax.swing.JFrame {
             PdfDocument pdf = new PdfDocument(writer);
 
             //document
-            Document document = new Document(pdf, PageSize.A4.rotate());
+            try (Document document = new Document(pdf, PageSize.A4.rotate());) {
+                //logo employee management
+                ImageData imageData = ImageDataFactory.create(logoPath);
+                com.itextpdf.layout.element.Image logo = new com.itextpdf.layout.element.Image(imageData);
+                logo.setWidth(80);
+                logo.setHeight(60);
 
-            //logo employee management
-            ImageData imageData = ImageDataFactory.create(logoPath);
-            com.itextpdf.layout.element.Image logo = new com.itextpdf.layout.element.Image(imageData);
-            logo.setWidth(80);
-            logo.setHeight(60);
+                document.add(logo);
+                document.add(new Paragraph("Employees")
+                        .setMarginTop(20)
+                        .setFontSize(18)
+                        .setBold());
 
-            document.add(logo);
-            document.add(new Paragraph("Employees")
-                    .setMarginTop(20)
-                    .setFontSize(18)
-                    .setBold());
+                float[] columnWidths = new float[columns.length];
 
-            float[] columnWidths = new float[columns.length];
+                for (int i = 0; i < columns.length; i++) {
+                    columnWidths[i] = 2;
+                }
 
-            for (int i = 0; i < columns.length; i++) {
-                columnWidths[i] = 2;
+                Table table = new Table(columnWidths);
+
+                for (String column : columns) {
+                    table.addCell(new Cell().add(new Paragraph(column)));
+                }
+
+                String sql = "SELECT id, name, age, date_of_birth, gender, status"
+                        + ", department, position, location_type, contact_num, email FROM employees";
+
+                ResultSet rs = stmt.executeQuery(sql);
+
+                //fetching emp datas 
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String name = rs.getString("name");
+                    int age = rs.getInt("age");
+                    Date dateOfBirth = rs.getDate("date_of_birth");
+                    String gender = rs.getString("gender");
+                    String status = rs.getString("status");
+                    String department = rs.getString("department");
+                    String position = rs.getString("position");
+                    String locationType = rs.getString("location_type");
+                    String contactNum = rs.getString("contact_num");
+                    String email = rs.getString("email");
+
+                    table.addCell(new Cell().add(new Paragraph(String.valueOf(id))));
+                    table.addCell(new Cell().add(new Paragraph(name)));
+                    table.addCell(new Cell().add(new Paragraph(String.valueOf(age))));
+                    table.addCell(new Cell().add(new Paragraph(dateOfBirth.toString())));
+                    table.addCell(new Cell().add(new Paragraph(gender)));
+                    table.addCell(new Cell().add(new Paragraph(status)));
+                    table.addCell(new Cell().add(new Paragraph(contactNum)));
+                    table.addCell(new Cell().add(new Paragraph(email)));
+                    table.addCell(new Cell().add(new Paragraph(department)));
+                    table.addCell(new Cell().add(new Paragraph(position)));
+                    table.addCell(new Cell().add(new Paragraph(locationType)));
+                }
+
+                //adding to pdf document
+                document.add(table);
             }
-
-            Table table = new Table(columnWidths);
-
-            for (String column : columns) {
-                table.addCell(new Cell().add(new Paragraph(column)));
-            }
-
-            String sql = "SELECT id, name, age, date_of_birth, gender, status"
-                    + ", department, position, location_type, contact_num, email FROM employees";
-
-            ResultSet rs = stmt.executeQuery(sql);
-
-            //fetching emp datas 
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                int age = rs.getInt("age");
-                Date dateOfBirth = rs.getDate("date_of_birth");
-                String gender = rs.getString("gender");
-                String status = rs.getString("status");
-                String department = rs.getString("department");
-                String position = rs.getString("position");
-                String locationType = rs.getString("location_type");
-                String contactNum = rs.getString("contact_num");
-                String email = rs.getString("email");
-
-                table.addCell(new Cell().add(new Paragraph(String.valueOf(id))));
-                table.addCell(new Cell().add(new Paragraph(name)));
-                table.addCell(new Cell().add(new Paragraph(String.valueOf(age))));
-                table.addCell(new Cell().add(new Paragraph(dateOfBirth.toString())));
-                table.addCell(new Cell().add(new Paragraph(gender)));
-                table.addCell(new Cell().add(new Paragraph(status)));
-                table.addCell(new Cell().add(new Paragraph(contactNum)));
-                table.addCell(new Cell().add(new Paragraph(email)));
-                table.addCell(new Cell().add(new Paragraph(department)));
-                table.addCell(new Cell().add(new Paragraph(position)));
-                table.addCell(new Cell().add(new Paragraph(locationType)));
-            }
-
-            //adding to pdf document
-            document.add(table);
-
-            document.close();
-
             File fileExported = new File(filePath);
             if (fileExported.exists()) {
                 if (Desktop.isDesktopSupported()) {
@@ -1815,6 +1817,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1854,6 +1857,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTable tblEmployeePayroll;
     private javax.swing.JTable tblLeaves;
     private javax.swing.JTable tblReports;
+    private javax.swing.JPasswordField txtFieldConfirmPassword;
     private javax.swing.JPasswordField txtFieldPassword;
     private javax.swing.JTextField txtFieldSalary;
     private javax.swing.JTextField txtFieldSearchAttendance;

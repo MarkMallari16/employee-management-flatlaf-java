@@ -53,8 +53,8 @@
                   <Component id="txtTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="tabContentPane" min="-2" pref="1410" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tabContentPane" min="-2" pref="1422" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
@@ -334,11 +334,11 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="panelBarChart1" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="panelLine" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -349,7 +349,7 @@
                               <Component id="panelActiveEmp" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -363,11 +363,11 @@
                           <Component id="panelEmployee" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelBarChart1" min="-2" max="-2" attributes="0"/>
-                          <Component id="panelLine" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="panelLine" max="32767" attributes="0"/>
+                          <Component id="panelBarChart1" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="675" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="664" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -404,7 +404,7 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="lblText" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="177" max="32767" attributes="0"/>
+                                          <EmptySpace pref="165" max="32767" attributes="0"/>
                                           <Component id="lblIconActiveEmp" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
@@ -434,7 +434,7 @@
                               <Component id="lblText" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblIconActiveEmp" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="48" max="32767" attributes="0"/>
+                          <EmptySpace pref="60" max="32767" attributes="0"/>
                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -609,9 +609,10 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                                   <Component id="lblEmployeesIcon" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -619,10 +620,10 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="177" max="32767" attributes="0"/>
+                                          <EmptySpace pref="192" max="32767" attributes="0"/>
                                           <Component id="lblIconTotalEmp" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
                                           <Component id="txtFieldTotalEmp" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="txtFieldTotalEmp5" min="-2" max="-2" attributes="0"/>
@@ -644,17 +645,13 @@
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblIconTotalEmp" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
                                   <Component id="txtFieldTotalEmp5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="txtFieldTotalEmp" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="txtFieldTotalEmp" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -725,7 +722,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="485" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="496" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -752,7 +749,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="485" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -773,7 +770,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="1244" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -786,7 +783,7 @@
                                   </Group>
                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="677" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="txtFieldSearchEmployee" min="-2" pref="223" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -799,18 +796,16 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtFieldSearchEmployee" alignment="0" max="32767" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="btnAdd" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="btnDeleteLink" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="btnExportEmployee" alignment="3" max="32767" attributes="0"/>
-                          </Group>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnAdd" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="btnDeleteLink" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="btnExportEmployee" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Component id="txtFieldSearchEmployee" alignment="3" pref="37" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="589" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="703" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -864,7 +859,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="24" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Employees"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnAdd">
@@ -1025,7 +1019,6 @@
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="214" max="-2" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="cbEmployeeId" min="-2" pref="268" max="-2" attributes="0"/>
@@ -1064,7 +1057,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="559" max="-2" attributes="0"/>
-                      <EmptySpace pref="689" max="32767" attributes="0"/>
+                      <EmptySpace pref="701" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1177,7 +1170,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="jScrollPane5" min="-2" pref="632" max="-2" attributes="0"/>
-                      <EmptySpace pref="706" max="32767" attributes="0"/>
+                      <EmptySpace pref="718" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1219,18 +1212,18 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane6" min="-2" pref="1274" max="-2" attributes="0"/>
-                      <EmptySpace pref="28" max="32767" attributes="0"/>
+                      <EmptySpace pref="41" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Component id="jScrollPane6" min="-2" pref="630" max="-2" attributes="0"/>
-                      <EmptySpace pref="672" max="32767" attributes="0"/>
+                      <EmptySpace pref="715" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1273,16 +1266,20 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnChangeTheme" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFieldUsername" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtFieldPassword" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
-                          <Component id="btnUpdatePassword" alignment="0" min="-2" pref="89" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtFieldConfirmPassword" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnChangeTheme" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
+                              <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtFieldUsername" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtFieldPassword" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
+                              <Component id="btnUpdatePassword" alignment="0" min="-2" pref="89" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace pref="1037" max="32767" attributes="0"/>
                   </Group>
@@ -1307,9 +1304,13 @@
                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtFieldPassword" min="-2" pref="41" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtFieldConfirmPassword" min="-2" pref="41" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="btnUpdatePassword" min="-2" pref="36" max="-2" attributes="0"/>
-                      <EmptySpace pref="983" max="32767" attributes="0"/>
+                      <EmptySpace pref="923" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1373,7 +1374,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Change Password"/>
+                <Property name="text" type="java.lang.String" value="Password"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="txtFieldPassword">
@@ -1391,6 +1392,16 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdatePasswordActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="txtFieldConfirmPassword">
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel18">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Poppins" size="12" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Confirm Password"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

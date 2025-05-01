@@ -38,10 +38,10 @@
                   <Component id="btnDelete" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtFieldName" alignment="0" max="32767" attributes="0"/>
                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="btnBack" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnExportPayroll" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="btnExportPayroll" min="-2" pref="189" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="28" max="32767" attributes="0"/>
@@ -180,12 +180,12 @@
     <Component class="javax.swing.JButton" name="btnExportPayroll">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="66" red="ff" type="rgb"/>
+          <Color blue="ff" green="99" red="66" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Export to PDF"/>
+        <Property name="text" type="java.lang.String" value="Generate Pay Slip"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExportPayrollActionPerformed"/>

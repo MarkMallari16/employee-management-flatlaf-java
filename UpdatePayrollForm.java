@@ -154,9 +154,9 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel4.setText("Employee Name");
 
-        btnExportPayroll.setBackground(new java.awt.Color(255, 102, 102));
+        btnExportPayroll.setBackground(new java.awt.Color(102, 153, 255));
         btnExportPayroll.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        btnExportPayroll.setText("Export to PDF");
+        btnExportPayroll.setText("Generate Pay Slip");
         btnExportPayroll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportPayrollActionPerformed(evt);
@@ -179,10 +179,10 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
                     .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtFieldName, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExportPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnExportPayroll, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
