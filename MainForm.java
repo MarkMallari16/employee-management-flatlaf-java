@@ -589,6 +589,7 @@ public class MainForm extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblReports = new javax.swing.JTable();
+        btnGenerateReport = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblLeaves = new javax.swing.JTable();
@@ -1073,8 +1074,8 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(btnExportEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFieldSearchEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(703, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(659, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab2", jPanel2);
@@ -1134,8 +1135,8 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(txtFieldSearchAttendance, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                     .addComponent(cbAttendanceStatus))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(178, 178, 178)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 130, 130)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(79, 79, 79))
         );
@@ -1157,7 +1158,7 @@ public class MainForm extends javax.swing.JFrame {
 
         btnAddEmpSalary.setBackground(new java.awt.Color(102, 153, 255));
         btnAddEmpSalary.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        btnAddEmpSalary.setText("ADD EMPLOYEE SALARY");
+        btnAddEmpSalary.setText("ADD PAYROLL");
         btnAddEmpSalary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddEmpSalaryActionPerformed(evt);
@@ -1244,21 +1245,28 @@ public class MainForm extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(tblReports);
 
+        btnGenerateReport.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnGenerateReport.setText("Generate Report");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(41, 41, 41)
+                .addComponent(btnGenerateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(718, Short.MAX_VALUE))
+                .addContainerGap(661, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab5", jPanel5);
@@ -1801,6 +1809,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteLink;
     private javax.swing.JButton btnEmployee;
     private javax.swing.JButton btnExportEmployee;
+    private javax.swing.JButton btnGenerateReport;
     private javax.swing.JButton btnLeaves;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPayroll;
