@@ -169,7 +169,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,16 +192,19 @@ public class Login extends javax.swing.JFrame {
     public void login() {
         username = txtFieldUsername.getText().trim();
         charPass = txtFieldPassword.getPassword();
+        //converting to String
         password = new String(charPass);
-        String sql = "SELECT * FROM users WHERE username = ?";
 
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Username and Password are required!", "Login Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        String sql = "SELECT * FROM users WHERE username = ?";
+
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
             pstmt.setString(1, username);
+            //search if username is exists
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
