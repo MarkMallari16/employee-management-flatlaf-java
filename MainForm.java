@@ -278,11 +278,12 @@ public class MainForm extends javax.swing.JFrame {
             }
         };
 
-        try (Statement stmt = db.getConnection().createStatement()) {
-            String sql = "SELECT id, profile, name, age, date_of_birth, gender, status"
-                    + ", department, position, location_type, contact_num, email FROM employees";
+        String sql = "SELECT id, profile, name, age, date_of_birth, gender, status"
+                + ", department, position, location_type, contact_num, email FROM employees";
 
-            ResultSet rs = stmt.executeQuery(sql);
+        try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
+
+            ResultSet rs = pstmt.executeQuery(sql);
 
             //display all employees
             while (rs.next()) {
@@ -765,6 +766,7 @@ public class MainForm extends javax.swing.JFrame {
         panelActiveEmp.setBackground(new java.awt.Color(255, 255, 255));
         panelActiveEmp.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(109, 113, 105), 1, true));
         panelActiveEmp.setForeground(new java.awt.Color(0, 0, 0));
+        panelActiveEmp.setPreferredSize(new java.awt.Dimension(420, 130));
 
         lblText.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         lblText.setText("Active Employees");
@@ -876,6 +878,8 @@ public class MainForm extends javax.swing.JFrame {
         panelEmployee.setBackground(new java.awt.Color(255, 255, 255));
         panelEmployee.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(109, 113, 105), 1, true));
         panelEmployee.setForeground(new java.awt.Color(255, 255, 255));
+        panelEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        panelEmployee.setPreferredSize(new java.awt.Dimension(420, 130));
 
         jLabel8.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         jLabel8.setText("Total Employees");
@@ -970,7 +974,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(panelEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelTotalRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -982,9 +986,9 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelActiveEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelActiveEmp, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                     .addComponent(panelTotalRep, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelEmployee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
