@@ -96,7 +96,8 @@ public class MainForm extends javax.swing.JFrame {
     private String username;
     private int userId;
     private char[] charArrayPass;
-    private String passString;
+    private char[] charArrayConfirmPass;
+    private String passString, passConfirmString;
     //for toggling theme
     private boolean isDarkMode = ThemeManager.isDarkMode();
 
@@ -140,16 +141,16 @@ public class MainForm extends javax.swing.JFrame {
         btnEmployee.setIcon(new FlatSVGIcon("svg/employee.svg"));
         btnAttendance.setIcon(new FlatSVGIcon("svg/attendance.svg"));
         btnPayroll.setIcon(new FlatSVGIcon("svg/payroll.svg"));
-
+        
         btnReports.setIcon(new FlatSVGIcon("svg/reports.svg"));
         btnLeaves.setIcon(new FlatSVGIcon("svg/leaves.svg"));
         btnSettings.setIcon(new FlatSVGIcon("svg/settings.svg"));
         btnLogout.setIcon(new FlatSVGIcon("svg/logout.svg"));
-
+        
         btnAdd.setIcon(new FlatSVGIcon("svg/add.svg"));
         btnDeleteLink.setIcon(new FlatSVGIcon("svg/delete.svg"));
         btnExportEmployee.setIcon(new FlatSVGIcon("svg/pdf.svg"));
-
+        
         btnAddEmpSalary.setIcon(new FlatSVGIcon("svg/salary.svg"));
 
 //        btnCurrentAttendance.setIcon(new FlatSVGIcon("svg/calendar.svg"));
@@ -186,23 +187,35 @@ public class MainForm extends javax.swing.JFrame {
 
         //display payroll combo box
         displayEmpComBox();
+
+        //show/hide password
+        txtFieldPassword.putClientProperty(FlatClientProperties.STYLE, "showRevealButton:true");
+        txtFieldConfirmPassword.putClientProperty(FlatClientProperties.STYLE, "showRevealButton:true");
         //disable update password first
         btnUpdatePassword.setEnabled(false);
-        txtFieldPassword.addKeyListener(new KeyAdapter() {
+        //checking password
+        confirmingPass();
+    }
+    
+    private void confirmingPass() {
+        txtFieldConfirmPassword.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 char[] passChar = txtFieldPassword.getPassword();
+                char[] confirmPassChar = txtFieldConfirmPassword.getPassword();
+                
                 String convertChar = new String(passChar);
-                if (convertChar.trim().length() > 4) {
+                String convertConfirmPassChar = new String(confirmPassChar);
+                
+                if (convertChar.equals(convertConfirmPassChar) && convertConfirmPassChar.trim().length() > 4) {
                     btnUpdatePassword.setEnabled(true);
                 } else {
                     btnUpdatePassword.setEnabled(false);
                 }
             }
         });
-
     }
-
+    
     private void displayBarChart() {
         //dataset
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -210,10 +223,10 @@ public class MainForm extends javax.swing.JFrame {
         dataset.addValue(24, "Employees", "Marketing");
         dataset.addValue(2, "Employees", "HR");
         dataset.addValue(26, "Employees", "Finance");
-
+        
         JFreeChart barChart = ChartFactory.createBarChart("Employees by Department",
                 "Department", "Number of Employees", dataset);
-
+        
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(580, 490));
 
@@ -226,38 +239,38 @@ public class MainForm extends javax.swing.JFrame {
         //revalidates ui
         panelBarChart1.revalidate();
         panelBarChart1.repaint();
-
+        
     }
-
+    
     private void setSearchIconPlaceHolder(JTextField textField) {
         textField.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Search");
         textField.putClientProperty(FlatClientProperties.TEXT_FIELD_LEADING_ICON, new FlatSVGIcon("svg/search.svg"));
     }
-
+    
     private void removeTabsHeader() {
         tabContentPane.setUI(new BasicTabbedPaneUI() {
             @Override
             protected int calculateTabAreaHeight(int tabPlacement, int horizonCount, int maxTabHeight) {
                 return 0;
             }
-
+            
             @Override
             protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) {
-
+                
             }
-
+            
             @Override
             protected void installListeners() {
                 // Don't install listeners - disables interaction
             }
-
+            
             @Override
             protected void installKeyboardActions() {
                 // Don't install keyboard actions - disables tab switching with keyboard
             }
         });
     }
-
+    
     private void displayEmpTable() {
         String[] columns = {"Employee ID", "Profile", "Name", "Age", "Date of Birth", "Gender",
             "Status", "Contact Number", "Email", "Department", "Position", "Location Type", "Profile Path"};
@@ -271,18 +284,18 @@ public class MainForm extends javax.swing.JFrame {
                 }
                 return String.class;
             }
-
+            
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-
+        
         String sql = "SELECT id, profile, name, age, date_of_birth, gender, status"
                 + ", department, position, location_type, contact_num, email FROM employees";
-
+        
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
-
+            
             ResultSet rs = pstmt.executeQuery(sql);
 
             //display all employees
@@ -299,23 +312,23 @@ public class MainForm extends javax.swing.JFrame {
                 String department = rs.getString("department");
                 String position = rs.getString("position");
                 String locationType = rs.getString("location_type");
-
+                
                 ImageIcon profileImage = new ImageIcon("svg/default_profile.svg");
-
+                
                 if (empProfile != null) {
                     File profile = new File(empProfile);
                     if (profile.exists()) {
                         try {
                             BufferedImage originalImage = ImageIO.read(profile);
                             Image resizedImage = originalImage.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-
+                            
                             profileImage = new ImageIcon(resizedImage);
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
                     }
                 }
-
+                
                 model.addRow(new Object[]{
                     empId,
                     profileImage,
@@ -335,9 +348,9 @@ public class MainForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+        
         tblEmployee.setModel(model);
-
+        
         tblEmployee.getColumnModel().getColumn(12).setMinWidth(0);
         tblEmployee.getColumnModel().getColumn(12).setMaxWidth(0);
         tblEmployee.getColumnModel().getColumn(12).setWidth(0);
@@ -348,7 +361,7 @@ public class MainForm extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = tblEmployee.getSelectedRow();
-
+                
                 if (row != -1) {
                     rowEmpIdInt = (Integer) tblEmployee.getValueAt(row, 0);
                     rowEmpProfile = (ImageIcon) tblEmployee.getValueAt(row, 1);
@@ -364,7 +377,7 @@ public class MainForm extends javax.swing.JFrame {
                     rowEmpLocationType = (String) tblEmployee.getValueAt(row, 11);
                     //get the value of profile path
                     profilePath = (String) tblEmployee.getValueAt(row, 12);
-
+                    
                     if (euf == null || !euf.isDisplayable()) {
                         euf = new UpdateEmployeeForm(rowEmpIdInt, rowEmpProfile, rowEmpName, rowEmpAge, rowEmpDateOfBirth,
                                 rowEmpGender, rowEmpStatus, rowEmpContactNum, rowEmpEmail,
@@ -374,24 +387,24 @@ public class MainForm extends javax.swing.JFrame {
                     }
                 }
             }
-
+            
         });
         //for employee
         tblEmployee.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tblEmployee.setRowHeight(100);
         searchField(txtFieldSearchEmployee, tblEmployee, model);
     }
-
+    
     private void searchField(JTextField textField, JTable table, DefaultTableModel model) {
         TableRowSorter<DefaultTableModel> rowSorter = new TableRowSorter<>(model);
-
+        
         table.setRowSorter(rowSorter);
-
+        
         textField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 String searchText = textField.getText() != null ? textField.getText() : "";
-
+                
                 if (searchText.trim().isEmpty()) {
                     rowSorter.setRowFilter(null);
                 } else {
@@ -400,23 +413,23 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void displayPayrollTable() {
         String[] columns = {"Payroll ID", "Employee ID", "Employee Name", "Salary"};
-
+        
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-
+        
         String sql = "SELECT payroll.id AS payroll_id, payroll.employee_id, employees.name, payroll.salary "
                 + "FROM payroll "
                 + "INNER JOIN employees ON payroll.employee_id = employees.id";
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql); ResultSet rs = pstmt.executeQuery();) {
-
+            
             while (rs.next()) {
                 int payrollId = rs.getInt("payroll_id");
                 int employeeId = rs.getInt("employee_id");
                 String empName = rs.getString("name");
                 double empSalary = rs.getDouble("salary");
-
+                
                 model.addRow(new Object[]{
                     payrollId,
                     employeeId,
@@ -424,27 +437,27 @@ public class MainForm extends javax.swing.JFrame {
                     empSalary
                 });
             }
-
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+        
         tblEmployeePayroll.setModel(model);
         tblEmployeePayroll.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         //for payroll
         searchField(txtFieldSearchPayroll, tblEmployeePayroll, model);
-
+        
         tblEmployeePayroll.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = tblEmployeePayroll.getSelectedRow();
-
+                
                 if (row != -1) {
                     rowEmpPayrollId = (Integer) tblEmployeePayroll.getValueAt(row, 0);
                     rowEmpId = (Integer) tblEmployeePayroll.getValueAt(row, 1);
                     rowEmpName = (String) tblEmployeePayroll.getValueAt(row, 2);
                     rowEmpSalary = (Double) tblEmployeePayroll.getValueAt(row, 3);
-
+                    
                     if (upf == null || !upf.isDisplayable()) {
                         upf = new UpdatePayrollForm(rowEmpPayrollId, rowEmpId, rowEmpName, rowEmpSalary);
                         upf.setVisible(true);
@@ -454,14 +467,14 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void displayAttendanceTable() {
         String[] columns = {"ID", "Employee ID", "Date", "Check In", "Check Out", "Status"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         searchField(txtFieldSearchAttendance, tblAttendance, model);
-
+        
         String sql = "SELECT * FROM attendance";
-
+        
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -470,7 +483,7 @@ public class MainForm extends javax.swing.JFrame {
                 Time checkIn = rs.getTime("check_in");
                 Time checkOut = rs.getTime("check_out");
                 String status = rs.getString("status");
-
+                
                 model.addRow(new Object[]{
                     id,
                     employeeId,
@@ -479,25 +492,25 @@ public class MainForm extends javax.swing.JFrame {
                     checkOut,
                     status
                 });
-
+                
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+        
         tblAttendance.setModel(model);
     }
-
+    
     private void displayEmpComBox() {
         String sql = "SELECT e.id, e.name FROM employees e LEFT JOIN payroll p ON e.id = p.employee_id WHERE p.salary IS NULL";
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         cbEmployeeId.setModel(model);
-
+        
         model.addElement("Select Employee ID");
-
+        
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
-
+            
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -506,7 +519,7 @@ public class MainForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+        
         cbEmployeeId.setRenderer(new DefaultListCellRenderer() {
             public java.awt.Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 java.awt.Component comp = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
@@ -515,7 +528,7 @@ public class MainForm extends javax.swing.JFrame {
                 } else {
                     comp.setEnabled(true);
                 }
-
+                
                 return comp;
             }
         });
@@ -541,6 +554,7 @@ public class MainForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
+        txtTime = new javax.swing.JLabel();
         tabContentPane = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         panelActiveEmp = new javax.swing.JPanel();
@@ -592,6 +606,13 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         tblReports = new javax.swing.JTable();
         btnGenerateReport = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblLeaves = new javax.swing.JTable();
+        jPanel8 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -604,14 +625,6 @@ public class MainForm extends javax.swing.JFrame {
         btnUpdatePassword = new javax.swing.JButton();
         txtFieldConfirmPassword = new javax.swing.JPasswordField();
         jLabel18 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        tblLeaves = new javax.swing.JTable();
-        jPanel8 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        txtTime = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -767,6 +780,9 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
+
+        txtTime.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
+        txtTime.setText("jLabel9");
 
         panelActiveEmp.setBackground(new java.awt.Color(255, 255, 255));
         panelActiveEmp.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(109, 113, 105), 1, true));
@@ -1307,95 +1323,6 @@ public class MainForm extends javax.swing.JFrame {
 
         tabContentPane.addTab("tab5", jPanel5);
 
-        jLabel13.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        jLabel13.setText("Settings");
-
-        jLabel14.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        jLabel14.setText("Manage Account");
-
-        btnChangeTheme.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        btnChangeTheme.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangeThemeActionPerformed(evt);
-            }
-        });
-
-        jLabel15.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jLabel15.setText("Enable Dark Mode");
-
-        txtFieldUsername.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtFieldUsername.setForeground(new java.awt.Color(255, 255, 255));
-        txtFieldUsername.setEnabled(false);
-
-        jLabel16.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jLabel16.setText("Username");
-
-        jLabel17.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jLabel17.setText("Password");
-
-        btnUpdatePassword.setBackground(new java.awt.Color(102, 153, 255));
-        btnUpdatePassword.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        btnUpdatePassword.setText("Update");
-        btnUpdatePassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdatePasswordActionPerformed(evt);
-            }
-        });
-
-        jLabel18.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jLabel18.setText("Confirm Password");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(txtFieldConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel14)
-                        .addComponent(jLabel13)
-                        .addComponent(jLabel15)
-                        .addComponent(jLabel16)
-                        .addComponent(jLabel17)
-                        .addComponent(txtFieldUsername)
-                        .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1037, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13)
-                .addGap(33, 33, 33)
-                .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFieldConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(923, Short.MAX_VALUE))
-        );
-
-        tabContentPane.addTab("tab7", jPanel7);
-
         tblLeaves.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -1464,8 +1391,100 @@ public class MainForm extends javax.swing.JFrame {
 
         tabContentPane.addTab("tab6", jPanel6);
 
-        txtTime.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        txtTime.setText("jLabel9");
+        jLabel13.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        jLabel13.setText("Settings");
+
+        jLabel14.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel14.setText("Manage Account");
+
+        btnChangeTheme.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        btnChangeTheme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeThemeActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jLabel15.setText("Enable Dark Mode");
+
+        txtFieldUsername.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtFieldUsername.setForeground(new java.awt.Color(255, 255, 255));
+        txtFieldUsername.setEnabled(false);
+
+        jLabel16.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jLabel16.setText("Username");
+
+        jLabel17.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jLabel17.setText("Password");
+
+        txtFieldPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldPasswordActionPerformed(evt);
+            }
+        });
+
+        btnUpdatePassword.setBackground(new java.awt.Color(102, 153, 255));
+        btnUpdatePassword.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnUpdatePassword.setText("Update");
+        btnUpdatePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdatePasswordActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jLabel18.setText("Confirm Password");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(txtFieldConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14)
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel15)
+                        .addComponent(jLabel16)
+                        .addComponent(jLabel17)
+                        .addComponent(txtFieldUsername)
+                        .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1037, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnChangeTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFieldConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(923, Short.MAX_VALUE))
+        );
+
+        tabContentPane.addTab("tab7", jPanel7);
 
         jLabel3.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         jLabel3.setText("Welcome back, Admin");
@@ -1519,16 +1538,16 @@ public class MainForm extends javax.swing.JFrame {
     private void displayTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         txtTime.setText(sdf.format(new Date()));
-
+        
         Timer timer = new Timer(1000, (e) -> {
             txtTime.setText(sdf.format(new Date()));
         });
-
+        
         timer.start();
     }
-
+    
     private void setActiveBtn(JButton currentBtn) {
-
+        
         btnDashboard.setEnabled(true);
         btnAttendance.setEnabled(true);
         btnEmployee.setEnabled(true);
@@ -1536,7 +1555,7 @@ public class MainForm extends javax.swing.JFrame {
         btnReports.setEnabled(true);
         btnLeaves.setEnabled(true);
         btnSettings.setEnabled(true);
-
+        
         currentBtn.setEnabled(false);
     }
     private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
@@ -1587,7 +1606,9 @@ public class MainForm extends javax.swing.JFrame {
     private void btnUpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePasswordActionPerformed
         String sql = "UPDATE users SET password = ? WHERE id = ?";
         charArrayPass = txtFieldPassword.getPassword();
+        charArrayConfirmPass = txtFieldConfirmPassword.getPassword();
         passString = new String(charArrayPass);
+        passConfirmString = new String(charArrayConfirmPass);
 
         //validate password field
         if (passString.isEmpty()) {
@@ -1595,14 +1616,18 @@ public class MainForm extends javax.swing.JFrame {
             return;
         }
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
-            System.out.println(passString);
-            String hashedPassword = BCrypt.hashpw(passString, BCrypt.gensalt());
+            System.out.println(passConfirmString);
+            //hashing password;
+            String hashedPassword = BCrypt.hashpw(passConfirmString, BCrypt.gensalt());
+
+            //setting password;
             pstmt.setString(1, hashedPassword);
             pstmt.setInt(2, userId);
-
+            
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(this, "Password successfully updated.");
             txtFieldPassword.setText("");
+            txtFieldConfirmPassword.setText("");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -1638,17 +1663,17 @@ public class MainForm extends javax.swing.JFrame {
 
         //convert to double
         double salary = Double.parseDouble(empIdSalary);
-
+        
         payroll = new Payroll(empId, salary);
-
+        
         JOptionPane.showMessageDialog(this,
                 "Payroll of Employee Successfully added.", "Success",
                 JOptionPane.INFORMATION_MESSAGE);
-
+        
         db.addPayroll(empId, payroll);
-
+        
         cbEmployeeId.setSelectedIndex(0);
-
+        
         txtFieldSalary.setText(null);
         displayEmpComBox();
         displayPayrollTable();
@@ -1673,13 +1698,13 @@ public class MainForm extends javax.swing.JFrame {
     private void btnExportEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportEmployeeActionPerformed
         String[] columns = {"Employee ID", "Name", "Age", "Date of Birth", "Gender",
             "Status", "Contact Number", "Email", "Department", "Position", "Location Type"};
-
+        
         String filePath = "employees.pdf";
         String logoPath = "C:\\Users\\markm\\OneDrive\\Documents\\NetBeansProjects\\BasicCRUD\\src\\main\\resources\\svg\\logo.png";
 
         //writer
         PdfWriter writer = null;
-
+        
         try (Statement stmt = db.getConnection().createStatement()) {
             writer = new PdfWriter(filePath);
             //pdf doc
@@ -1692,28 +1717,28 @@ public class MainForm extends javax.swing.JFrame {
                 com.itextpdf.layout.element.Image logo = new com.itextpdf.layout.element.Image(imageData);
                 logo.setWidth(80);
                 logo.setHeight(60);
-
+                
                 document.add(logo);
                 document.add(new Paragraph("Employees")
                         .setMarginTop(20)
                         .setFontSize(18)
                         .setBold());
-
+                
                 float[] columnWidths = new float[columns.length];
-
+                
                 for (int i = 0; i < columns.length; i++) {
                     columnWidths[i] = 2;
                 }
-
+                
                 Table table = new Table(columnWidths);
-
+                
                 for (String column : columns) {
                     table.addCell(new Cell().add(new Paragraph(column)));
                 }
-
+                
                 String sql = "SELECT id, name, age, date_of_birth, gender, status"
                         + ", department, position, location_type, contact_num, email FROM employees";
-
+                
                 ResultSet rs = stmt.executeQuery(sql);
 
                 //fetching emp datas 
@@ -1729,7 +1754,7 @@ public class MainForm extends javax.swing.JFrame {
                     String locationType = rs.getString("location_type");
                     String contactNum = rs.getString("contact_num");
                     String email = rs.getString("email");
-
+                    
                     table.addCell(new Cell().add(new Paragraph(String.valueOf(id))));
                     table.addCell(new Cell().add(new Paragraph(name)));
                     table.addCell(new Cell().add(new Paragraph(String.valueOf(age))));
@@ -1756,7 +1781,7 @@ public class MainForm extends javax.swing.JFrame {
             } else {
                 System.out.println("Pdf file not exists.");
             }
-
+            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -1773,6 +1798,10 @@ public class MainForm extends javax.swing.JFrame {
     private void cbAttendanceStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAttendanceStatusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbAttendanceStatusActionPerformed
+
+    private void txtFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldPasswordActionPerformed
     private void toggleTheme() {
         isDarkMode = ThemeManager.isDarkMode();
         isDarkMode = !isDarkMode;
@@ -1790,35 +1819,35 @@ public class MainForm extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-
+    
     private void validateSalaryField() {
         txtFieldSalary.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char letter = e.getKeyChar();
                 String text = txtFieldSalary.getText();
-
+                
                 if (Character.isDigit(letter)) {
                     return;
                 }
-
+                
                 if (letter == '.' && !text.contains(".")) {
                     return;
                 }
-
+                
                 e.consume();
-
+                
             }
         });
-
+        
     }
-
+    
     private void setAdminInfo() {
         String sql = "SELECT id,username FROM users WHERE id = 1000";
-
+        
         try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
-
+            
             if (rs.next()) {
                 userId = rs.getInt("id");
                 System.out.println(userId);
@@ -1826,7 +1855,7 @@ public class MainForm extends javax.swing.JFrame {
             }
             txtFieldUsername.setText(username);
             txtFieldPassword.setText("");
-
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -1839,7 +1868,7 @@ public class MainForm extends javax.swing.JFrame {
             disposeForm();
         }
     }
-
+    
     private void disposeForm() {
         this.dispose();
     }
