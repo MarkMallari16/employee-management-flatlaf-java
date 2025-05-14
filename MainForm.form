@@ -1103,8 +1103,8 @@
                           <Component id="btnAddEmpSalary" alignment="1" min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" min="-2" pref="559" max="-2" attributes="0"/>
-                      <EmptySpace pref="701" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" min="-2" pref="591" max="-2" attributes="0"/>
+                      <EmptySpace pref="669" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1358,17 +1358,26 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="jButton1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jButton1"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Poppins" size="12" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Button"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jButton1"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Poppins" size="12" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Button"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton3">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="jButton1"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Poppins" size="12" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Button"/>
                   </Properties>
                 </Component>
               </SubComponents>

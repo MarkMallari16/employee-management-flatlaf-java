@@ -1325,8 +1325,8 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(txtFieldSearchPayroll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAddEmpSalary, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(701, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(669, Short.MAX_VALUE))
         );
 
         tabContentPane.addTab("tab4", jPanel4);
@@ -1383,11 +1383,14 @@ public class MainForm extends javax.swing.JFrame {
         ));
         jScrollPane6.setViewportView(tblLeaves);
 
-        jButton1.setText("jButton1");
+        jButton1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jButton1.setText("Button");
 
-        jButton2.setText("jButton1");
+        jButton2.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jButton2.setText("Button");
 
-        jButton3.setText("jButton1");
+        jButton3.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jButton3.setText("Button");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
