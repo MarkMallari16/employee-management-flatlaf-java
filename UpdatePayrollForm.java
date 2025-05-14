@@ -280,11 +280,11 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
                     document.add(new Paragraph("Payroll Information")
                             .setFontSize(24)
                             .setMarginTop(20)
-                            .setMarginBottom(16)
+                            .setMarginBottom(12)
                             .setBold());
                     document.add(new Paragraph(name + " Payroll")
                             .setBold()
-                            .setMarginBottom(6)
+                            .setMarginBottom(4)
                             .setFontSize(18));
 
                     document.add(new Paragraph("Employee Payroll Information"));
@@ -292,7 +292,15 @@ public class UpdatePayrollForm extends javax.swing.JFrame {
                     document.add(new Paragraph("Position: " + position));
                     document.add(new Paragraph("Department: " + department));
                     document.add(new Paragraph("========================================================================"));
-                    document.add(new Paragraph("Salary: ₱" + salary));
+                    document.add(new Paragraph("Earnings:"));
+                    document.add(new Paragraph("Basic Salary: ₱" + salary));
+                    document.add(new Paragraph("Overtime: ₱" + 2000));
+                    document.add(new Paragraph("Bonus: ₱" + 1000));
+                    document.add(new Paragraph("Total Earnings: ₱" + (salary + 2000 + 1000)));
+                    document.add(new Paragraph("========================================================================"));
+                    document.add(new Paragraph("Deductions:"));
+                    document.add(new Paragraph("Total Deductions: ₱500"));
+
                 };
 
                 File fileExported = new File(filePath);
