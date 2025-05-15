@@ -1250,6 +1250,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Generate Report"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerateReportActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1355,7 +1358,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Button"/>
+                    <Property name="text" type="java.lang.String" value="Button 3"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton2">
@@ -1363,15 +1366,18 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Button"/>
+                    <Property name="text" type="java.lang.String" value="Button 1"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton3">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Button"/>
+                    <Property name="text" type="java.lang.String" value="Button 2"/>
                   </Properties>
                 </Component>
               </SubComponents>

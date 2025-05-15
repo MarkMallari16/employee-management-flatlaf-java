@@ -1342,6 +1342,11 @@ public class MainForm extends javax.swing.JFrame {
 
         btnGenerateReport.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnGenerateReport.setText("Generate Report");
+        btnGenerateReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateReportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1380,13 +1385,18 @@ public class MainForm extends javax.swing.JFrame {
         jScrollPane6.setViewportView(tblLeaves);
 
         jButton1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jButton1.setText("Button");
+        jButton1.setText("Button 3");
 
         jButton2.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jButton2.setText("Button");
+        jButton2.setText("Button 1");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jButton3.setText("Button");
+        jButton3.setText("Button 2");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1756,7 +1766,10 @@ public class MainForm extends javax.swing.JFrame {
         //writer
         PdfWriter writer = null;
 
-        try (Statement stmt = db.getConnection().createStatement()) {
+        String sql = "SELECT id, name, age, date_of_birth, gender, status"
+                + ", department, position, location_type, contact_num, email FROM employees";
+
+        try (PreparedStatement pstmt = db.getConnection().prepareStatement(sql)) {
             writer = new PdfWriter(filePath);
             //pdf doc
             PdfDocument pdf = new PdfDocument(writer);
@@ -1787,10 +1800,7 @@ public class MainForm extends javax.swing.JFrame {
                     table.addCell(new Cell().add(new Paragraph(column)));
                 }
 
-                String sql = "SELECT id, name, age, date_of_birth, gender, status"
-                        + ", department, position, location_type, contact_num, email FROM employees";
-
-                ResultSet rs = stmt.executeQuery(sql);
+                ResultSet rs = pstmt.executeQuery();
 
                 //fetching emp datas 
                 while (rs.next()) {
@@ -1853,6 +1863,14 @@ public class MainForm extends javax.swing.JFrame {
     private void txtFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldPasswordActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnGenerateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGenerateReportActionPerformed
     private void toggleTheme() {
         isDarkMode = ThemeManager.isDarkMode();
         isDarkMode = !isDarkMode;
